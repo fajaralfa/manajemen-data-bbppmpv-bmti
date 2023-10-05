@@ -32,6 +32,7 @@ Client ingin membuat sebuah sistem untuk mempermudah manajemen data peserta dikl
 
 -   Windows 8.1
 -   DBeaver (Desain Database)
+-   Figma
 -   Laragon (PHP 8.1^, Python 3.10^, MariaDB)
 -   Neovim / Visual Studio Code
 
