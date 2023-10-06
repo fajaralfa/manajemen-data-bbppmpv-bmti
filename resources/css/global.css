@@ -1,0 +1,15 @@
+:root {
+    --text-color: white;
+    --bg-image: url('http://localhost:8080/wallpaper.jpg');
+    --bg-color: rgba(20, 20, 20, 0.6);
+}
+body {
+    color: var(--text-color);
+    background: var(--bg-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+label,
+button {
+    @apply font-bold;
+}
