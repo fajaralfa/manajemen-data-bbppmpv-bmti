@@ -6,7 +6,7 @@ const config = {
   tabWidth: 4,
   semi: false,
   singleQuote: true,
-  plugins: ['prettier-plugin-svelte']
+  plugins: ['prettier-plugin-svelte'],
 };
 
 export default config
