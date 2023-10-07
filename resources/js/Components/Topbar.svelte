@@ -1,4 +1,7 @@
 <script>
+    import InputText from './Form/InputText.svelte';
+    export let searchText = ''
+
     let title = 'PESERTA DIKLAT'
     const filters = ['nama', 'tahun', 'dll']
     let filter = filters[0]
@@ -15,7 +18,7 @@
                     <option value={filterName}>{filterName}</option>
                 {/each}
             </select>
-            <input type="text" placeholder="Masukan {filter}" />
+            <InputText bind:value={searchText} placeholder='Masukan {filter}'/>
         </form>
     </div>
 </div>
@@ -30,7 +33,5 @@
     }
     .topbar {
         background-color: var(--bg-color);
-    }
-    .topbar div {
     }
 </style>

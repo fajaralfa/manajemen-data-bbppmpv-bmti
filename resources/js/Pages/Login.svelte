@@ -1,4 +1,7 @@
 <script>
+    import InputText from '../Components/Form/InputText.svelte'
+    let username = '',
+        password = ''
 </script>
 
 <div class="wh-fvh flex flex-col justify-center items-center">
@@ -11,24 +14,10 @@
                 srcset=""
             />
         </div>
-        <div class="flex">
-            <div class="vertical-bar" />
-        </div>
-        <div class="flex flex-col justify-center mx-3">
-            <div class="input-text">
-                <label for="username">User</label><input
-                    type="text"
-                    name="username"
-                    id=""
-                />
-            </div>
-            <div class="input-text">
-                <label for="password">Password</label><input
-                    type="password"
-                    name="password"
-                    id=""
-                />
-            </div>
+        <div class="vertical-bar" />
+        <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
+            <InputText bind:value={username}>Username</InputText>
+            <InputText type="password" bind:value={password}>Password</InputText>
             <button type="submit">Login</button>
         </div>
     </form>
@@ -44,21 +33,9 @@
     form {
         background-color: var(--bg-color);
     }
-    .input-text {
-        @apply flex justify-between w-64 my-2;
-    }
-    input[type='text'],
-    input[type='password'] {
-        @apply rounded w-40 text-white;
-        background-color: rgba(170, 170, 170, 0.5);
-    }
-    input[type='text']:hover,
-    input[type='password']:hover {
-        background-color: rgba(170, 170, 170, 0.8);
-    }
     button {
         background-color: rgb(80, 80, 80);
-        @apply w-24 mt-3 rounded self-center;
+        @apply w-24 rounded self-center;
     }
     button:hover {
         background-color: rgb(100, 100, 100);
