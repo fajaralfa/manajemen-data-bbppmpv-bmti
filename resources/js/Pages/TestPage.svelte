@@ -1,6 +1,7 @@
 <script>
     import { Link } from '@inertiajs/svelte'
+    export let text
 </script>
 
-<h1>This is a test page</h1>
+<h1>the text: {text}</h1>
 <Link href="/other">Other page</Link>
