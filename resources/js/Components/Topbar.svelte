@@ -4,11 +4,11 @@
     let filter = filters[0]
 </script>
 
-<div class="topbar">
-    <div class="">=</div>
-    <div class="title text-3xl justify-self-start">{title}</div>
-    <div class="w-1/2">
-        <form action="" class="flex w-full gap-3 justify-end">
+<div class="topbar flex items-center px-6 h-12">
+    <div class="w-10 font-bold text-3xl">=</div>
+    <div class="flex-grow title text-3xl">{title}</div>
+    <div class="flex-grow w-2/3 flex">
+        <form action="" class="flex w-full space-x-4 justify-end">
             <label for="">Cari Berdasarkan: </label>
             <select name="" id="" bind:value={filter}>
                 {#each filters as filterName}
@@ -29,7 +29,8 @@
         background-color: transparent;
     }
     .topbar {
-        @apply flex justify-between items-center px-10 h-12;
         background-color: var(--bg-color);
+    }
+    .topbar div {
     }
 </style>
