@@ -23,3 +23,4 @@ Route::get('/test', function () {
 });
 Route::inertia('/other', 'OtherPage');
 Route::inertia('/tabel', 'Table');
+Route::inertia('/sidebar', 'Sidebar');

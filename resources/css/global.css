@@ -1,6 +1,6 @@
 :root {
     --text-color: white;
-    --bg-image: url('img/walpaper.jpg');
+    --bg-image: url('/img/background.jpg');
     --bg-color: rgba(20, 20, 20, 0.6);
 }
 
