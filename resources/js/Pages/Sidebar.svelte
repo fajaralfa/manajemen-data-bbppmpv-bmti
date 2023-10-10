@@ -1,6 +1,5 @@
 <script context="module">
     export { default as layout } from '../Components/Layout.svelte'
-    let active = false
 </script>
 
 
