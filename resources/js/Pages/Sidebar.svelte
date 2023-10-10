@@ -48,26 +48,21 @@
         @apply text-black;
     }
     .dropdown{
-        position: relative;
+        @apply relative;
     }
     .dropdown-content{
-        display: none;
-        position: relative;
+        @apply hidden relative w-full; 
         background-color: rgba(164, 163, 163, 0.795);
-        width: 100%;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
     } 
     .dropdown-content a{
-        padding: 12px 16px;
-        text-decoration: none;
-        display:block;
+        @apply px-3 py-4 no-underline block;
     }
     .dropdown-content a:hover{
-        background-color: #f1f1f1;
-        color: black;
+        @apply bg-white text-black;
     }
     .dropdown:hover .dropdown-content{
-        display: block;
+        @apply block;
     }
 </style>
