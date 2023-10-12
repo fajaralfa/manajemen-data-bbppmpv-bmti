@@ -33,5 +33,6 @@
     }
     .topbar {
         background-color: var(--bg-color);
+        @apply ml-52 ;
     }
 </style>
