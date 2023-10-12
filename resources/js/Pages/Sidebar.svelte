@@ -7,8 +7,6 @@
     <div class="dropdown">
         <button>Dashboard</button>
         <div class="dropdown-content">
-            <a href="#">Lihat Data</a>
-            <a href="#">Tambah Data</a>
         </div>
     </div>
     <div class="dropdown">
@@ -32,12 +30,17 @@
             <a href="#">Tambah Data</a>
         </div>
     </div>
+    <button class="btn">Logout</button>
 </div>
+
+
+
 
 <style>
     .sidebar{
         background-color:var(--bg-color);
-        @apply m-0 p-0 w-52 fixed h-full overflow-auto;
+        @apply m-0 p-0 pt-12 w-52 absolute h-full overflow-auto top-0;
+        z-index: -1;
     }
     .sidebar button {
         @apply block p-4 w-full text-left;
@@ -63,5 +66,11 @@
     }
     .dropdown:hover .dropdown-content{
         @apply block;
+        
     }
+    .btn{
+        @apply bottom-0 absolute;
+        
+    }
+
 </style>
