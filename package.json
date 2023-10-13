@@ -8,6 +8,7 @@
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.4.6",
         "axios": "^1.1.2",
+        "daisyui": "^3.9.2",
         "laravel-vite-plugin": "^0.8.0",
         "prettier": "^3.0.3",
         "prettier-plugin-svelte": "^3.0.3",
