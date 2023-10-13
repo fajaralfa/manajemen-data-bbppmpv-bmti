@@ -1,17 +1,5 @@
-:root {
-    --text-color: white;
-    --bg-image: url('/img/background.jpg');
-    --bg-color: rgba(20, 20, 20, 0.6);
-}
-
 body {
-    color: var(--text-color);
-    background: var(--bg-image);
+    background: url('/img/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-label,
-button {
-    @apply font-bold;
 }
