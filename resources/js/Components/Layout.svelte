@@ -39,7 +39,7 @@
                 </button>
             </div>
         </div>
-        <div class="my-2 ml-2 mr-0 rounded w-main-content">
+        <div class="my-1 ml-1 mr-0 rounded w-main-content">
             <slot />
         </div>
     </div>
