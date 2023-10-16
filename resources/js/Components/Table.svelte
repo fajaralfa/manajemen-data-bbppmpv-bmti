@@ -8,15 +8,18 @@
         deleteMode = false
 </script>
 
-<div class="flex px-3 py-2 bg-glass-dark">
-    <div class="text-lg font-bold uppercase"><slot>Judul Tabel</slot></div>
-    <form class="justify-self-end">
+<div class="flex px-3 py-1 bg-glass-dark gap-20">
+    <div class="text-lg font-bold uppercase flex-grow"><slot>Judul Tabel</slot></div>
+    <form class="">
         <select name="" id="">
-            <option value="">abcd</option>
+            <option value="">Tahun</option>
+        </select>
+        <select name="" id="">
+            <option value="">Sekolah</option>
             <option value="">abcd</option>
         </select>
         <select name="" id="">
-            <option value="">abcd</option>
+            <option value="">Periode</option>
             <option value="">abcd</option>
         </select>
     </form>
@@ -75,6 +78,6 @@
         background-color: rgba(0, 0, 0, 0.1);
     }
     .table-container {
-        height: 84vh;
+        height: 83vh;
     }
 </style>
