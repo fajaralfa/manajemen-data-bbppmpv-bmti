@@ -1,7 +1,5 @@
-<script>
-    import { Link } from '@inertiajs/svelte'
-    export let text
+<script context="module">
+    export { default as layout } from '../Components/Layout.svelte'
 </script>
 
-<h1>the text: {text}</h1>
-<Link href="/other">Other page</Link>
+<h1 class="text-4xl font-bold">Halaman Test</h1>
