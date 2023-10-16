@@ -2,7 +2,7 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         <!-- Page content here -->
-        <div class="navbar bg-base-100">
+        <div class="navbar bg-glass-dark">
             <div class="flex-none">
                 <label for="my-drawer" class="btn btn-square btn-ghost">
                     <svg
@@ -39,11 +39,13 @@
                 </button>
             </div>
         </div>
-        <slot />
+        <div class="my-2 ml-2 mr-0 rounded w-main-content">
+            <slot />
+        </div>
     </div>
     <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu py-16 px-0 w-80 min-h-full bg-base-200 text-base-content">
+        <ul class="menu py-16 px-0 w-80 min-h-full bg-glass-dark text-base-content">
             <!-- Sidebar content here -->
             <li><a>Dashboard</a></li>
             <li><a>Prakerin</a></li>
