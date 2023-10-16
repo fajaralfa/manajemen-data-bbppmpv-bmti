@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer {
+    .w-main-content {
+        width: 97.5vw;
+    }
+    .bg-glass-dark {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
