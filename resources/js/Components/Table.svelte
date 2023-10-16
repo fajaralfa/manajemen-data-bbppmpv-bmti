@@ -1,43 +1,33 @@
 <script>
     export let data = [{}]
 </script>
-<div class="overflow-scroll ml-52" > 
-    <table class="border-black border">
-        <tr>
-            {#each Object.entries(data[0]) as [key, value] }
-            <th>
-                {key}
-            </th>
-        {/each}
-        </tr>
-        {#each data as obj }
-            <tr >
-                {#each Object.entries(obj) as [key, value] }
-                    <td class="px-10">
-                        {value}
-                    </td>
+
+<div class="overflow-x-scroll w-100vw bg-dark-glass">
+    <table class="table">
+        <thead class=" text-white uppercase">
+            <tr>
+                {#each Object.entries(data[0]) as [key]}
+                <th>{key}</th>
                 {/each}
             </tr>
-        {/each}
+        </thead>
+        <tbody class="text-white">
+            {#each data as row}
+            <tr>
+                {#each Object.entries(row) as [key, val]}
+                <td>{val}</td>
+                {/each}
+            </tr>
+            {/each}
+        </tbody>
     </table>
 </div>
 
-
 <style>
-    table tr th{
-        background-color: rgba(90, 87, 87, 0.5);
+    tr,th,td {
+        border-color: white;
     }
-    th,td{
-        @apply border border-black;
+    .w-100vw {
+        width: 100vw;
     }
-    tr:nth-child(odd){
-        background-color: rgba(94, 92, 92, 0.5);
-    }
-    tr:nth-child(even){
-        background-color: rgba(200, 200, 200, 0.5);
-    }
-    tr:hover{
-        background-color: rgba(32, 213, 245, 0.5);
-    }
-
 </style>
