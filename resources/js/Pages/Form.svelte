@@ -2,7 +2,7 @@
     <form action="contact.php" method="POST" class="flex flex-col gap-y-6">
     <div class="input-container">
         <div>
-            <label for="nama">Nama:</label>
+            <label for="nama">Nama Lengkap:</label>
             <input
                 type="text"
                 name="nama"
