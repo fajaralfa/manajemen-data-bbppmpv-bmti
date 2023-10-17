@@ -1,3 +1,7 @@
+<script context="module">
+    export { default as layout } from '../../Components/Layout.svelte'
+</script>
+
 <div class="p-10">
     <form action="contact.php" method="POST" class="flex flex-col gap-y-6 items-center">
     <div class="input-container">
