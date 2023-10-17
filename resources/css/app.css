@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer {
+@layer components {
     .w-main-content {
         width: 97.5vw;
     }
     .bg-glass-dark {
         background-color: rgba(0, 0, 0, 0.5);
+    }
+    .bg-glass-gray {
+        background-color: rgba(100, 100, 100, 0.5);
     }
 }

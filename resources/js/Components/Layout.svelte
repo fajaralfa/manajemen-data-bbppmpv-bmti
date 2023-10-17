@@ -1,3 +1,11 @@
+<script>
+    import { inertia } from '@inertiajs/svelte'
+    let dropdownList = [false, false, false]
+    function dropDownToggle(num) {
+        dropdownList[num] = !dropdownList[num]
+    }
+</script>
+
 <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
@@ -45,12 +53,38 @@
     </div>
     <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu py-12 px-0 w-80 min-h-full bg-glass-dark text-base-content">
+        <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-glass-dark text-base-content">
             <!-- Sidebar content here -->
-            <li><a>Dashboard</a></li>
-            <li><a>Prakerin</a></li>
-            <li><a>Diklat</a></li>
-            <li><a>Inventaris</a></li>
+            <li>
+                <a>Dashboard</a>
+            </li>
+            <li>
+                <a on:click={() => dropDownToggle(0)}>Prakerin</a>
+                {#if dropdownList[0]}
+                    <ul>
+                        <li><a href="/prakerin/add" use:inertia>Tambah Data</a></li>
+                        <li><a href="/prakerin" use:inertia>Lihat Data</a></li>
+                    </ul>
+                {/if}
+            </li>
+            <li>
+                <a on:click={() => dropDownToggle(1)}>Diklat</a>
+                {#if dropdownList[1]}
+                    <ul>
+                        <li><a href="/diklat/add" use:inertia>Tambah Data</a></li>
+                        <li><a href="/diklat" use:inertia>Lihat Data</a></li>
+                    </ul>
+                {/if}
+            </li>
+            <li>
+                <a on:click={() => dropDownToggle(2)}>Inventaris</a>
+                {#if dropdownList[2]}
+                    <ul>
+                        <li><a href="/inventaris/add" use:inertia>Tambah Data</a></li>
+                        <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
+                    </ul>
+                {/if}
+            </li>
         </ul>
     </div>
 </div>
@@ -58,5 +92,8 @@
 <style>
     a {
         @apply rounded-none;
+    }
+    li a:hover {
+        background-color: rgba(100, 100, 100, 0.5);
     }
 </style>
