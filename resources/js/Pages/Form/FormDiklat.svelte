@@ -1,3 +1,7 @@
+<script context="module">
+    export { default as layout } from '../../Components/Layout.svelte'
+</script>
+
 <div class="p-2">
     <form
         action="contact.php"

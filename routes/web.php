@@ -18,3 +18,6 @@ Route::inertia('/login', 'Login');
 Route::inertia('/home', 'Home');
 Route::inertia('/test', 'TestPage');
 Route::inertia('/other', 'OtherPage');
+Route::inertia('/diklat/add', 'Form/FormDiklat');
+Route::inertia('/prakerin/add', 'Form/FormPrakerin');
+Route::inertia('/inventaris/add', 'Form/FormInventaris');
