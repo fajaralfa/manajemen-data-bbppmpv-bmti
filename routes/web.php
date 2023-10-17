@@ -16,11 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/login', 'Login');
 Route::inertia('/home', 'Home');
-Route::get('/test', function () {
-    return inertia('TestPage', [
-        'text' => 'Text From Laravel',
-    ]);
-});
+Route::inertia('/test', 'TestPage');
 Route::inertia('/other', 'OtherPage');
-Route::inertia('/tabel', 'TableTestPage');
-Route::inertia('/sidebar', 'Sidebar');
