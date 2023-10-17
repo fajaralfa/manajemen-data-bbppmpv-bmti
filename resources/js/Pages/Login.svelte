@@ -1,18 +1,15 @@
 <script>
     import InputText from '../Components/Form/InputText.svelte'
+    import LockIcon from '../Assets/LockIcon.svelte'
     let username = '',
         password = ''
 </script>
 
-<div class="wh-fvh flex flex-col justify-center items-center">
-    <form class="flex rounded-xl py-3" action="" method="post">
+<div class="wh-fvh flex flex-col justify-center items-center text-white">
+    <div class="bg-glass-dark rounded-xl py-3">
+    <form class="flex" action="" method="post">
         <div class="flex items-center justify-center w-20">
-            <img
-                src="http://localhost:8080/lock.png"
-                class="w-14 h-12"
-                alt="gambar kunci"
-                srcset=""
-            />
+            <LockIcon />
         </div>
         <div class="vertical-bar" />
         <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
@@ -21,6 +18,7 @@
             <button type="submit">Login</button>
         </div>
     </form>
+</div>
 </div>
 
 <style>
