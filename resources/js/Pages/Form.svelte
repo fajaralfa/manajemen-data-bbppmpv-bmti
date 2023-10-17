@@ -6,7 +6,7 @@
     >
         <div class="input-container grid grid-flow-col grid-cols-2 gap-x-10 gap-y-4">
             <div>
-                <label for="nama">Nama:</label>
+                <label for="nama">Nama Lengkap:</label>
                 <input
                     type="text"
                     name="nama"
