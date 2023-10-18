@@ -1,20 +1,27 @@
 <script>
+    import {router} from '@inertiajs/svelte'
     import InputText from '../Components/Form/InputText.svelte'
     import LockIcon from '../Assets/LockIcon.svelte'
-    let username = '',
-        password = ''
+    let input = {
+        username: null,
+        password: null,
+    }
+
+    function doLogin() {
+        router.post('/users', input)
+    }
 </script>
 
 <div class="wh-fvh flex flex-col justify-center items-center text-white">
     <div class="bg-glass-dark rounded-xl py-3">
-    <form class="flex" action="" method="post">
+    <form class="flex" on:submit|preventDefault={doLogin}>
         <div class="flex items-center justify-center w-20">
             <LockIcon />
         </div>
         <div class="vertical-bar" />
         <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
-            <InputText bind:value={username}>Username</InputText>
-            <InputText type="password" bind:value={password}>Password</InputText>
+            <InputText bind:value={input.username}>Username</InputText>
+            <InputText type="password" bind:value={input.password}>Password</InputText>
             <button type="submit">Login</button>
         </div>
     </form>
