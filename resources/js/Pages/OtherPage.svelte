@@ -1,6 +1,7 @@
 <script>
-    import { Link } from '@inertiajs/svelte'
+    import Layout from '../Components/Layout.svelte'
 </script>
 
-<h1>This is other page</h1>
-<Link href="/test">Test page</Link>
+<Layout>
+    <h1 class="text-4xl font-bold">Halaman Lain</h1>
+</Layout>
