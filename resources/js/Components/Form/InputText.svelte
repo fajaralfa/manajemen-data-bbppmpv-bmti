@@ -5,7 +5,7 @@
 </script>
 
 <div class="input-text">
-    <label for="username"><slot /></label>
+    <label><slot /></label>
     <input
         type={type === 'password' ? 'password' : 'text'}
         on:input={(e) => (value = e.currentTarget.value)}
