@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiklatController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\PrakerinController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//autentikasi
+Route::inertia('/register', 'Register');
+Route::post('/register', [UserController::class, 'register']);
 Route::inertia('/login', 'Login');
-Route::inertia('/home', 'Home');
+Route::post('/login', [UserController::class, 'login']);
+
+Route::inertia('/home', 'Home')->name('home');
 
 //tampilan 
 Route::get('/diklat', [DiklatController::class, 'view']);
