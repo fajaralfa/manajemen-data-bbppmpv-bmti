@@ -37,7 +37,7 @@ Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
 Route::get('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
 
 //aksi
-Route::post('/diklat/{id}', [DiklatController::class, 'store']);
+Route::post('/diklat', [DiklatController::class, 'store']);
 Route::post('/prakerin/{id}', [PrakerinController::class, 'store']);
 Route::post('/inventaris/{id}', [InventarisController::class, 'store']);
 Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
