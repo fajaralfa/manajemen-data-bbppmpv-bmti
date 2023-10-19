@@ -1,18 +1,15 @@
 <script>
-    import {router} from '@inertiajs/svelte'
+    import { router } from '@inertiajs/svelte'
     import InputText from '../Components/Form/InputText.svelte'
     import LockIcon from '../Assets/LockIcon.svelte'
     export let errors
 
-    $: console.log(errors);
     let input = {
         name: null,
         username: null,
         password: null,
         role: 'operator',
     }
-    
-    $: console.log(input.role);
 
     function doRegister() {
         router.post('/register', input)
@@ -22,30 +19,30 @@
 <div class="wh-fvh flex flex-col justify-center items-center text-white">
     <div class="bg-glass-dark rounded-xl py-3 px-3">
         {#if Object.keys(errors).length > 0}
-            {#each Object.entries(errors) as [key,val]}
+            {#each Object.entries(errors) as [key, val]}
                 <div class="bg-red-600">{val}</div>
             {/each}
         {/if}
-    <form class="flex" on:submit|preventDefault={doRegister}>
-        <div class="flex items-center justify-center w-20">
-            <LockIcon />
-        </div>
-        <div class="vertical-bar" />
-        <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
-            <InputText bind:value={input.name}>Name</InputText>
-            <InputText bind:value={input.username}>Username</InputText>
-            <InputText type="password" bind:value={input.password}>Password</InputText>
-            <div class="justify-between flex">
-                <label>Role</label>
-                <select bind:value={input.role} class="">
-                    <option value="admin">Admin</option>
-                    <option value="operator">Operator</option>
-                </select>
+        <form class="flex" on:submit|preventDefault={doRegister}>
+            <div class="flex items-center justify-center w-20">
+                <LockIcon />
             </div>
-            <button type="submit">Register</button>
-        </div>
-    </form>
-</div>
+            <div class="vertical-bar" />
+            <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
+                <InputText bind:value={input.name}>Name</InputText>
+                <InputText bind:value={input.username}>Username</InputText>
+                <InputText type="password" bind:value={input.password}>Password</InputText>
+                <div class="justify-between flex">
+                    <label>Role</label>
+                    <select bind:value={input.role} class="">
+                        <option value="admin">Admin</option>
+                        <option value="operator">Operator</option>
+                    </select>
+                </div>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <style>
