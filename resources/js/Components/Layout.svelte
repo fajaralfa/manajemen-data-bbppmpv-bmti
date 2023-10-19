@@ -56,7 +56,7 @@
         <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-glass-dark text-base-content">
             <!-- Sidebar content here -->
             <li>
-                <a>Dashboard</a>
+                <a href="/home" use:inertia>Dashboard</a>
             </li>
             <li>
                 <a on:click={() => dropDownToggle(0)}>Prakerin</a>
@@ -84,6 +84,9 @@
                         <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
                     </ul>
                 {/if}
+            </li>
+            <li>
+                <a href="/logout" use:inertia={{ method: 'post' }} as="button">Logout</a>
             </li>
         </ul>
     </div>
