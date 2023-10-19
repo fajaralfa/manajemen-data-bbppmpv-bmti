@@ -1,12 +1,49 @@
 <script>
     import Layout from '../../Components/Layout.svelte'
+    import { router } from '@inertiajs/svelte';
+
+    export let errors = {}
+
+    export let input = {
+        'NAMA LENGKAP': null,
+        'KOMPETENSI KEAHLIAN':null,
+        'PROGRAM KEAHLIAN':null,
+        'BIDANG KEAHLIAN':null,
+        'ID':null,
+        'NIK':null,
+        'NUPTK':null,
+        'NIP':null,
+        'NO UKG':null,
+        'TEMPAT LAHIR':null,
+        'TANGGAL LAHIR':null,
+        'USIA':null,
+        'JENIS KELAMIN':null,
+        'JABATAN':null,
+        'GOLONGAN':null,
+        'NOMOR HP':null,
+        'EMAIL':null,
+        'MAPEL AJAR':null,
+        'KELAS AJAR':null,
+        'KELAS':null,
+        'NAMA DIKLAT':null,
+        'TANGGAL PERIODE AWAL':null,
+        'TANGGAL PERIODE AKHIR':null,
+        'TEMPAT DIKLAT':null,
+        'RIWAYAT DIKLAT':null,
+        'FOTO':null,
+        'KETERANGAN':null,
+    }
+
+    function submitData() {
+        router.post('/diklat', input)
+    }
+
 </script>
 
 <Layout>
     <div class="p-2">
         <form
-            action="contact.php"
-            method="POST"
+            on:submit|preventDefault={submitData}
             class="flex flex-col gap-y-10 rounded-xl bg-glass-dark px-16 py-5"
         >
             <div class="input-container grid grid-flow-col grid-cols-2 gap-x-10 gap-y-4">
@@ -17,6 +54,7 @@
                         name="nama"
                         placeholder="Nama lengkap..."
                         class="input w-full max-w-xs"
+                        bind:value={input['NAMA LENGKAP']}
                     />
                 </div>
                 <div>
@@ -45,35 +83,35 @@
                 </div>
                 <div>
                     <label for="id">ID:</label>
-                    <input type="text" name="id" class="input w-full max-w-xs" />
+                    <input type="text" name="id" class="input w-full max-w-xs" bind:value={input['ID']} />
                 </div>
                 <div>
                     <label for="nik">NIK:</label>
-                    <input type="text" name="nik" class="input w-full max-w-xs" />
+                    <input type="text" name="nik" class="input w-full max-w-xs" bind:value={input['NIK']} />
                 </div>
                 <div>
                     <label for="nuptk">NUPTK:</label>
-                    <input type="text" name="nuptk" class="input w-full max-w-xs" />
+                    <input type="text" name="nuptk" class="input w-full max-w-xs" bind:value={input['NUPTK']} />
                 </div>
                 <div>
                     <label for="nip">NIP:</label>
-                    <input type="text" name="nip" class="input w-full max-w-xs" />
+                    <input type="text" name="nip" class="input w-full max-w-xs" bind:value={input['NIP']} />
                 </div>
                 <div>
                     <label for="no_ukg">No UKG:</label>
-                    <input type="text" name="no_ukg" class="input w-full max-w-xs" />
+                    <input type="text" name="no_ukg" class="input w-full max-w-xs" bind:value={input['NO UKG']} />
                 </div>
                 <div>
                     <label for="tempat_lahir">Tempat Lahir:</label>
-                    <input type="text" name="tempat_lahir" class="input w-full max-w-xs" />
+                    <input type="text" name="tempat_lahir" class="input w-full max-w-xs" bind:value={input['TEMPAT LAHIR']} />
                 </div>
                 <div>
                     <label for="tanggal_lahir">Tanggal Lahir:</label>
-                    <input type="text" name="tanggal_lahir" class="input w-full max-w-xs" />
+                    <input type="text" name="tanggal_lahir" class="input w-full max-w-xs" bind:value={input['TANGGAL LAHIR']} />
                 </div>
                 <div>
                     <label for="usia">Usia:</label>
-                    <input type="text" name="usia" class="input w-full max-w-xs" />
+                    <input type="text" name="usia" class="input w-full max-w-xs" bind:value={input['USIA']} />
                 </div>
                 <div>
                     <label for="jenis_kelamin">Jenis kelamin:</label>
@@ -86,51 +124,51 @@
                 </div>
                 <div>
                     <label for="jabatan">Jabatan:</label>
-                    <input type="email" name="jabatan" class="input w-full max-w-xs" />
+                    <input type="email" name="jabatan" class="input w-full max-w-xs" bind:value={input['JABATAN']} />
                 </div>
                 <div>
                     <label for="golongan">Golongan:</label>
-                    <input type="text" name="golongan" class="input w-full max-w-xs" />
+                    <input type="text" name="golongan" class="input w-full max-w-xs" bind:value={input['GOLONGAN']} />
                 </div>
                 <div>
                     <label for="no_hp">NO HP:</label>
-                    <input type="text" name="no_hp" class="input w-full max-w-xs" />
+                    <input type="text" name="no_hp" class="input w-full max-w-xs" bind:value={input['NOMOR HP']} />
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input type="text" name="email" class="input w-full max-w-xs" />
+                    <input type="text" name="email" class="input w-full max-w-xs" bind:value={input['EMAIL']} />
                 </div>
                 <div>
                     <label for="mapel">Mapel Ajar:</label>
-                    <input type="text" name="mapel" class="input w-full max-w-xs" />
+                    <input type="text" name="mapel" class="input w-full max-w-xs" bind:value={input['MAPEL AJAR']} />
                 </div>
                 <div>
                     <label for="kelas_ajar">Kelas Ajar:</label>
-                    <input type="text" name="kelas_ajar" class="input w-full max-w-xs" />
+                    <input type="text" name="kelas_ajar" class="input w-full max-w-xs" bind:value={input['KELAS AJAR']} />
                 </div>
                 <div>
                     <label for="kelas">Kelas:</label>
-                    <input type="text" name="kelas" class="input w-full max-w-xs" />
+                    <input type="text" name="kelas" class="input w-full max-w-xs" bind:value={input['KELAS']} />
                 </div>
                 <div>
                     <label for="nama_diklat">Nama Diklat:</label>
-                    <input type="text" name="nama_diklat" class="input w-full max-w-xs" />
+                    <input type="text" name="nama_diklat" class="input w-full max-w-xs "bind:value={input['NAMA DIKLAT']}/>
                 </div>
                 <div>
                     <label for="periode_awal">Periode Awal:</label>
-                    <input type="text" name="periode_awal" class="input w-full max-w-xs" />
+                    <input type="text" name="periode_awal" class="input w-full max-w-xs" bind:value={input['TANGGAL PERIODE AWAL']} />
                 </div>
                 <div>
                     <label for="periode_akhir">Periode Akhir:</label>
-                    <input type="text" name="periode_akhir" class="input w-full max-w-xs" />
+                    <input type="text" name="periode_akhir" class="input w-full max-w-xs" bind:value={input['TANGGAL PERIODE AKHIR']} />
                 </div>
                 <div>
                     <label for="tempat_diklat">Tempat Diklat:</label>
-                    <input type="text" name="tempat_diklat" class="input w-full max-w-xs" />
+                    <input type="text" name="tempat_diklat" class="input w-full max-w-xs" bind:value={input['TEMPAT DIKLAT']} />
                 </div>
                 <div>
                     <label for="riwayat_diklat">Riwayat Diklat:</label>
-                    <input type="text" name="riwayat_diklat" class="input w-full max-w-xs" />
+                    <input type="text" name="riwayat_diklat" class="input w-full max-w-xs "bind:value={input['RIWAYAT DIKLAT']} />
                 </div>
                 <div>
                     <label for="foto">Foto:</label>
