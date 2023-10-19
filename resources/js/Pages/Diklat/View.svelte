@@ -1,7 +1,11 @@
 <script>
-    import Layout from '../../Components/Layout.svelte'
+    import Layout from '../../Components/Layout.svelte' 
+    import Table from '../../Components/Table.svelte'
+    
+    export let data 
+    console.log(data)
 </script>
 
 <Layout>
-    <h1 class="text-3xl font-bold text-white">Hallo Kawan</h1>
+    <Table {data}/>
 </Layout>
