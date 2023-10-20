@@ -1,10 +1,11 @@
 <script>
     import Layout from '../../Components/Layout.svelte'
-    import { router } from '@inertiajs/svelte';
+    import { router, page } from '@inertiajs/svelte';
 
     export let errors = {}
+    $: console.log(errors);
 
-    export let input = {
+        let input = {
         'NAMA LENGKAP': null,
         'KOMPETENSI KEAHLIAN':null,
         'PROGRAM KEAHLIAN':null,
@@ -35,6 +36,7 @@
     }
 
     function submitData() {
+        console.log (input)
         router.post('/diklat', input)
     }
 
@@ -42,6 +44,10 @@
 
 <Layout>
     <div class="p-2">
+        {#if $page.props?.flash.message}
+        <div class="bg-red-600">{$page.props.flash.message}</div>
+        {/if}
+       
         <form
             on:submit|preventDefault={submitData}
             class="flex flex-col gap-y-10 rounded-xl bg-glass-dark px-16 py-5"
@@ -59,26 +65,26 @@
                 </div>
                 <div>
                     <label for="kompetensi">Kompetensi Keahlian:</label>
-                    <select name="kompetensi" class="select select-bordered w-full max-w-xs">
-                        <option value="islam">Multimedia</option>
-                        <option value="kristen">Tkj</option>
-                        <option value="hindu">Rpl</option>
+                    <select name="kompetensi" class="select select-bordered w-full max-w-xs" bind:value={input['KOMPETENSI KEAHLIAN']}>
+                        <option value="multimedia">Multimedia</option>
+                        <option value="tkj">Tkj</option>
+                        <option value="rpl">Rpl</option>
                     </select>
                 </div>
                 <div>
                     <label for="program">Program Keahlian:</label>
-                    <select name="program" class="select select-bordered w-full max-w-xs">
-                        <option value="islam">Multimedia</option>
-                        <option value="kristen">Tkj</option>
-                        <option value="hindu">Rpl</option>
+                    <select name="program" class="select select-bordered w-full max-w-xs" bind:value={input['PROGRAM KEAHLIAN']}>
+                        <option value="multimedia">Multimedia</option>
+                        <option value="tkj">Tkj</option>
+                        <option value="rpl">Rpl</option>
                     </select>
                 </div>
                 <div>
                     <label for="bidang">Bidang Keahlian:</label>
-                    <select name="bidang" class="select select-bordered w-full max-w-xs">
-                        <option value="islam">Multimedia</option>
-                        <option value="kristen">Tkj</option>
-                        <option value="hindu">Rpl</option>
+                    <select name="bidang" class="select select-bordered w-full max-w-xs" bind:value={input['BIDANG KEAHLIAN']}>
+                        <option value="multimedia">Multimedia</option>
+                        <option value="tkj">Tkj</option>
+                        <option value="rpl">Rpl</option>
                     </select>
                 </div>
                 <div>
@@ -116,15 +122,15 @@
                 <div>
                     <label for="jenis_kelamin">Jenis kelamin:</label>
                     <div class="flex gap-3">
-                        <input type="radio" name="jenis_kelamin" value="laki-laki" class="radio" />
+                        <input type="radio" name="jenis_kelamin" value="laki-laki" class="radio" bind:group={input['JENIS KELAMIN']} />
                         <label for="jenis_kelamin">Laki-laki</label>
-                        <input type="radio" name="jenis_kelamin" value="perempuan" class="radio" />
+                        <input type="radio" name="jenis_kelamin" value="perempuan" class="radio" bind:group={input['JENIS KELAMIN']}/>
                         <label for="jenis_kelamin">Perempuan</label>
                     </div>
                 </div>
                 <div>
                     <label for="jabatan">Jabatan:</label>
-                    <input type="email" name="jabatan" class="input w-full max-w-xs" bind:value={input['JABATAN']} />
+                    <input type="text" name="jabatan" class="input w-full max-w-xs" bind:value={input['JABATAN']} />
                 </div>
                 <div>
                     <label for="golongan">Golongan:</label>
@@ -176,11 +182,12 @@
                         type="file"
                         name="foto"
                         class="file-input file-input-bordered w-full max-w-xs"
+                        bind:files={input.FOTO}
                     />
                 </div>
                 <div>
                     <label for="keterangan">Keterangan:</label>
-                    <textarea class="textarea" name="keterangan"></textarea>
+                    <textarea class="textarea" name="keterangan" bind:value={input['KETERANGAN']}></textarea>
                 </div>
             </div>
             <div>

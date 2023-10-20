@@ -1,14 +1,11 @@
 <script>
-    import Layout from '../../Components/Layout.svelte' 
+    import Layout from '../../Components/Layout.svelte'
     import Table from '../../Components/Table.svelte'
-    
-    // export let data 
-    // console.log(data)
-    let data = [
-        {'ID':2, 'NAMA':'Miftah'}
-    ]
+
+    export let data
+    console.log(data)
 </script>
 
 <Layout>
-    <Table {data} urlGroup='diklat'/>
+    <Table {data} />
 </Layout>

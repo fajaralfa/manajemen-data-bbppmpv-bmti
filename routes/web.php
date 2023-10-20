@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //autentikasi
 Route::inertia('/register', 'Register');
 Route::post('/register', [UserController::class, 'register']);
-Route::inertia('/login', 'Login');
+Route::inertia('/login', 'Login')->name('login');
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
 
     //aksi
     Route::post('/diklat', [DiklatController::class, 'store']);
-    Route::post('/prakerin/{id}', [PrakerinController::class, 'store']);
-    Route::post('/inventaris/{id}', [InventarisController::class, 'store']);
+    Route::post('/prakerin', [PrakerinController::class, 'store']);
+    Route::post('/inventaris', [InventarisController::class, 'store']);
     Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
     Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
     Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);

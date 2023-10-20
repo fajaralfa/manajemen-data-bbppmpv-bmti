@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\DiklatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DiklatController extends Controller
 {
+    public function __construct(
+        private DiklatRepository $diklatRepository
+    )
+    {
+        
+    }
     public function view()
     {
         $data = DB::table('peserta_diklat')->get();
@@ -14,9 +21,9 @@ class DiklatController extends Controller
     }
 
     // belum beres
-    public function store(Request $req)
+    public function store()
     {
-        $input = $req->validate([
+        $input = request()->validate([
             'NAMA LENGKAP' => ['required'],
             'KOMPETENSI KEAHLIAN' => ['required'],
             'PROGRAM KEAHLIAN' => ['required'],
@@ -42,11 +49,17 @@ class DiklatController extends Controller
             'TANGGAL PERIODE AKHIR' => ['required'],
             'TEMPAT DIKLAT' => ['required'],
             'RIWAYAT DIKLAT' => ['required'],
-            'FOTO' => ['required'],
             'KETERANGAN' => ['required'],
         ]);
 
-        return inertia('Test', ['input' => $input]);
+        $photoPath = request()->file('FOTO')[0]->store('pasfoto-diklat');
+        $input['FOTO'] = $photoPath;
+
+        $this->diklatRepository->save($input);
+
+        return inertia('Diklat/View', [
+            'message'=>'Data Tersimpan!!!!'
+        ]);
 
     }
 }
