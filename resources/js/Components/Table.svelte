@@ -1,7 +1,9 @@
 <script>
+    import { inertia } from '@inertiajs/svelte'
     import DeleteIcon from '../../assets/DeleteIcon.svelte'
     import EditIcon from '../../assets/EditIcon.svelte'
 
+    export let urlGroup
     export let data = [{}]
 
     let editMode = false,
@@ -10,19 +12,6 @@
 
 <div class="flex px-3 py-1 bg-glass-dark gap-20">
     <div class="text-lg font-bold uppercase flex-grow"><slot>Judul Tabel</slot></div>
-    <form class="">
-        <select name="" id="">
-            <option value="">Tahun</option>
-        </select>
-        <select name="" id="">
-            <option value="">Sekolah</option>
-            <option value="">abcd</option>
-        </select>
-        <select name="" id="">
-            <option value="">Periode</option>
-            <option value="">abcd</option>
-        </select>
-    </form>
     <div>
         <input type="checkbox" bind:checked={deleteMode} id="" />
         <input type="checkbox" bind:checked={editMode} id="" />
@@ -45,12 +34,12 @@
                 <tr>
                     {#if deleteMode}
                         <tr>
-                            <a href="#delete"><DeleteIcon /></a>
+                            <a href="/{urlGroup}/{row['ID']}" use:inertia={{method: 'put'}} as='button'><DeleteIcon /></a>
                         </tr>
                     {/if}
                     {#if editMode}
                         <td>
-                            <a href="#edit"><EditIcon /></a>
+                            <a href="/{urlGroup}/{row['ID']}/edit" use:inertia={{method: 'delete'}} as='button'><EditIcon /></a>
                         </td>
                     {/if}
                     {#each Object.entries(row) as [key, val]}
