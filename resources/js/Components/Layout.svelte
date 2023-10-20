@@ -10,7 +10,7 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         <!-- Page content here -->
-        <div class="navbar bg-glass-dark max-h-12 min-h-12">
+        <div class="navbar bg-glass-dark max-h-12 min-h-12 sticky top-0">
             <div class="flex-none">
                 <label for="my-drawer" class="btn btn-square btn-ghost">
                     <svg
