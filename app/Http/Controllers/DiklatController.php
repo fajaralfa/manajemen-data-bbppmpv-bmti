@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\RequestTableColumn\DiklatColumn;
 use App\Repository\DiklatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DiklatController extends Controller
 {
     public function __construct(
-        private DiklatRepository $diklatRepository
-    )
-    {
-        
+        private DiklatRepository $diklatRepository,
+        private DiklatColumn $diklatColumn,
+    ) {
     }
     public function view()
     {
@@ -20,46 +21,46 @@ class DiklatController extends Controller
         return inertia('Diklat/View', ['data' => $data]);
     }
 
-    // belum beres
     public function store()
     {
+        // request field jangan pakai spasi
         $input = request()->validate([
-            'NAMA LENGKAP' => ['required'],
-            'KOMPETENSI KEAHLIAN' => ['required'],
-            'PROGRAM KEAHLIAN' => ['required'],
-            'BIDANG KEAHLIAN' => ['required'],
+            'NAMA_LENGKAP' => ['required'],
+            'KOMPETENSI_KEAHLIAN' => ['required'],
+            'PROGRAM_KEAHLIAN' => ['required'],
+            'BIDANG_KEAHLIAN' => ['required'],
             'ID' => ['required'],
             'NIK' => ['required'],
             'NUPTK' => ['required'],
             'NIP' => ['required'],
-            'NO UKG' => ['required'],
-            'TEMPAT LAHIR' => ['required'],
-            'TANGGAL LAHIR' => ['required'],
+            'NO_UKG' => ['required'],
+            'TEMPAT_LAHIR' => ['required'],
+            'TANGGAL_LAHIR' => ['required'],
             'USIA' => ['required'],
-            'JENIS KELAMIN' => ['required'],
+            'JENIS_KELAMIN' => ['required'],
             'JABATAN' => ['required'],
             'GOLONGAN' => ['required'],
-            'NOMOR HP' => ['required'],
+            'NOMOR_HP' => ['required'],
             'EMAIL' => ['required'],
-            'MAPEL AJAR' => ['required'],
-            'KELAS AJAR' => ['required'],
+            'MAPEL_AJAR' => ['required'],
+            'KELAS_AJAR' => ['required'],
             'KELAS' => ['required'],
-            'NAMA DIKLAT' => ['required'],
-            'TANGGAL PERIODE AWAL' => ['required'],
-            'TANGGAL PERIODE AKHIR' => ['required'],
-            'TEMPAT DIKLAT' => ['required'],
-            'RIWAYAT DIKLAT' => ['required'],
+            'NAMA_DIKLAT' => ['required'],
+            'TANGGAL_PERIODE_AWAL' => ['required'],
+            'TANGGAL_PERIODE_AKHIR' => ['required'],
+            'TEMPAT_DIKLAT' => ['required'],
+            'RIWAYAT_DIKLAT' => ['required'],
+            'FOTO' => ['required'],
             'KETERANGAN' => ['required'],
         ]);
 
         $photoPath = request()->file('FOTO')[0]->store('pasfoto-diklat');
         $input['FOTO'] = $photoPath;
+        $input['JENIS_KELAMIN'] = 'L';
 
-        $this->diklatRepository->save($input);
+        $mappedInput = $this->diklatColumn->mapToTable($input);
+        $this->diklatRepository->save($mappedInput);
 
-        return inertia('Diklat/View', [
-            'message'=>'Data Tersimpan!!!!'
-        ]);
-
+        return redirect('/diklat');
     }
 }
