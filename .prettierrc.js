@@ -6,7 +6,7 @@ const config = {
   tabWidth: 4,
   semi: false,
   singleQuote: true,
-  printWidth: 100,
+  printWidth: 130,
   plugins: ['prettier-plugin-svelte'],
   overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }],
 };
