@@ -2,7 +2,15 @@
     import { inertia } from '@inertiajs/svelte'
     let dropdownList = [false, false, false]
     function dropDownToggle(num) {
-        dropdownList[num] = !dropdownList[num]
+        if (dropdownList[num] === true) {
+            dropdownList[num] = false
+            return
+        }
+        for (let i = 0; i < dropdownList.length; i++) {
+            if (i === num) continue
+            dropdownList[i] = false
+        }
+        dropdownList[num] = true
     }
 </script>
 
