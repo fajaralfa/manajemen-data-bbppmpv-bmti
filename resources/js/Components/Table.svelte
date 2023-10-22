@@ -8,6 +8,8 @@
 
     let editMode = false,
         deleteMode = false
+
+    console.log(data)
 </script>
 
 <div class="flex px-3 py-1 bg-glass-dark gap-20">
@@ -33,9 +35,9 @@
             {#each data as row}
                 <tr>
                     {#if deleteMode}
-                        <tr>
+                        <td>
                             <a href="/{urlGroup}/{row['ID']}" use:inertia={{method: 'put'}} as='button'><DeleteIcon /></a>
-                        </tr>
+                        </td>
                     {/if}
                     {#if editMode}
                         <td>
@@ -43,7 +45,11 @@
                         </td>
                     {/if}
                     {#each Object.entries(row) as [key, val]}
-                        <td>{val}</td>
+                        {#if key !== 'FOTO'}
+                            <td>{val}</td>
+                        {:else}
+                            <td><img src="/diklat/photo/{row['FOTO']?.split('/')[1] ?? '0'}" alt="Pas Foto" srcset=""></td>
+                        {/if}
                     {/each}
                 </tr>
             {/each}

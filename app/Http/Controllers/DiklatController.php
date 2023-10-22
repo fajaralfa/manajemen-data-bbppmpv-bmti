@@ -63,4 +63,9 @@ class DiklatController extends Controller
 
         return redirect('/diklat');
     }
+
+    public function getPhoto(string $path)
+    {
+        return Storage::download('pasfoto-diklat/' . $path);
+    }
 }

@@ -24,13 +24,15 @@ Route::inertia('/login', 'Login')->name('login');
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [UserController::class, 'logout']);
+    Route::redirect('/', '/home');
     Route::inertia('/home', 'Home')->name('home');
+    Route::post('/logout', [UserController::class, 'logout']);
 
     //tampilan
     Route::get('/diklat', [DiklatController::class, 'view']);
     Route::get('/prakerin', [PrakerinController::class, 'view']);
     Route::get('/inventaris', [InventarisController::class, 'view']);
+    Route::get('/diklat/photo/{path}', [DiklatController::class, 'getPhoto']);
     Route::inertia('/diklat/add', 'Diklat/Form');
     Route::inertia('/prakerin/add', 'Prakerin/Form');
     Route::inertia('/inventaris/add', 'Inventaris/Form');
