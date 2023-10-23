@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,14 @@ class DiklatRepository
 
     public function findById(int $id)
     {
-        return DB::table($this-> table)
+        return DB::table($this->table)
             ->where('id', $id)
             ->first();
+    }
+
+    public function deleteById(int $id)
+    {
+        return DB::table($this->table)
+            ->delete($id);
     }
 }

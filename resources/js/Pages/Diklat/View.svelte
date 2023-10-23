@@ -9,5 +9,5 @@
 </script>
 
 <Layout>
-    <Table {data} />
+    <Table {data} urlGroup='diklat' />
 </Layout>

@@ -76,4 +76,10 @@ class DiklatController extends Controller
             'input' => $oldData
         ]);
     }
+
+    public function delete(string $id)
+    {
+        $this->diklatRepository->deleteById($id);
+        return redirect('/diklat');
+    }
 }
