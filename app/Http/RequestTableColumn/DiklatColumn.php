@@ -36,4 +36,37 @@ class DiklatColumn
             'KETERANGAN' => $reqInput['KETERANGAN'],
         ];
     }
+
+    public function mapToRequest(array $dbInput)
+    {
+        return [
+            'NAMA_LENGKAP' => $dbInput['NAMA LENGKAP'],
+            'KOMPETENSI_KEAHLIAN' => $dbInput['KOMPETENSI KEAHLIAN'],
+            'PROGRAM_KEAHLIAN' => $dbInput['PROGRAM KEAHLIAN'],
+            'BIDANG_KEAHLIAN' => $dbInput['BIDANG KEAHLIAN'],
+            'ID' => $dbInput['ID'],
+            'NIK' => $dbInput['NIK'],
+            'NUPTK' => $dbInput['NUPTK'],
+            'NIP' => $dbInput['NIP'],
+            'NO_UKG' => $dbInput['NO UKG'],
+            'TEMPAT_LAHIR' => $dbInput['TEMPAT LAHIR'],
+            'TANGGAL_LAHIR' => $dbInput['TANGGAL LAHIR'],
+            'USIA' => $dbInput['USIA'],
+            'KELAMIN' => $dbInput['KELAMIN'],
+            'JABATAN' => $dbInput['JABATAN'],
+            'GOLONGAN' => $dbInput['GOLONGAN'],
+            'NOMOR_HP' => $dbInput['NOMOR HP'],
+            'EMAIL' => $dbInput['EMAIL'],
+            'MAPEL_AJAR' => $dbInput['MAPEL AJAR'],
+            'KELAS_AJAR' => $dbInput['KELAS AJAR'],
+            'KELAS' => $dbInput['KELAS'],
+            'NAMA_DIKLAT' => $dbInput['NAMA DIKLAT'],
+            'TANGGAL_PERIODE_AWAL' => $dbInput['TANGGAL PERIODE AWAL'],
+            'TANGGAL_PERIODE_AKHIR' => $dbInput['TANGGAL PERIODE AKHIR'],
+            'TEMPAT_DIKLAT' => $dbInput['TEMPAT DIKLAT'],
+            'RIWAYAT_DIKLAT' => $dbInput['RIWAYAT DIKLAT'],
+            'FOTO' => $dbInput['FOTO'],
+            'KETERANGAN' => $dbInput['KETERANGAN'],
+        ];
+    }
 }
