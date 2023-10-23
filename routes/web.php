@@ -36,9 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::inertia('/diklat/add', 'Diklat/Form');
     Route::inertia('/prakerin/add', 'Prakerin/Form');
     Route::inertia('/inventaris/add', 'Inventaris/Form');
-    Route::get('/diklat/{id}/edit', [DiklatController::class, 'edit']);
-    Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
-    Route::get('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
+    Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
+    Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'editPage']);
+    Route::get('/inventaris/{id}/edit', [InventarisController::class, 'editPage']);
 
     //aksi
     Route::post('/diklat', [DiklatController::class, 'store']);

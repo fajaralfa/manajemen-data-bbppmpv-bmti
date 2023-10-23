@@ -69,6 +69,14 @@ class DiklatController extends Controller
         return Storage::download('pasfoto-diklat/' . $path);
     }
 
+    public function editPage(string $id)
+    {
+        $oldData = $this->diklatColumn->mapToRequest((array) $this->diklatRepository->findById($id));
+        return inertia('Diklat/FormEdit', [
+            'input' => $oldData
+        ]);
+    }
+
     public function delete(string $id)
     {
         $this->diklatRepository->deleteById($id);
