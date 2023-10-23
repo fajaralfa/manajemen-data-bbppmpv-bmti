@@ -12,4 +12,10 @@ class DiklatRepository
         return DB::table($this->table)
             ->insert($input);
     }
+
+    public function deleteById(int $id)
+    {
+        return DB::table($this->table)
+            ->delete($id);
+    }
 }

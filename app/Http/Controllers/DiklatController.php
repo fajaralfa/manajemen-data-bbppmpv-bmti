@@ -68,4 +68,10 @@ class DiklatController extends Controller
     {
         return Storage::download('pasfoto-diklat/' . $path);
     }
+
+    public function delete(string $id)
+    {
+        $this->diklatRepository->deleteById($id);
+        return redirect('/diklat');
+    }
 }
