@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris', [InventarisController::class, 'view']);
     Route::get('/diklat/photo/{path}', [DiklatController::class, 'getPhoto']);
     Route::inertia('/diklat/add', 'Diklat/Form');
-    Route::inertia('/diklat/form-test', 'Diklat/FormImport');
+    Route::inertia('/diklat/import', 'Diklat/FormImport');
     Route::post('/diklat/import', [DiklatController::class, 'import']);
     Route::inertia('/prakerin/add', 'Prakerin/Form');
     Route::inertia('/inventaris/add', 'Inventaris/Form');
@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
     Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
     Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
-    Route::put('/diklat/{id}', [DiklatController::class, 'update']);
-    Route::put('/prakerin/{id}', [PrakerinController::class, 'update']);
-    Route::put('/inventaris/{id}', [InventarisController::class, 'update']);
+    Route::put('/diklat/{id}', [DiklatController::class, 'edit']);
+    Route::put('/prakerin/{id}', [PrakerinController::class, 'edit']);
+    Route::put('/inventaris/{id}', [InventarisController::class, 'edit']);
 });
