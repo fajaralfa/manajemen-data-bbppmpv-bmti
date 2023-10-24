@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class DiklatRepository
 {
-    private string $table = 'peserta_diklat';
+    private string $table = 'diklat';
 
     public function save(array $input)
     {
