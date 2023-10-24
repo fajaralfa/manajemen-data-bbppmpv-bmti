@@ -7,6 +7,8 @@
     export let urlGroup
     export let data = [{}]
 
+    console.log(data)
+
     let showDeleteAlert = false
     let deleteUrl = ''
 
@@ -26,7 +28,7 @@
     <table class="table">
         <thead class=" text-white uppercase sticky top-0 bg-black">
             <tr class="border-b-4">
-                <th colspan="2">Aksi</th>
+                <th>Aksi</th>
                 {#each Object.entries(data[0]) as [key]}
                     <th>{key}</th>
                 {/each}
@@ -36,8 +38,8 @@
             {#each data as row}
                 <tr>
                     <td class="left-0 sticky bg-black">
-                        <button class="p-4" on:click={() => deleteConfirm(row['ID'])}><DeleteIcon /></button>
-                        <button href="/{urlGroup}/{row['ID']}/edit" class="p-4" use:inertia as="button"><EditIcon /></button>
+                        <button class="p-4" on:click={() => deleteConfirm(row['id'])}><DeleteIcon /></button>
+                        <button class="p-4" use:inertia={{'href': `/${urlGroup}/${row['id']}/edit`}} ><EditIcon /></button>
                     </td>
                     {#each Object.entries(row) as [key, val]}
                         {#if key !== 'FOTO'}
