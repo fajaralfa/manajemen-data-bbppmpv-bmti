@@ -1,6 +1,13 @@
 <script>
     import Layout from '../../Components/Layout.svelte'
+    import Table from '../../Components/Table.svelte'
+
+    export let data
+    export let message
+    console.log(data)
+    console.log(message)
 </script>
+
 <Layout>
-    <h1 class="text-3xl font-bold text-white">Hallo Kawan</h1>
+    <Table {data} urlGroup="prakerin">Data Peserta Prakerin</Table>
 </Layout>
