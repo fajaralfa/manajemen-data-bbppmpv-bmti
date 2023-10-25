@@ -22,7 +22,7 @@
 <DeleteAlert bind:deleteUrl bind:showDeleteAlert/>
 
 <div class="flex px-3 py-1 bg-glass-dark gap-20">
-    <div class="text-lg font-bold uppercase flex-grow"><slot>Tabel Diklat</slot></div>
+    <div class="text-lg font-bold uppercase flex-grow"><slot>Table</slot></div>
 </div>
 <div class="overflow-x-scroll table-container bg-glass-dark">
     <table class="table table-xs">
