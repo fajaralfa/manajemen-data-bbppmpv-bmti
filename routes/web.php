@@ -45,15 +45,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
     Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'editPage']);
     Route::get('/inventaris/{id}/edit', [InventarisController::class, 'editPage']);
+    Route::get('/sekolah/{id}/edit', [SekolahController::class, 'editPage']);
 
     //aksi
     Route::post('/diklat', [DiklatController::class, 'store']);
     Route::post('/prakerin', [PrakerinController::class, 'store']);
     Route::post('/inventaris', [InventarisController::class, 'store']);
+    Route::post('/sekolah', [SekolahController::class, 'store']);
     Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
     Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
     Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
+    Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
     Route::put('/diklat/{id}', [DiklatController::class, 'edit']);
     Route::put('/prakerin/{id}', [PrakerinController::class, 'edit']);
     Route::put('/inventaris/{id}', [InventarisController::class, 'edit']);
+    Route::put('/sekolah/{id}', [SekolahController::class, 'edit']);
 });
