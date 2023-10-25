@@ -34,7 +34,6 @@ class DiklatController extends Controller
             'KOMPETENSI_KEAHLIAN' => ['required'],
             'PROGRAM_KEAHLIAN' => ['required'],
             'BIDANG_KEAHLIAN' => ['required'],
-            'ID' => ['required'],
             'NIK' => ['required'],
             'NUPTK' => ['required'],
             'NIP' => ['required'],
@@ -82,9 +81,46 @@ class DiklatController extends Controller
         ]);
     }
 
+    public function edit(string $id)
+    {
+        $input = request()->validate([
+            'NAMA_LENGKAP' => ['required'],
+            'KOMPETENSI_KEAHLIAN' => ['required'],
+            'PROGRAM_KEAHLIAN' => ['required'],
+            'BIDANG_KEAHLIAN' => ['required'],
+            'NIK' => [],
+            'NUPTK' => [],
+            'NIP' => [],
+            'NO_UKG' => ['required'],
+            'TEMPAT_LAHIR' => ['required'],
+            'TANGGAL_LAHIR' => [],
+            'USIA' => ['required'],
+            'JENIS_KELAMIN' => ['required'],
+            'JABATAN' => ['required'],
+            'GOLONGAN' => ['required'],
+            'NOMOR_HP' => ['required'],
+            'EMAIL' => ['required'],
+            'MAPEL_AJAR' => [],
+            'KELAS_AJAR' => ['required'],
+            'KELAS' => ['required'],
+            'NAMA_DIKLAT' => ['required'],
+            'TANGGAL_PERIODE_AWAL' => ['required'],
+            'TANGGAL_PERIODE_AKHIR' => ['required'],
+            'TEMPAT_DIKLAT' => ['required'],
+            'RIWAYAT_DIKLAT' => ['required'],
+            'FOTO' => [],
+            'KETERANGAN' => [],
+        ]);
+
+        $input = $this->diklatColumn->mapToTable($input);
+
+        $this->diklatRepository->update((int) $id, $input);
+        return redirect('/diklat');
+    }
+
     public function delete(string $id)
     {
-        $this->diklatRepository->deleteById($id);
+        $this->diklatRepository->deleteById((int) $id);
         return redirect('/diklat');
     }
 
@@ -133,9 +169,9 @@ class DiklatController extends Controller
             return [$key => $new];
         })->unique('NIK')->all();
 
-        DB::table('sekolah')->insert($dataSekolah);
-        DB::table('diklat')->insert($dataDiklat);
+        DB::table('sekolah')->insertOrIgnore($dataSekolah);
+        DB::table('diklat')->insertOrIgnore($dataDiklat);
 
-        return inertia('Diklat/Target', ['data' => [$dataSekolah, $dataDiklat]]);
+        return redirect('/diklat');
     }
 }

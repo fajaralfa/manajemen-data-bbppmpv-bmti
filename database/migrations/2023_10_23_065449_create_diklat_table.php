@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('BIDANG KEAHLIAN', 50);
             $table->string('MAPEL AJAR', 100)->nullable();
             $table->string('KELAS AJAR', 50);
-            $table->string('NPSN SEKOLAH', 20);
+            $table->string('NPSN SEKOLAH', 20)->nullable();
             $table->string('KELAS', 20);
             $table->string('NAMA DIKLAT', 50);
             $table->date('TANGGAL PERIODE AWAL');

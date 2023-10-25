@@ -26,4 +26,11 @@ class DiklatRepository
         return DB::table($this->table)
             ->delete($id);
     }
+
+    public function update(int $id, array $input)
+    {
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->update($input);
+    }
 }

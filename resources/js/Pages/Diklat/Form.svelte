@@ -10,7 +10,6 @@
         KOMPETENSI_KEAHLIAN: null,
         PROGRAM_KEAHLIAN: null,
         BIDANG_KEAHLIAN: null,
-        ID: null,
         NIK: null,
         NUPTK: null,
         NIP: null,
@@ -99,15 +98,6 @@
                     </select>
                 </div>
                 <div>
-                    <label for="id">ID:</label>
-                    <input
-                        type="text"
-                        name="id"
-                        class="input w-full max-w-xs"
-                        bind:value={$input['ID']}
-                    />
-                </div>
-                <div>
                     <label for="nik">NIK:</label>
                     <input
                         type="text"
@@ -155,7 +145,7 @@
                 <div>
                     <label for="tanggal_lahir">Tanggal Lahir:</label>
                     <input
-                        type="text"
+                        type="date"
                         name="tanggal_lahir"
                         class="input w-full max-w-xs"
                         bind:value={$input['TANGGAL_LAHIR']}
@@ -266,7 +256,7 @@
                 <div>
                     <label for="periode_awal">Periode Awal:</label>
                     <input
-                        type="text"
+                        type="date"
                         name="periode_awal"
                         class="input w-full max-w-xs"
                         bind:value={$input['TANGGAL_PERIODE_AWAL']}
@@ -275,7 +265,7 @@
                 <div>
                     <label for="periode_akhir">Periode Akhir:</label>
                     <input
-                        type="text"
+                        type="date"
                         name="periode_akhir"
                         class="input w-full max-w-xs"
                         bind:value={$input['TANGGAL_PERIODE_AKHIR']}
