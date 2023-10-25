@@ -41,7 +41,7 @@
                         {#if key !== 'FOTO'}
                             <td>{val}</td>
                         {:else}
-                            <td><img src="/diklat/photo/{row['FOTO']?.split('/')[1] ?? '0'}" alt="Pas Foto" srcset="" /></td>
+                            <td><img src="/{urlGroup}/photo/{row['FOTO']?.split('/')[1] ?? '0'}" alt="Pas Foto" srcset="" /></td>
                         {/if}
                     {/each}
                     <td class="right-0 sticky bg-glass-dark">
