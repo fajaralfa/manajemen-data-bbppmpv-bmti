@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Converter;
 use App\Http\RequestTableColumn\DiklatColumn;
 use App\Repository\DiklatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class DiklatController extends Controller
 {
     public function __construct(
         private DiklatRepository $diklatRepository,
         private DiklatColumn $diklatColumn,
+        private Xlsx $xlsx,
+        private Converter $converter,
     ) {
     }
     public function view()
     {
-        $data = DB::table('peserta_diklat')->get();
+        $data = DB::table('diklat')->get();
         return inertia('Diklat/View', ['data' => $data]);
     }
 
@@ -81,5 +86,56 @@ class DiklatController extends Controller
     {
         $this->diklatRepository->deleteById($id);
         return redirect('/diklat');
+    }
+
+    private Collection $columnName;
+    public function import()
+    {
+        request()->validate(['file' => 'required']);
+        $filePath = request()->file('file')->store('excel-diklat');
+        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
+        $excel = $this->xlsx->load($filePath)->getSheet(0);
+        $excelArray = $excel->toArray();
+
+        $this->columnName = collect($excelArray[0]);
+        $data = collect($excelArray);
+
+        // menghapus baris pertama (nama kolom)
+        $data = $data->splice(1);
+
+        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
+            $item = $this->columnName->combine($item);
+            return [$key => $item];
+        });
+
+        $dataSekolah = $dataAssoc->mapWithKeys(function (Collection $item, $key) {
+            $new = $item->only([
+                'NAMA SEKOLAH', 'NPSN SEKOLAH', 'NAMA KEPALA SEKOLAH',
+                'NOMOR HP KEPALA SEKOLAH', 'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH',
+                'PROVINSI SEKOLAH',
+            ])->all();
+            return [$key => $new];
+        })->unique('NPSN SEKOLAH')->all();
+
+        $dataDiklat = $dataAssoc->mapWithKeys(function (Collection $item, $key) {
+            $new = $item->only([
+                'NIK', 'NUPTK', 'NIP', 'NO UKG', 'NAMA LENGKAP',
+                'TEMPAT LAHIR', 'TANGGAL LAHIR', 'USIA', 'KELAMIN',
+                'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN',
+                'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN', 'MAPEL AJAR',
+                'KELAS AJAR', 'NPSN SEKOLAH', 'KELAS', 'NAMA DIKLAT',
+                'TANGGAL PERIODE AWAL', 'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT',
+                'RIWAYAT DIKLAT', 'FOTO', 'KETERANGAN',
+            ])->all();
+
+            $new['TANGGAL PERIODE AWAL'] = $this->converter->formatDate($new['TANGGAL PERIODE AWAL']);
+            $new['TANGGAL PERIODE AKHIR'] = $this->converter->formatDate($new['TANGGAL PERIODE AKHIR']);
+            return [$key => $new];
+        })->unique('NIK')->all();
+
+        DB::table('sekolah')->insert($dataSekolah);
+        DB::table('diklat')->insert($dataDiklat);
+
+        return inertia('Diklat/Target', ['data' => [$dataSekolah, $dataDiklat]]);
     }
 }

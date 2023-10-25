@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('diklat', function (Blueprint $table) {
             $table->id();
             $table->string('NIK', 20)->unique();
-            $table->string('NUPTK', 20);
-            $table->string('NIP', 20);
-            $table->string('NO UKG', 20);
+            $table->string('NUPTK', 20)->nullable();
+            $table->string('NIP', 20)->nullable();
+            $table->string('NO UKG', 20)->nullable();
             $table->string('NAMA LENGKAP', 255);
             $table->string('TEMPAT LAHIR', 255);
-            $table->date('TANGGAL LAHIR');
+            $table->date('TANGGAL LAHIR')->nullable();
             $table->integer('USIA');
             $table->enum('KELAMIN', ['L', 'P']);
             $table->string('JABATAN', 50);
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('KOMPETENSI KEAHLIAN', 50);
             $table->string('PROGRAM KEAHLIAN', 50);
             $table->string('BIDANG KEAHLIAN', 50);
-            $table->string('MAPEL AJAR', 100);
+            $table->string('MAPEL AJAR', 100)->nullable();
             $table->string('KELAS AJAR', 50);
             $table->string('NPSN SEKOLAH', 20);
             $table->string('KELAS', 20);
@@ -38,8 +38,8 @@ return new class extends Migration
             $table->date('TANGGAL PERIODE AKHIR');
             $table->string('TEMPAT DIKLAT', 50);
             $table->string('RIWAYAT DIKLAT', 50);
-            $table->string('FOTO', 255);
-            $table->string('KETERANGAN', 255);
+            $table->string('FOTO', 255)->nullable(true);
+            $table->string('KETERANGAN', 255)->nullable(true);
             $table->timestamps();
         });
     }
