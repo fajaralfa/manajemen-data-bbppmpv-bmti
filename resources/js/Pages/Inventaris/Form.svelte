@@ -1,5 +1,19 @@
 <script>
     import Layout from '../../Components/Layout.svelte'
+
+    let input = {
+        No: null,
+        Nama_Peralatan: null,
+        Gambar: null,
+        Spesifikasi: null,
+        Satuan: null,
+        Volume: null,
+        Harga_Satuan: null,
+        Jumlah: null,
+        Keterangan_Produk: null,
+        Link_Produk: null,
+        Urgensi: null,
+    }
 </script>
 
 <Layout>
