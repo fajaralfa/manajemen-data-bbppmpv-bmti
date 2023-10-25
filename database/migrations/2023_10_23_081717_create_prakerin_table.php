@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('NAMA LENGKAP', 255);
             $table->string('NAMA SEKOLAH', 100);
-            $table->string('NIS/NIM', 50);
+            $table->string('NIS/NIM', 50)->unique();
             $table->string('BIDANG KEAHLIAN', 100);
             $table->string('PROGRAM KEAHLIAN', 100);
             $table->string('TEMPAT LAHIR', 100);

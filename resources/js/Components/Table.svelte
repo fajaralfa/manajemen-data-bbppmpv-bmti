@@ -25,22 +25,18 @@
     <div class="text-lg font-bold uppercase flex-grow"><slot>Tabel Diklat</slot></div>
 </div>
 <div class="overflow-x-scroll table-container bg-glass-dark">
-    <table class="table">
+    <table class="table table-xs">
         <thead class=" text-white uppercase sticky top-0 bg-black">
             <tr class="border-b-4">
-                <th>Aksi</th>
                 {#each Object.entries(data[0]) as [key]}
                     <th>{key}</th>
                 {/each}
+                <th class="right-0 sticky bg-black">Aksi</th>
             </tr>
         </thead>
         <tbody class="text-white">
             {#each data as row}
                 <tr>
-                    <td class="left-0 sticky bg-black">
-                        <button class="p-4" on:click={() => deleteConfirm(row['id'])}><DeleteIcon /></button>
-                        <button class="p-4" use:inertia={{'href': `/${urlGroup}/${row['id']}/edit`}} ><EditIcon /></button>
-                    </td>
                     {#each Object.entries(row) as [key, val]}
                         {#if key !== 'FOTO'}
                             <td>{val}</td>
@@ -48,6 +44,10 @@
                             <td><img src="/diklat/photo/{row['FOTO']?.split('/')[1] ?? '0'}" alt="Pas Foto" srcset="" /></td>
                         {/if}
                     {/each}
+                    <td class="right-0 sticky bg-glass-dark">
+                        <button class="p-4" on:click={() => deleteConfirm(row['id'])}><DeleteIcon /></button>
+                        <button class="p-4" use:inertia={{'href': `/${urlGroup}/${row['id']}/edit`}} ><EditIcon /></button>
+                    </td>
                 </tr>
             {/each}
         </tbody>

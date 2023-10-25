@@ -61,7 +61,7 @@
     </div>
     <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-glass-dark text-base-content">
+        <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-black text-base-content">
             <!-- Sidebar content here -->
             <li>
                 <a href="/home" use:inertia>Dashboard</a>
@@ -92,6 +92,15 @@
                         <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
                         <li><a href="/inventaris/add" use:inertia>Tambah Data</a></li>
                     </ul>
+                {/if}
+            </li>
+            <li>
+                <a on:click={() => dropDownToggle(3)}>Sekolah</a>
+                {#if dropdownList[3]}
+                <ul>
+                    <li><a href="/sekolah" use:inertia>Lihat Data</a></li>
+                    <li><a href="/sekolah/add" use:inertia>Tambah Data</a></li>
+                </ul>
                 {/if}
             </li>
             <li>
