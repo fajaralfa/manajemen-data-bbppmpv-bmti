@@ -9,5 +9,5 @@
 </script>
 
 <Layout>
-    <Table {data} urlGroup='diklat' />
+    <Table {data} urlGroup='sekolah'>Data Sekolah</Table>
 </Layout>
