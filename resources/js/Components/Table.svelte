@@ -20,17 +20,16 @@
     }
 </script>
 
-<DeleteAlert {...deleteAlertProps} />
-
-<div class="flex px-3 py-1 bg-glass-dark gap-20">
-    <div class="text-lg font-bold uppercase flex-grow"><slot>Table</slot></div>
-</div>
-{#if data.length == 0}
-    <div class="text-xl text-center">Data Kosong!</div>
-{:else}
-    <div class="overflow-x-scroll table-container bg-glass-dark">
+<div class="w-full h-[100vh] overflow-x-scroll table-container bg-glass-dark">
+    <div class="flex px-3 py-1 bg-glass-dark gap-20">
+        <div class="text-lg font-bold uppercase flex-grow"><slot>Table</slot></div>
+        <DeleteAlert {...deleteAlertProps} />
+    </div>
+    {#if data.length == 0}
+        <div class="text-xl text-center">Data Kosong!</div>
+    {:else}
         <table class="table table-xs">
-            <thead class=" text-white uppercase sticky top-0 bg-black">
+            <thead class="text-white uppercase sticky top-0 bg-black">
                 <tr class="border-b-4">
                     {#each Object.entries(data[0]) as [key]}
                         <th>{key}</th>
@@ -62,8 +61,8 @@
                 {/each}
             </tbody>
         </table>
-    </div>
-{/if}
+    {/if}
+</div>
 
 <style>
     tr,
@@ -79,8 +78,5 @@
     }
     tbody tr:nth-child(even) {
         background-color: rgba(0, 0, 0, 0.1);
-    }
-    .table-container {
-        height: 83vh;
     }
 </style>
