@@ -1,12 +1,12 @@
 <script>
-    let input = {
+    export let input = {
         NAMA_LENGKAP: null,
         NAMA_SEKOLAH: null,
         'NIS/NIM': null,
         BIDANG_KEAHLIAN: null,
         PROGRAM_KEAHLIAN: null,
         TEMPAT_LAHIR: null,
-        TANGAL_LAHIR: null,
+        TANGGAL_LAHIR: null,
         JENIS_KELAMIN: null,
         AGAMA: null,
         ALAMAT_LENGKAP: null,
@@ -47,7 +47,7 @@
             </div>
             <div>
                 <label for="tanggal_lahir">Tanggal Lahir:</label>
-                <input type="date" name="tanggal_lahir" class="input w-full max-w-xs" bind:value={input.TANGGAL_LAHIR_LAHIR} />
+                <input type="date" name="tanggal_lahir" class="input w-full max-w-xs" bind:value={input.TANGGAL_LAHIR} />
             </div>
             <div>
                 <label for="jenis_kelamin">Jenis kelamin:</label>

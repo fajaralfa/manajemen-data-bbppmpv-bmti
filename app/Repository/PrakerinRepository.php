@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 class PrakerinRepository
 {
     private string $table = 'prakerin';
-    public function get()
+    public function get(array $columns = ['*'])
     {
         return DB::table($this->table)
-            ->get();
+            ->get($columns);
     }
     public function save(array $input)
     {
@@ -18,11 +18,11 @@ class PrakerinRepository
             ->insert($input);
     }
 
-    public function findById(int $id)
+    public function findById(int $id, array $columns = ['*'])
     {
         return DB::table($this->table)
             ->where('id', $id)
-            ->first();
+            ->first($columns);
     }
 
     public function deleteById(int $id)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PrakerinController extends Controller
 {
@@ -39,9 +40,16 @@ class PrakerinController extends Controller
         ]);
 
         $input = $this->helper->mapRequestToTable($input);
+        $photoPath = request()->file('FOTO')->store('foto-prakerin');
+        $input['FOTO'] = $photoPath;
         $this->prakerinRepository->save($input);
 
         return redirect('/prakerin');
+    }
+
+    public function getPhoto(string $path)
+    {
+        return Storage::download('foto-prakerin/' . $path);
     }
 
     public function delete(string $id)
@@ -52,7 +60,12 @@ class PrakerinController extends Controller
 
     public function editPage(string $id)
     {
-        $data = (array) $this->prakerinRepository->findById((int) $id);
+        $data = (array) $this->prakerinRepository
+            ->findById((int) $id, [
+                'NAMA LENGKAP', 'NAMA SEKOLAH', 'NIS/NIM', 'BIDANG KEAHLIAN',
+                'PROGRAM KEAHLIAN', 'TEMPAT LAHIR', 'TANGGAL LAHIR', 'JENIS KELAMIN',
+                'AGAMA', 'ALAMAT LENGKAP', 'NO HP', 'EMAIL',
+            ]);
         $input = $this->helper->mapTableToRequest($data);
 
         return inertia('Prakerin/FormEdit', ['input' => $input]);
@@ -73,8 +86,14 @@ class PrakerinController extends Controller
             'ALAMAT_LENGKAP' => ['required'],
             'NO_HP' => ['required'],
             'EMAIL' => ['required'],
-            'FOTO' => ['file'],
+            'FOTO' => ['required'],
         ]);
+
+        $oldPhoto = (array) $this->prakerinRepository->findById((int) $id)['FOTO'];
+        Storage::delete('foto-prakerin/' . $oldPhoto);
+
+        $newPhoto = request()->file('FOTO')->store('foto-prakerin');
+        $input['FOTO'] = $newPhoto;
 
         $input = $this->helper->mapRequestToTable($input);
 
