@@ -17,7 +17,7 @@ class InventarisController extends Controller
     public function view()
     {
         $data = $this->inventarisRepository->get();
-        return inertia('Inventaris/View');
+        return inertia('Inventaris/View', ['data' => $data]);
     }
 
     public function store()
@@ -35,7 +35,7 @@ class InventarisController extends Controller
             'Link_Produk' => ['required'],
             'Urgensi' => ['required'],
         ]);
-        
+
         $input = $this->helper->mapRequestToTable($input);
         $this->inventarisRepository->save($input);
 
@@ -70,7 +70,7 @@ class InventarisController extends Controller
             'Link_Produk' => ['required'],
             'Urgensi' => ['required'],
         ]);
-        
+
         $input = $this->helper->mapRequestToTable($input);
 
         $this->inventarisRepository->update((int) $id, $input);

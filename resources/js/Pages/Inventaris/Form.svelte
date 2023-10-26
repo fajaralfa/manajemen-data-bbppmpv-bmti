@@ -1,4 +1,5 @@
 <script>
+    import { router, page } from '@inertiajs/svelte'
     import Layout from '../../Components/Layout.svelte'
 
     let input = {
@@ -13,62 +14,80 @@
         Keterangan_Produk: null,
         Link_Produk: null,
         Urgensi: null,
+        Kategori: null,
     }
+
+    function submit() {
+        router.post('/inventaris', input)
+    }
+
+    $: console.log(input.Gambar)
+    export let errors, message, flash
+    console.log(errors, message, flash)
 </script>
 
 <Layout>
     <div class="p-10">
-        <form action="contact.php" method="POST" class="flex flex-col gap-y-6 items-center">
+        {#if $page.props?.flash.message}
+            <div class="bg-red-600">{$page.props.flash.message}</div>
+        {/if}
+        <form on:submit|preventDefault={submit} class="flex flex-col gap-y-6 items-center">
             <div class="input-container">
                 <div>
-                    <label for="nama_barang">Nama Barang:</label>
-                    <input type="text" name="nama_barang" class="input w-full max-w-xs" />
+                    <label for="no">No:</label>
+                    <input type="text" name="nama_barang" bind:value={input.No} class="input w-full max-w-xs" />
+                </div>
+                <div>
+                    <label for="nama_barang">Nama Peralatan:</label>
+                    <input type="text" name="nama_barang" bind:value={input.Nama_Peralatan} class="input w-full max-w-xs" />
                 </div>
                 <div>
                     <label for="foto">Foto:</label>
                     <input
                         type="file"
                         name="foto"
+                        on:input={(e) => (input.Gambar = e.target.files[0])}
                         class="file-input file-input-bordered w-full max-w-xs"
                     />
                 </div>
                 <div>
                     <label for="spesifikasi">Spesifikasi:</label>
-                    <textarea class="textarea" name="spesifikasi"></textarea>
+                    <textarea class="textarea" name="spesifikasi" bind:value={input.Spesifikasi}></textarea>
                 </div>
                 <div>
                     <label for="satuan">Satuan:</label>
-                    <select name="satuan" class="select select-bordered w-full max-w-xs">
-                        <option value="kristen">Unit</option>
+                    <select name="satuan" bind:value={input.Satuan} class="select select-bordered w-full max-w-xs">
+                        <option value="unit">Unit</option>
+                        <option value="slop">Slop</option>
                     </select>
                 </div>
                 <div>
                     <label for="volume">Volume:</label>
-                    <input type="text" name="volume" class="input w-full max-w-xs" />
+                    <input type="text" name="volume" class="input w-full max-w-xs" bind:value={input.Volume} />
                 </div>
                 <div>
                     <label for="harga_satuan">Harga Satuan:</label>
-                    <input type="text" name="harga_satuan" class="input w-full max-w-xs" />
+                    <input type="text" name="harga_satuan" class="input w-full max-w-xs" bind:value={input.Harga_Satuan} />
                 </div>
                 <div>
                     <label for="jumlah">Jumlah:</label>
-                    <input type="text" name="jumlah" class="input w-full max-w-xs" />
+                    <input type="text" name="jumlah" class="input w-full max-w-xs" bind:value={input.Jumlah} />
                 </div>
                 <div>
                     <label for="keterangan_produk">Keterangan Porduk:</label>
-                    <textarea class="textarea" name="keterangan_produk"></textarea>
+                    <textarea class="textarea" name="keterangan_produk" bind:value={input.Keterangan_Produk}></textarea>
                 </div>
                 <div>
                     <label for="link_produk">Link Produk:</label>
-                    <input type="text" name="link_produk" class="input w-full max-w-xs" />
+                    <input type="text" name="link_produk" class="input w-full max-w-xs" bind:value={input.Link_Produk} />
                 </div>
                 <div>
                     <label for="urgensi">Urgensi:</label>
-                    <textarea class="textarea" name="urgensi"></textarea>
+                    <textarea class="textarea" name="urgensi" bind:value={input.Urgensi}></textarea>
                 </div>
                 <div>
                     <label for="kategori">Kategori:</label>
-                    <input type="text" name="kategori" class="input w-full max-w-xs" />
+                    <input type="text" name="kategori" class="input w-full max-w-xs" bind:value={input.Kategori} />
                 </div>
                 <div>
                     <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
