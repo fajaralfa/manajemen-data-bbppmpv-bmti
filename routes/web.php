@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventaris', [InventarisController::class, 'view']);
     Route::get('/sekolah', [SekolahController::class, 'View']);
     Route::get('/diklat/photo/{path}', [DiklatController::class, 'getPhoto']);
+    Route::get('/prakerin/photo/{path}', [PrakerinController::class, 'getPhoto']);
     Route::inertia('/diklat/add', 'Diklat/Form');
     Route::inertia('/diklat/import', 'Diklat/FormImport');
     Route::post('/diklat/import', [DiklatController::class, 'import']);
