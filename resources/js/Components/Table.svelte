@@ -41,16 +41,25 @@
                 {#each data as row}
                     <tr>
                         {#each Object.entries(row) as [key, val]}
-                            {#if key !== 'FOTO'}
-                                <td>{val}</td>
-                            {:else}
+                            {#if key === 'FOTO'}
                                 <td
                                     ><img
                                         src="/{urlGroup}/photo/{row['FOTO']?.split('/')[1] ?? '0'}"
                                         alt="Pas Foto"
-                                        srcset=""
+                                        class="h-12"
                                     /></td
                                 >
+                            {:else if key === 'Gambar'}
+                                <td
+                                    ><img
+                                        src="/{urlGroup}/photo/{row['Gambar']?.split('/')[1] ?? '0'}"
+                                        alt="Gambar"
+                                        srcset=""
+                                        class="h-12"
+                                    /></td
+                                >
+                            {:else}
+                                <td>{val}</td>
                             {/if}
                         {/each}
                         <td class="right-0 sticky bg-glass-dark">
