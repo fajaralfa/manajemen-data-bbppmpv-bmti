@@ -20,7 +20,7 @@
     }
 </script>
 
-<div class="w-full h-[100vh] overflow-x-scroll table-container bg-glass-dark">
+<div class="w-full h-[92vh] overflow-x-scroll table-container bg-glass-dark">
     <div class="flex px-3 py-1 bg-glass-dark gap-20">
         <div class="text-lg font-bold uppercase flex-grow"><slot>Table</slot></div>
         <DeleteAlert {...deleteAlertProps} />
