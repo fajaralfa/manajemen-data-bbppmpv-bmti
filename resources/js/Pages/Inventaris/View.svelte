@@ -1,7 +1,10 @@
 <script>
     import Layout from '../../Components/Layout.svelte'
+    import Table from '../../Components/Table.svelte'
+
+    export let data
 </script>
 
 <Layout>
-    <h1 class="text-3xl font-bold text-white">Hallo Kawan</h1>
+    <Table {data} urlGroup="inventaris">Data Inventaris</Table>
 </Layout>
