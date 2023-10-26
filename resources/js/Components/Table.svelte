@@ -1,7 +1,7 @@
 <script>
     import { inertia, router } from '@inertiajs/svelte'
-    import DeleteIcon from '../../assets/DeleteIcon.svelte'
-    import EditIcon from '../../assets/EditIcon.svelte'
+    import DeleteIcon from '../Assets/DeleteIcon.svelte'
+    import EditIcon from '../Assets/EditIcon.svelte'
     import DeleteAlert from './DeleteAlert.svelte'
 
     export let urlGroup
