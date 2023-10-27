@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\Helper;
 use Illuminate\Http\Request;
 use App\Repository\InventarisRepository;
+use Illuminate\Support\Facades\Storage;
 
 class InventarisController extends Controller
 {
@@ -36,10 +37,16 @@ class InventarisController extends Controller
             'Urgensi' => ['required'],
         ]);
 
+        $input['Gambar'] = request()->file('Gambar')->store('foto-inventaris');
         $input = $this->helper->mapRequestToTable($input);
         $this->inventarisRepository->save($input);
 
         return redirect('/inventaris');
+    }
+
+    public function getPhoto(string $path)
+    {
+        return Storage::download('foto-inventaris/' . $path);
     }
 
     public function delete(string $id)
