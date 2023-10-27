@@ -58,9 +58,8 @@ class DiklatController extends Controller
             'KETERANGAN' => ['required'],
         ]);
 
-        $photoPath = request()->file('FOTO')[0]->store('pasfoto-diklat');
+        $photoPath = request()->file('FOTO')->store('pasfoto-diklat');
         $input['FOTO'] = $photoPath;
-        $input['JENIS_KELAMIN'] = 'L';
 
         $mappedInput = $this->diklatColumn->mapToTable($input);
         $this->diklatRepository->save($mappedInput);
