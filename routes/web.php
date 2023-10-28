@@ -60,6 +60,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
     Route::post('/diklat/{id}/edit', [DiklatController::class, 'edit']);
     Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
-    Route::put('/inventaris/{id}', [InventarisController::class, 'edit']);
+    Route::post('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
     Route::put('/sekolah/{id}', [SekolahController::class, 'edit']);
 });

@@ -13,11 +13,16 @@ class InventarisRepository
             ->get();
     }
 
-    public function findById(int $id)
+    public function findById(int $id, array $columns = ['*'])
     {
         return DB::table($this->table)
             ->where('id', $id)
-            ->first();
+            ->first($columns);
+    }
+
+    public function getPhotoNameById(int $id): ?string
+    {
+        return $this->findById($id, ['Gambar'])->Gambar;
     }
 
     public function save(array $input)
