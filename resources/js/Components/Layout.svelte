@@ -81,7 +81,7 @@
     </ul>
 </div>
 
-<div class={sidebarShow ? 'ml-52' : 'ml-0'}><slot /></div>
+<div class="min-h-[92vh] {sidebarShow ? 'ml-52' : 'ml-0'}"><slot /></div>
 
 <style>
     a {
