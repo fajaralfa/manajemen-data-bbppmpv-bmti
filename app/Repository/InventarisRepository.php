@@ -4,43 +4,12 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 
-class InventarisRepository
+class InventarisRepository extends Repository
 {
-    private $table = 'inventaris';
-    public function get()
-    {
-        return DB::table($this->table)
-            ->get();
-    }
-
-    public function findById(int $id, array $columns = ['*'])
-    {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->first($columns);
-    }
+    protected string $table = 'inventaris';
 
     public function getPhotoNameById(int $id): ?string
     {
         return $this->findById($id, ['Gambar'])->Gambar;
-    }
-
-    public function save(array $input)
-    {
-        return DB::table($this->table)
-            ->insert($input);
-    }
-
-    public function deleteById(int $id)
-    {
-        return DB::table($this->table)
-            ->delete($id);
-    }
-
-    public function update(int $id, array $input)
-    {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->update($input);
     }
 }
