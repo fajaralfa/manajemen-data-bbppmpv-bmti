@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Converter;
+use App\Helper\Helper;
 use App\Http\RequestTableColumn\DiklatColumn;
 use App\Repository\DiklatRepository;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class DiklatController extends Controller
         private DiklatColumn $diklatColumn,
         private Xlsx $xlsx,
         private Converter $converter,
+        private Helper $helper,
     ) {
     }
     public function view()
@@ -41,7 +43,7 @@ class DiklatController extends Controller
             'TEMPAT_LAHIR' => ['required'],
             'TANGGAL_LAHIR' => ['required'],
             'USIA' => ['required'],
-            'JENIS_KELAMIN' => ['required'],
+            'KELAMIN' => ['required'],
             'JABATAN' => ['required'],
             'GOLONGAN' => ['required'],
             'NOMOR_HP' => ['required'],
@@ -61,7 +63,7 @@ class DiklatController extends Controller
         $photoPath = request()->file('FOTO')->store('pasfoto-diklat');
         $input['FOTO'] = $photoPath;
 
-        $mappedInput = $this->diklatColumn->mapToTable($input);
+        $mappedInput = $this->helper->mapRequestToTable($input);
         $this->diklatRepository->save($mappedInput);
 
         return redirect('/diklat');
@@ -69,12 +71,38 @@ class DiklatController extends Controller
 
     public function getPhoto(string $path)
     {
-        return Storage::download('pasfoto-diklat/' . $path);
+        return Storage::download('foto-diklat/' . $path);
     }
 
     public function editPage(string $id)
     {
-        $oldData = $this->diklatColumn->mapToRequest((array) $this->diklatRepository->findById($id));
+        $oldData = $this->helper->mapTableToRequest((array) $this->diklatRepository->findById($id, [
+            'NAMA LENGKAP',
+            'KOMPETENSI KEAHLIAN',
+            'PROGRAM KEAHLIAN',
+            'BIDANG KEAHLIAN',
+            'NIK',
+            'NUPTK',
+            'NIP',
+            'NO UKG',
+            'TEMPAT LAHIR',
+            'TANGGAL LAHIR',
+            'USIA',
+            'KELAMIN',
+            'JABATAN',
+            'GOLONGAN',
+            'NOMOR HP',
+            'EMAIL',
+            'MAPEL AJAR',
+            'KELAS AJAR',
+            'KELAS',
+            'NAMA DIKLAT',
+            'TANGGAL PERIODE AWAL',
+            'TANGGAL PERIODE AKHIR',
+            'TEMPAT DIKLAT',
+            'RIWAYAT DIKLAT',
+            'KETERANGAN',
+        ]));
         return inertia('Diklat/FormEdit', [
             'input' => $oldData
         ]);
@@ -82,36 +110,41 @@ class DiklatController extends Controller
 
     public function edit(string $id)
     {
-        $input = request()->validate([
-            'NAMA_LENGKAP' => ['required'],
-            'KOMPETENSI_KEAHLIAN' => ['required'],
-            'PROGRAM_KEAHLIAN' => ['required'],
-            'BIDANG_KEAHLIAN' => ['required'],
-            'NIK' => [],
-            'NUPTK' => [],
-            'NIP' => [],
-            'NO_UKG' => ['required'],
-            'TEMPAT_LAHIR' => ['required'],
-            'TANGGAL_LAHIR' => [],
-            'USIA' => ['required'],
-            'JENIS_KELAMIN' => ['required'],
-            'JABATAN' => ['required'],
-            'GOLONGAN' => ['required'],
-            'NOMOR_HP' => ['required'],
-            'EMAIL' => ['required'],
-            'MAPEL_AJAR' => [],
-            'KELAS_AJAR' => ['required'],
-            'KELAS' => ['required'],
-            'NAMA_DIKLAT' => ['required'],
-            'TANGGAL_PERIODE_AWAL' => ['required'],
-            'TANGGAL_PERIODE_AKHIR' => ['required'],
-            'TEMPAT_DIKLAT' => ['required'],
-            'RIWAYAT_DIKLAT' => ['required'],
-            'FOTO' => [],
-            'KETERANGAN' => [],
+        $input = request()->only([
+            'NAMA_LENGKAP',
+            'KOMPETENSI_KEAHLIAN',
+            'PROGRAM_KEAHLIAN',
+            'BIDANG_KEAHLIAN',
+            'NIK',
+            'NUPTK',
+            'NIP',
+            'NO_UKG',
+            'TEMPAT_LAHIR',
+            'TANGGAL_LAHIR',
+            'USIA',
+            'KELAMIN',
+            'JABATAN',
+            'GOLONGAN',
+            'NOMOR_HP',
+            'EMAIL',
+            'MAPEL_AJAR',
+            'KELAS_AJAR',
+            'KELAS',
+            'NAMA_DIKLAT',
+            'TANGGAL_PERIODE_AWAL',
+            'TANGGAL_PERIODE_AKHIR',
+            'TEMPAT_DIKLAT',
+            'RIWAYAT_DIKLAT',
+            'FOTO',
+            'KETERANGAN',
         ]);
 
-        $input = $this->diklatColumn->mapToTable($input);
+        if (request()->has('FOTO')) {
+            $photoPath = request()->file('FOTO')->store('foto-diklat');
+            $input['FOTO'] = $photoPath;
+        }
+
+        $input = $this->helper->mapRequestToTable($input);
 
         $this->diklatRepository->update((int) $id, $input);
         return redirect('/diklat');

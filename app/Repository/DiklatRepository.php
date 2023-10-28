@@ -14,11 +14,11 @@ class DiklatRepository
             ->insert($input);
     }
 
-    public function findById(int $id)
+    public function findById(int $id, array $columns = ['*'])
     {
         return DB::table($this->table)
             ->where('id', $id)
-            ->first();
+            ->first($columns);
     }
 
     public function deleteById(int $id)

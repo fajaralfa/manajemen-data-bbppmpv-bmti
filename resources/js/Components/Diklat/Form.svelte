@@ -13,7 +13,7 @@
         TEMPAT_LAHIR: null,
         TANGGAL_LAHIR: null,
         USIA: null,
-        JENIS_KELAMIN: null,
+        KELAMIN: null,
         JABATAN: null,
         GOLONGAN: null,
         NOMOR_HP: null,
@@ -109,9 +109,9 @@
             <div>
                 <label for="jenis_kelamin">Jenis kelamin:</label>
                 <div class="flex gap-3">
-                    <input type="radio" name="jenis_kelamin" value="L" class="radio" bind:group={input['JENIS_KELAMIN']} />
+                    <input type="radio" name="jenis_kelamin" value="L" class="radio" bind:group={input['KELAMIN']} />
                     <label for="jenis_kelamin">Laki-laki</label>
-                    <input type="radio" name="jenis_kelamin" value="P" class="radio" bind:group={input['JENIS_KELAMIN']} />
+                    <input type="radio" name="jenis_kelamin" value="P" class="radio" bind:group={input['KELAMIN']} />
                     <label for="jenis_kelamin">Perempuan</label>
                 </div>
             </div>
