@@ -5,11 +5,11 @@
 
     export let input
 
-    let idDiklat = window.location.pathname.split('/')[2]
+    let idPrakerin = window.location.pathname.split('/')[2]
 
     function submit(input) {
         console.log(input)
-        router.put(`/prakerin/${idDiklat}`, input)
+        router.post(`/prakerin/${idPrakerin}/edit`, input)
     }
 
     export let errors, data

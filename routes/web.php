@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
     Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
     Route::put('/diklat/{id}', [DiklatController::class, 'edit']);
-    Route::put('/prakerin/{id}', [PrakerinController::class, 'edit']);
+    Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
     Route::put('/inventaris/{id}', [InventarisController::class, 'edit']);
     Route::put('/sekolah/{id}', [SekolahController::class, 'edit']);
 });

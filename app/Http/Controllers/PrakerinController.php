@@ -73,27 +73,19 @@ class PrakerinController extends Controller
 
     public function edit(string $id)
     {
-        $input = request()->validate([
-            'NAMA_LENGKAP' => ['required'],
-            'NAMA_SEKOLAH' => ['required'],
-            'NIS/NIM' => ['required'],
-            'BIDANG_KEAHLIAN' => ['required'],
-            'PROGRAM_KEAHLIAN' => ['required'],
-            'TEMPAT_LAHIR' => ['required'],
-            'TANGGAL_LAHIR' => ['required'],
-            'JENIS_KELAMIN' => ['required'],
-            'AGAMA' => ['required'],
-            'ALAMAT_LENGKAP' => ['required'],
-            'NO_HP' => ['required'],
-            'EMAIL' => ['required'],
-            'FOTO' => ['required'],
+        $input = request()->only([
+            'NAMA_LENGKAP', 'NAMA_SEKOLAH', 'NIS/NIM', 'BIDANG_KEAHLIAN',
+            'PROGRAM_KEAHLIAN', 'TEMPAT_LAHIR', 'TANGGAL_LAHIR', 'JENIS_KELAMIN',
+            'AGAMA', 'ALAMAT_LENGKAP', 'NO_HP', 'EMAIL', 'FOTO',
         ]);
 
-        $oldPhoto = (array) $this->prakerinRepository->findById((int) $id)['FOTO'];
-        Storage::delete('foto-prakerin/' . $oldPhoto);
+        if (request()->has('FOTO')) {
+            $oldPhoto = ((array) $this->prakerinRepository->findById((int) $id))['FOTO'];
+            Storage::delete('foto-prakerin/' . $oldPhoto);
 
-        $newPhoto = request()->file('FOTO')->store('foto-prakerin');
-        $input['FOTO'] = $newPhoto;
+            $newPhoto = request()->file('FOTO')->store('foto-prakerin');
+            $input['FOTO'] = $newPhoto;
+        }
 
         $input = $this->helper->mapRequestToTable($input);
 
