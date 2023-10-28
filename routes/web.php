@@ -61,5 +61,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/diklat/{id}/edit', [DiklatController::class, 'edit']);
     Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
     Route::post('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
-    Route::put('/sekolah/{id}', [SekolahController::class, 'edit']);
+    Route::post('/sekolah/{id}/edit', [SekolahController::class, 'edit']);
 });
