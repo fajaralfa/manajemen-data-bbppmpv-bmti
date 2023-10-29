@@ -1,4 +1,5 @@
 <script>
+    import { slide } from 'svelte/transition'
     import { inertia } from '@inertiajs/svelte'
     import ThreeDotIcon from '../Assets/ThreeDotIcon.svelte'
     import HamburgerIcon from '../Assets/HamburgerIcon.svelte'
@@ -32,7 +33,7 @@
         <button class="btn btn-square btn-ghost"><ThreeDotIcon /></button>
     </div>
 </div>
-<div class="h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
+<div class="sidebar h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
     <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-black text-base-content">
         <!-- Sidebar content here -->
         <li>
@@ -41,7 +42,7 @@
         <li>
             <a on:click={() => dropDownToggle(0)}>Prakerin</a>
             {#if dropdownList[0]}
-                <ul>
+                <ul transition:slide>
                     <li><a href="/prakerin" use:inertia>Lihat Data</a></li>
                     <li><a href="/prakerin/add" use:inertia>Tambah Data</a></li>
                 </ul>
@@ -50,7 +51,7 @@
         <li>
             <a on:click={() => dropDownToggle(1)}>Diklat</a>
             {#if dropdownList[1]}
-                <ul>
+                <ul transition:slide>
                     <li><a href="/diklat" use:inertia>Lihat Data</a></li>
                     <li><a href="/diklat/add" use:inertia>Tambah Data</a></li>
                     <li><a href="/diklat/import" use:inertia>Import Data</a></li>
@@ -60,7 +61,7 @@
         <li>
             <a on:click={() => dropDownToggle(2)}>Inventaris</a>
             {#if dropdownList[2]}
-                <ul>
+                <ul transition:slide>
                     <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
                     <li><a href="/inventaris/add" use:inertia>Tambah Data</a></li>
                 </ul>
@@ -81,9 +82,15 @@
     </ul>
 </div>
 
-<div class="min-h-[92vh] {sidebarShow ? 'ml-52' : 'ml-0'}"><slot /></div>
+<div class="main min-h-[92vh] {sidebarShow ? 'ml-52' : 'ml-0'}"><slot /></div>
 
 <style>
+    .main {
+        transition: margin-left 0.5s;
+    }
+    .sidebar {
+        transition: width 0.5s;
+    }
     a {
         @apply rounded-none;
     }
