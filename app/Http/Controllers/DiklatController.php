@@ -6,6 +6,7 @@ use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Http\RequestTableColumn\DiklatColumn;
 use App\Repository\DiklatRepository;
+use App\Repository\JoinRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ class DiklatController extends Controller
 {
     public function __construct(
         private DiklatRepository $diklatRepository,
+        private JoinRepository $joinRepository,
         private DiklatColumn $diklatColumn,
         private Xlsx $xlsx,
         private Converter $converter,
@@ -24,7 +26,13 @@ class DiklatController extends Controller
     }
     public function view()
     {
-        $data = DB::table('diklat')->get();
+        $data = $this->joinRepository->getDiklatSekolah([
+            'diklat.ID AS ID', 'NIK', 'NUPTK', 'NIP', 'NO UKG', 'NAMA LENGKAP', 'TEMPAT LAHIR', 'TANGGAL LAHIR', 'USIA', 'KELAMIN',
+            'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN', 'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN',
+            'MAPEL AJAR', 'KELAS AJAR', 'NAMA SEKOLAH', 'diklat.NPSN SEKOLAH', 'NAMA KEPALA SEKOLAH', 'NOMOR HP KEPALA SEKOLAH',
+            'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH', 'PROVINSI SEKOLAH', 'KELAS', 'NAMA DIKLAT', 'TANGGAL PERIODE AWAL',
+            'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT',
+        ]);
         return inertia('Diklat/View', ['data' => $data]);
     }
 
