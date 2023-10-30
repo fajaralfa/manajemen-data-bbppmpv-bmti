@@ -12,6 +12,7 @@
         Link_Produk: null,
         Urgensi: null,
         Kategori: null,
+        Waktu_Pengadaan: null,
     }
 
     export let submit
@@ -75,6 +76,10 @@
             <div>
                 <label for="kategori">Kategori:</label>
                 <input type="text" name="kategori" class="input w-full max-w-xs" bind:value={input.Kategori} />
+            </div>
+            <div>
+                <label for="waktu_pengadaan">Waktu Pengadaan:</label>
+                <input type="date" name="waktu_pengadaan" class="input w-full max-w-xs" bind:value={input.Waktu_Pengadaan} />
             </div>
             <div>
                 <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
