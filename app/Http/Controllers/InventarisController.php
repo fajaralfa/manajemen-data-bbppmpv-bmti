@@ -21,7 +21,7 @@ class InventarisController extends Controller
 
         $filters = $this->helper->mapRequestToTable($filters);
 
-        $data = $this->inventarisRepository->getByFilters(filters: $filters);
+        $data = $this->inventarisRepository->getByFilters($filters);
 
         return inertia('Inventaris/View', ['data' => $data, 'q' => $filters]);
     }

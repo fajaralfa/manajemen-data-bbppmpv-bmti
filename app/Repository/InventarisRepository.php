@@ -14,7 +14,7 @@ class InventarisRepository extends Repository
         return $this->findById($id, ['Gambar'])->Gambar;
     }
 
-    public function getByFilters(array $columns = ['*'], array $filters)
+    public function getByFilters(array $filters, array $columns = ['*'])
     {
         //jika nilai filter kosong, jangan di masukan.
         //jangan masukan waktu pengadaan secara langsung.
@@ -32,6 +32,6 @@ class InventarisRepository extends Repository
             $result = $result->where($key, $val);
         }
 
-        return $result->get();
+        return $result->get($columns);
     }
 }
