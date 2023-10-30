@@ -9,5 +9,10 @@
 </script>
 
 <Layout>
-    <Table {data} urlGroup="prakerin">Data Peserta Prakerin</Table>
+    <Table {data} urlGroup="prakerin">
+        <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
+        <div>
+            <form>save</form>
+        </div>
+    </Table>
 </Layout>

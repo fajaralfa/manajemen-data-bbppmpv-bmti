@@ -17,8 +17,13 @@ class InventarisController extends Controller
 
     public function view()
     {
-        $data = $this->inventarisRepository->get();
-        return inertia('Inventaris/View', ['data' => $data]);
+        $filters = request()->collect()->only(['Nama_Peralatan', 'Waktu_Pengadaan', 'Kategori'])->all();
+
+        $filters = $this->helper->mapRequestToTable($filters);
+
+        $data = $this->inventarisRepository->getByFilters(filters: $filters);
+
+        return inertia('Inventaris/View', ['data' => $data, 'q' => $filters]);
     }
 
     public function store()
@@ -93,7 +98,7 @@ class InventarisController extends Controller
             'Link_Produk',
             'Urgensi',
             'Kategori',
-            'Waktu Pengadaan',
+            'Waktu_Pengadaan',
         ]);
 
         $input = $this->helper->mapRequestToTable($input);
