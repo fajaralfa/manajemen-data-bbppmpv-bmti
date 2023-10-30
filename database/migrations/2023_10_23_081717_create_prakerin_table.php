@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('prakerin', function (Blueprint $table) {
             $table->id();
             $table->string('NAMA LENGKAP', 255);
-            $table->string('NAMA SEKOLAH', 100);
             $table->string('NIS/NIM', 50)->unique();
             $table->string('BIDANG KEAHLIAN', 100);
             $table->string('PROGRAM KEAHLIAN', 100);
@@ -25,7 +24,17 @@ return new class extends Migration
             $table->string('ALAMAT LENGKAP', 255);
             $table->string('NO HP', 20);
             $table->string('EMAIL', 50);
+            $table->string('HOBBY', 255);
             $table->string('FOTO', 255);
+            $table->date('TANGGAL MASUK');
+            $table->date('TANGGAL KELUAR');
+            $table->string('TEMPAT/DEPARTEMEN PELAKSANAAN', 255);
+            $table->string('NAMA SEKOLAH', 255);
+            $table->string('KABUPATEN/KOTA SEKOLAH', 255);
+            $table->enum('STATUS SEKOLAH', ['NEGERI', 'SWASTA']);
+            $table->string('NSS', 255)->nullable();
+            $table->string('ALAMAT LENGKAP SEKOLAH', 255);
+            $table->string('POSEL SEKOLAH', 255);
             $table->timestamps();
         });
     }
