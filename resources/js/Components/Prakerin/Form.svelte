@@ -4,6 +4,7 @@
         'NIS/NIM': null,
         BIDANG_KEAHLIAN: null,
         PROGRAM_KEAHLIAN: null,
+        KOMPETENSI_KEAHLIAN: null,
         TEMPAT_LAHIR: null,
         TANGGAL_LAHIR: null,
         JENIS_KELAMIN: null,
@@ -46,6 +47,15 @@
             <div>
                 <label for="program">Program Keahlian:</label>
                 <input type="text" name="program" class="input w-full max-w-xs" bind:value={input.PROGRAM_KEAHLIAN} />
+            </div>
+            <div>
+                <label for="kompetensi_keahlian">Kompetensi Keahlian:</label>
+                <input
+                    type="text"
+                    name="kompetensi_keahlian"
+                    class="input w-full max-w-xs"
+                    bind:value={input.KOMPETENSI_KEAHLIAN}
+                />
             </div>
             <div>
                 <label for="tempat_lahir">Tempat Lahir:</label>
@@ -166,7 +176,7 @@
                 <textarea class="textarea" name="alamat_sekolah" bind:value={input.ALAMAT_LENGKAP_SEKOLAH}></textarea>
             </div>
             <div>
-                <label for="posel_sekolah">Posel Sekolah:</label>
+                <label for="posel_sekolah">Email Sekolah:</label>
                 <input type="email" name="posel_sekolah" class="input w-full max-w-xs" bind:value={input.POSEL_SEKOLAH} />
             </div>
             <div>

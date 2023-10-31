@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('NIS/NIM', 50)->unique();
             $table->string('BIDANG KEAHLIAN', 100);
             $table->string('PROGRAM KEAHLIAN', 100);
+            $table->string('KOMPETENSI KEAHLIAN', 100);
             $table->string('TEMPAT LAHIR', 100);
             $table->string('TANGGAL LAHIR', 50);
             $table->enum('JENIS KELAMIN', ['L', 'P']);
