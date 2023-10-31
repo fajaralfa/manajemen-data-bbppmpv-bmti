@@ -17,7 +17,10 @@ class PrakerinController extends Controller
 
     public function view()
     {
-        $data = $this->prakerinRepository->get();
+        $qNama = request()->query('nama');
+        $qNis = request()->query('nis');
+        $qTahun = request()->query('tahun');
+        $data = $this->prakerinRepository->filterNamaNisTahun($qNama, $qNis, $qTahun);
         return inertia('Prakerin/View', ['data' => $data]);
     }
 

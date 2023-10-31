@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
-            $table->integer('No')->nullable();
+            $table->string('Kategori', 255)->nullable();
             $table->string('Nama Peralatan', 255);
             $table->string('Gambar');
+            $table->string('Merk', 50)->nullable();
+            $table->string('Tipe', 20)->nullable();
             $table->string('Spesifikasi', 255);
+            $table->string('Nomor Seri', 50)->nullable();
             $table->string('Satuan', 255);
             $table->integer('Volume')->nullable();
             $table->integer('Harga Satuan');
@@ -24,7 +27,6 @@ return new class extends Migration
             $table->string('Keterangan Produk', 255)->nullable();
             $table->string('Link Produk', 255);
             $table->string('Urgensi', 255);
-            $table->string('Kategori', 255)->nullable();
             $table->date('Waktu Pengadaan')->nullable();
             $table->timestamps();
         });

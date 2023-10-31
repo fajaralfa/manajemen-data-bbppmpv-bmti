@@ -1,9 +1,12 @@
 <script>
     export let input = {
-        No: null,
+        Kategori: null,
         Nama_Peralatan: null,
         Gambar: null,
+        Merk: null,
+        Tipe: null,
         Spesifikasi: null,
+        Nomor_Seri: null,
         Satuan: null,
         Volume: null,
         Harga_Satuan: null,
@@ -11,7 +14,6 @@
         Keterangan_Produk: null,
         Link_Produk: null,
         Urgensi: null,
-        Kategori: null,
         Waktu_Pengadaan: null,
     }
 
@@ -22,8 +24,8 @@
     <form on:submit|preventDefault={() => submit(input)} class="flex flex-col gap-y-6 items-center">
         <div class="input-container">
             <div>
-                <label for="no">No:</label>
-                <input type="text" name="nama_barang" bind:value={input.No} class="input w-full max-w-xs" />
+                <label for="Kategori">Kategori:</label>
+                <input type="text" name="kategori" bind:value={input.Kategori} class="input w-full max-w-xs" />
             </div>
             <div>
                 <label for="nama_barang">Nama Peralatan:</label>
@@ -39,8 +41,20 @@
                 />
             </div>
             <div>
+                <label for="merk">Merk:</label>
+                <input type="text" name="merk" bind:value={input.Merk} class="input w-full max-w-xs" />
+            </div>
+            <div>
+                <label for="tipe">Tipe:</label>
+                <input type="text" name="tipe" bind:value={input.Tipe} class="input w-full max-w-xs" />
+            </div>
+            <div>
                 <label for="spesifikasi">Spesifikasi:</label>
                 <textarea class="textarea" name="spesifikasi" bind:value={input.Spesifikasi}></textarea>
+            </div>
+            <div>
+                <label for="nomor_seri">Nomor Seri:</label>
+                <input type="text" name="nomor_seri" bind:value={input.Nomor_Seri} class="input w-full max-w-xs" />
             </div>
             <div>
                 <label for="satuan">Satuan:</label>
@@ -72,10 +86,6 @@
             <div>
                 <label for="urgensi">Urgensi:</label>
                 <textarea class="textarea" name="urgensi" bind:value={input.Urgensi}></textarea>
-            </div>
-            <div>
-                <label for="kategori">Kategori:</label>
-                <input type="text" name="kategori" class="input w-full max-w-xs" bind:value={input.Kategori} />
             </div>
             <div>
                 <label for="waktu_pengadaan">Waktu Pengadaan:</label>

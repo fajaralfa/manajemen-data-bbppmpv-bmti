@@ -29,10 +29,13 @@ class InventarisController extends Controller
     public function store()
     {
         $input = request()->validate([
-            'No' => [],
+            'Kategori' => [],
             'Nama_Peralatan' => ['required'],
             'Gambar' => ['required'],
+            'Merk' => [],
+            'Tipe' => [],
             'Spesifikasi' => ['required'],
+            'Nomor_Seri' => [],
             'Satuan' => ['required'],
             'Volume' => [],
             'Harga_Satuan' => ['required'],
@@ -40,7 +43,6 @@ class InventarisController extends Controller
             'Keterangan_Produk' => [],
             'Link_Produk' => ['required'],
             'Urgensi' => ['required'],
-            'Kategori' => [],
             'Waktu_Pengadaan' => [],
         ]);
 
@@ -65,9 +67,12 @@ class InventarisController extends Controller
     public function editPage(string $id)
     {
         $data = (array) $this->inventarisRepository->findById((int) $id, [
-            'No',
+            'Kategori',
             'Nama Peralatan',
+            'Merk',
+            'Tipe',
             'Spesifikasi',
+            'Nomor Seri',
             'Satuan',
             'Volume',
             'Harga Satuan',
@@ -75,7 +80,6 @@ class InventarisController extends Controller
             'Keterangan Produk',
             'Link Produk',
             'Urgensi',
-            'Kategori',
             'Waktu Pengadaan',
         ]);
         $data =  $this->helper->mapTableToRequest($data);
@@ -86,10 +90,13 @@ class InventarisController extends Controller
     public function edit(string $id)
     {
         $input = request()->only([
-            'No',
+            'Kategori',
             'Nama_Peralatan',
             'Gambar',
+            'Merk',
+            'Tipe',
             'Spesifikasi',
+            'Nomor Seri',
             'Satuan',
             'Volume',
             'Harga_Satuan',
@@ -97,7 +104,6 @@ class InventarisController extends Controller
             'Keterangan_Produk',
             'Link_Produk',
             'Urgensi',
-            'Kategori',
             'Waktu_Pengadaan',
         ]);
 

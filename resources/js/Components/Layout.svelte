@@ -43,8 +43,8 @@
             <a on:click={() => dropDownToggle(0)}>Prakerin</a>
             {#if dropdownList[0]}
                 <ul transition:slide>
-                    <li><a href="/prakerin" use:inertia>Lihat Data</a></li>
                     <li><a href="/prakerin/add" use:inertia>Tambah Data</a></li>
+                    <li><a href="/prakerin" use:inertia>Lihat Data</a></li>
                 </ul>
             {/if}
         </li>
@@ -52,8 +52,8 @@
             <a on:click={() => dropDownToggle(1)}>Diklat</a>
             {#if dropdownList[1]}
                 <ul transition:slide>
-                    <li><a href="/diklat" use:inertia>Lihat Data</a></li>
                     <li><a href="/diklat/add" use:inertia>Tambah Data</a></li>
+                    <li><a href="/diklat" use:inertia>Lihat Data</a></li>
                     <li><a href="/diklat/import" use:inertia>Import Data</a></li>
                 </ul>
             {/if}
@@ -62,8 +62,8 @@
             <a on:click={() => dropDownToggle(2)}>Inventaris</a>
             {#if dropdownList[2]}
                 <ul transition:slide>
-                    <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
                     <li><a href="/inventaris/add" use:inertia>Tambah Data</a></li>
+                    <li><a href="/inventaris" use:inertia>Lihat Data</a></li>
                 </ul>
             {/if}
         </li>
@@ -71,8 +71,8 @@
             <a on:click={() => dropDownToggle(3)}>Sekolah</a>
             {#if dropdownList[3]}
                 <ul>
-                    <li><a href="/sekolah" use:inertia>Lihat Data</a></li>
                     <li><a href="/sekolah/add" use:inertia>Tambah Data</a></li>
+                    <li><a href="/sekolah" use:inertia>Lihat Data</a></li>
                 </ul>
             {/if}
         </li>
