@@ -17,24 +17,31 @@ class InventarisController extends Controller
 
     public function view()
     {
-        $data = $this->inventarisRepository->get();
-        return inertia('Inventaris/View', ['data' => $data]);
+        $filters = request()->collect()->only(['Nama_Peralatan', 'Waktu_Pengadaan', 'Kategori'])->all();
+
+        $filters = $this->helper->mapRequestToTable($filters);
+
+        $data = $this->inventarisRepository->getByFilters($filters);
+
+        return inertia('Inventaris/View', ['data' => $data, 'q' => $filters]);
     }
 
     public function store()
     {
         $input = request()->validate([
-            'No' => ['required'],
+            'No' => [],
             'Nama_Peralatan' => ['required'],
             'Gambar' => ['required'],
             'Spesifikasi' => ['required'],
             'Satuan' => ['required'],
-            'Volume' => ['required'],
+            'Volume' => [],
             'Harga_Satuan' => ['required'],
             'Jumlah' => ['required'],
-            'Keterangan_Produk' => ['required'],
+            'Keterangan_Produk' => [],
             'Link_Produk' => ['required'],
             'Urgensi' => ['required'],
+            'Kategori' => [],
+            'Waktu_Pengadaan' => [],
         ]);
 
         $input['Gambar'] = request()->file('Gambar')->store('foto-inventaris');
@@ -68,6 +75,8 @@ class InventarisController extends Controller
             'Keterangan Produk',
             'Link Produk',
             'Urgensi',
+            'Kategori',
+            'Waktu Pengadaan',
         ]);
         $data =  $this->helper->mapTableToRequest($data);
 
@@ -88,6 +97,8 @@ class InventarisController extends Controller
             'Keterangan_Produk',
             'Link_Produk',
             'Urgensi',
+            'Kategori',
+            'Waktu_Pengadaan',
         ]);
 
         $input = $this->helper->mapRequestToTable($input);
