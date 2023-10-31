@@ -26,14 +26,16 @@ class DiklatController extends Controller
     }
     public function view()
     {
-        $data = $this->joinRepository->getDiklatSekolah([
+        $qTahun = request()->query('tahun');
+        $qNama = request()->query('nama');
+        $data = $this->joinRepository->filterByNamaTahun($qNama, $qTahun, [
             'diklat.ID AS ID', 'NIK', 'NUPTK', 'NIP', 'NO UKG', 'NAMA LENGKAP', 'TEMPAT LAHIR', 'TANGGAL LAHIR', 'USIA', 'KELAMIN',
             'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN', 'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN',
             'MAPEL AJAR', 'KELAS AJAR', 'NAMA SEKOLAH', 'diklat.NPSN SEKOLAH', 'NAMA KEPALA SEKOLAH', 'NOMOR HP KEPALA SEKOLAH',
             'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH', 'PROVINSI SEKOLAH', 'KELAS', 'NAMA DIKLAT', 'TANGGAL PERIODE AWAL',
             'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT',
         ]);
-        return inertia('Diklat/View', ['data' => $data]);
+        return inertia('Diklat/View', ['data' => $data,]);
     }
 
     public function store()
