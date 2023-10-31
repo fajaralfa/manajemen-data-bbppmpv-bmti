@@ -1,7 +1,6 @@
 <script>
     export let input = {
         NAMA_LENGKAP: null,
-        NAMA_SEKOLAH: null,
         'NIS/NIM': null,
         BIDANG_KEAHLIAN: null,
         PROGRAM_KEAHLIAN: null,
@@ -13,6 +12,16 @@
         NO_HP: null,
         EMAIL: null,
         FOTO: null,
+        TANGGAL_MASUK: null,
+        TANGGAL_KELUAR: null,
+        'TEMPAT/DEPARTEMEN_PELAKSANAAN': null,
+        NAMA_SEKOLAH: null,
+        'KABUPATEN/KOTA_SEKOLAH': null,
+        STATUS_SEKOLAH: null,
+        NSS: null,
+        ALAMAT_LENGKAP_SEKOLAH: null,
+        POSEL_SEKOLAH: null,
+        HOBBY: null,
     }
 
     export let submit
@@ -21,13 +30,10 @@
 <div class="p-10">
     <form on:submit|preventDefault={() => submit(input)} class="flex flex-col gap-y-6 items-center">
         <div class="input-container">
+            <h1 class="uppercase font-bold text-xl mb-3">Identitas Siswa</h1>
             <div>
                 <label for="nama">Nama Lengkap:</label>
                 <input type="text" name="nama" class="input w-full max-w-xs" bind:value={input.NAMA_LENGKAP} />
-            </div>
-            <div>
-                <label for="nama_sekolah">Nama Sekolah:</label>
-                <input type="text" name="nama_sekolah" class="input w-full max-w-xs" bind:value={input.NAMA_SEKOLAH} />
             </div>
             <div>
                 <label for="nis">NIS/NIM:</label>
@@ -87,6 +93,10 @@
                 <input type="email" name="email" class="input w-full max-w-xs" bind:value={input.EMAIL} />
             </div>
             <div>
+                <label for="hobby">Hobby:</label>
+                <input type="text" name="hobby" class="input w-full max-w-xs" bind:value={input.HOBBY} />
+            </div>
+            <div>
                 <label for="foto">Foto:</label>
                 <input
                     type="file"
@@ -94,6 +104,70 @@
                     class="file-input file-input-bordered w-full max-w-xs"
                     on:input={(e) => (input.FOTO = e.target.files[0])}
                 />
+            </div>
+            <div>
+                <label for="tanggal_masuk">Tanggal Masuk:</label>
+                <input type="date" name="tanggal_masuk" class="input w-full max-w-xs" bind:value={input.TANGGAL_MASUK} />
+            </div>
+            <div>
+                <label for="tanggal_keluar">Tanggal Keluar:</label>
+                <input type="date" name="tanggal_keluar" class="input w-full max-w-xs" bind:value={input.TANGGAL_KELUAR} />
+            </div>
+            <div>
+                <label for="tempat_departemen_pelaksanaan">Tempat Departemen Pelaksanaan:</label>
+                <input
+                    type="text"
+                    name="tempat_departemen_pelaksanaan"
+                    class="input w-full max-w-xs"
+                    bind:value={input['TEMPAT/DEPARTEMEN_PELAKSANAAN']}
+                />
+            </div>
+            <h1 class="uppercase font-bold text-xl mb-3 mt-5">Identitas Sekolah</h1>
+            <div>
+                <label for="nama_sekolah">Nama Sekolah:</label>
+                <input type="text" name="nama_sekolah" class="input w-full max-w-xs" bind:value={input.NAMA_SEKOLAH} />
+            </div>
+            <div>
+                <label for="kabupaten_kota_sekolah">Kabupaten/Kota Sekolah:</label>
+                <input
+                    type="text"
+                    name="kabupaten_kota_sekolah"
+                    class="input w-full max-w-xs"
+                    bind:value={input['KABUPATEN/KOTA_SEKOLAH']}
+                />
+            </div>
+            <div>
+                <label for="status_sekolah">Status Sekolah:</label>
+                <label for="status_sekolah"
+                    ><input
+                        type="radio"
+                        name="status_sekolah"
+                        value="Negeri"
+                        class="radio"
+                        bind:group={input.STATUS_SEKOLAH}
+                    />Negeri</label
+                >
+                <label for="status_sekolah"
+                    ><input
+                        type="radio"
+                        name="status_sekolah"
+                        value="Swasta"
+                        class="radio"
+                        bind:group={input.STATUS_SEKOLAH}
+                    />Swasta</label
+                >
+            </div>
+            <div>
+                <label for="nss">NSS:</label>
+                <input type="text" name="nss" class="input w-full max-w-xs" bind:value={input.NSS} />
+            </div>
+            <div>
+                <label for="alamat_sekolah">Alamat Lengkap Sekolah:</label>
+                <textarea class="textarea" name="alamat_sekolah" bind:value={input.ALAMAT_LENGKAP_SEKOLAH}></textarea>
+            </div>
+            <div>
+                <label for="posel_sekolah">Posel Sekolah:</label>
+                <input type="email" name="posel_sekolah" class="input w-full max-w-xs" bind:value={input.POSEL_SEKOLAH} />
             </div>
             <div>
                 <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
