@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helper\Converter;
 use App\Helper\Helper;
-use App\Http\RequestTableColumn\DiklatColumn;
 use App\Repository\DiklatRepository;
 use App\Repository\JoinRepository;
 use Illuminate\Http\Request;
@@ -18,7 +17,6 @@ class DiklatController extends Controller
     public function __construct(
         private DiklatRepository $diklatRepository,
         private JoinRepository $joinRepository,
-        private DiklatColumn $diklatColumn,
         private Xlsx $xlsx,
         private Converter $converter,
         private Helper $helper,
