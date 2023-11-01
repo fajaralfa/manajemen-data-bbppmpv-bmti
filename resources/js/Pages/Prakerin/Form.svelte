@@ -11,6 +11,9 @@
     $: console.log($page.props.flash)
 </script>
 
+<svelte:head>
+    <title>Form Pendaftaran Peserta Prakerin</title>
+</svelte:head>
 <Layout>
     <Form {submit} />
 </Layout>

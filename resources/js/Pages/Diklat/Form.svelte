@@ -12,6 +12,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Form Pendaftaran Peserta Diklat</title>
+</svelte:head>
 <Layout>
     <Form {submit} />
 </Layout>

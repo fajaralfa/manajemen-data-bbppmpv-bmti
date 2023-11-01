@@ -2,6 +2,9 @@
     import Layout from '../Components/Layout.svelte'
 </script>
 
+<svelte:head>
+    <title>Dashboard</title>
+</svelte:head>
 <Layout>
     <div class="flex flex-col justify-center items-center gap-y-6">
         <div>

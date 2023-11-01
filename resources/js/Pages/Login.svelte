@@ -14,6 +14,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Login</title>
+</svelte:head>
 <div class="wh-fvh flex flex-col justify-center items-center text-white">
     <div class="bg-glass-dark rounded-xl py-3">
         {#if $page.props.flash.message}

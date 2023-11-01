@@ -16,6 +16,9 @@
     $: console.log(errors, data)
 </script>
 
+<svelte:head>
+    <title>Form Edit Peserta Prakerin</title>
+</svelte:head>
 <Layout>
     <Form {submit} bind:input />
 </Layout>
