@@ -15,6 +15,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Form Edit Peserta Diklat</title>
+</svelte:head>
 <Layout>
     <Form {input} {submit} />
 </Layout>
