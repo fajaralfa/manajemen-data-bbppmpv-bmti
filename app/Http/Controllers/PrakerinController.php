@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -56,7 +57,12 @@ class PrakerinController extends Controller
         $input = $this->helper->mapRequestToTable($input);
         $photoPath = request()->file('FOTO')->store('foto-prakerin');
         $input['FOTO'] = $photoPath;
-        $this->prakerinRepository->save($input);
+
+        try {
+            $this->prakerinRepository->save($input);
+        } catch (UniqueConstraintViolationException $e) {
+            return redirect()->back()->withErrors(['NIS/NIM' => 'NIS/NIM sudah dipakai']);
+        }
 
         return redirect('/prakerin');
     }
@@ -107,7 +113,11 @@ class PrakerinController extends Controller
 
         $input = $this->helper->mapRequestToTable($input);
 
-        $this->prakerinRepository->update((int) $id, $input);
+        try {
+            $this->prakerinRepository->update((int) $id, $input);
+        } catch (UniqueConstraintViolationException $e) {
+            return redirect()->back()->withErrors(['NIS/NIM' => 'NIS/NIM sudah dipakai']);
+        }
         return redirect('/prakerin');
     }
 }
