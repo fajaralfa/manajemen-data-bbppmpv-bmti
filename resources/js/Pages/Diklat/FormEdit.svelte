@@ -5,7 +5,6 @@
 
     export let input
     export let errors = {}
-    $: console.log(errors)
 
     let idDiklat = window.location.pathname.split('/')[2]
 
@@ -19,5 +18,5 @@
     <title>Form Edit Peserta Diklat</title>
 </svelte:head>
 <Layout>
-    <Form {input} {submit} />
+    <Form {input} {submit} {errors} />
 </Layout>

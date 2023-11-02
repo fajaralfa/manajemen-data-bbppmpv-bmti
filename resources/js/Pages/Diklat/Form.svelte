@@ -4,7 +4,6 @@
     import Layout from '../../Components/Layout.svelte'
 
     export let errors = {}
-    $: console.log(errors)
 
     function submit(input) {
         console.log(input)
@@ -16,5 +15,5 @@
     <title>Form Pendaftaran Peserta Diklat</title>
 </svelte:head>
 <Layout>
-    <Form {submit} />
+    <Form {submit} {errors} />
 </Layout>
