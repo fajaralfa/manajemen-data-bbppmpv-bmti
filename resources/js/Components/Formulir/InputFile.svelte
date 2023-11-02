@@ -4,14 +4,15 @@
 </script>
 
 <div class="flex justify-between items-center">
-    <label><slot>Field</slot></label>
+    <label for="nama"><slot>File Field</slot></label>
     <div class="max-w-xs w-full">
         {#if error}
             <div class="text-xs text-center">{error}</div>
         {/if}
-        <input type="text" class="input w-full max-w-xs border {error ? 'border border-red-600' : ''}" bind:value />
+        <input
+            type="file"
+            class="input w-full max-w-xs border {error ? 'border border-red-600' : ''}"
+            on:input={(e) => (value = e.target.files[0])}
+        />
     </div>
 </div>
-
-<style>
-</style>
