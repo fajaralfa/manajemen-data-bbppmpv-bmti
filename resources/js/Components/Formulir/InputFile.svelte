@@ -1,6 +1,6 @@
 <script>
     import Input from './Input.svelte'
-    export let value = ''
+    export let value
     export let error = ''
 </script>
 
