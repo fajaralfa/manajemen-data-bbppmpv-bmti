@@ -32,7 +32,7 @@
     }
 
     export let submit
-    export let errors
+    export let errors = {}
 
     let keahlian = {
         // bidang keahlian
