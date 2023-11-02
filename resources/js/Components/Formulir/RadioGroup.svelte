@@ -12,7 +12,7 @@
         {#if error}
             <div class="text-xs text-center">{error}</div>
         {/if}
-        <div class="p-2 flex flex-col gap-2 {error ? 'border border-red-600' : ''}">
+        <div class="p-2 flex gap-2 {error ? 'border border-red-600' : ''}">
             {#each Object.entries(options) as [label, val]}
                 <label value={val} class="flex items-center gap-3">
                     <input type="radio" value={val} class="radio" bind:group={value} />
