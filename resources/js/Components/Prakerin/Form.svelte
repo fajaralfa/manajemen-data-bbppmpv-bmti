@@ -3,6 +3,7 @@
     import InputFile from '../Formulir/InputFile.svelte'
     import InputDate from '../Formulir/InputDate.svelte'
     import RadioGroup from '../Formulir/RadioGroup.svelte'
+    import SelectObject from '../Formulir/SelectObject.svelte'
 
     export let input = {
         NAMA_LENGKAP: null,
@@ -32,6 +33,41 @@
 
     export let submit
     export let errors
+
+    let keahlian = {
+        // bidang keahlian
+        'TEKNOLOGI INFORMASI': {
+            // program keahlian
+            'PENGEMBANGAN PERANGKAT LUNAK DAN GIM': {
+                // kompetensi keahlian
+                'REKAYASA PERANGKAT LUNAK': true,
+                'PENGEMBANGAN GIM': true,
+                'SISTEM INFORMASI, JARINGAN DAN APLIKASI': true,
+            },
+            '3 DIMENSI': {
+                'REKAYASA LUNAK': true,
+                'PENGEMBANGAN GIM': true,
+                'SISTEM INFORMASI, JARINGAN DAN APLIKASI': true,
+            },
+        },
+        'TEKNOLOGI KOMUNIKASI': {
+            NELEPON: {
+                'REKAYASA PERANGKAT LUNAK': true,
+                'PENGEMBANGAN GIM': true,
+                'SISTEM INFORMASI, JARINGAN DAN APLIKASI': true,
+            },
+        },
+    }
+
+    let bidangKeahlianOpt = {}
+    let programKeahlianOpt = {}
+    let kompKeahlianOpt = {}
+
+    bidangKeahlianOpt = keahlian
+    $: {
+        programKeahlianOpt = bidangKeahlianOpt[input.BIDANG_KEAHLIAN] ?? {}
+        kompKeahlianOpt = programKeahlianOpt[input.PROGRAM_KEAHLIAN] ?? {}
+    }
 </script>
 
 <div class="p-10">
@@ -39,13 +75,19 @@
         <div class="input-container">
             <h1 class="uppercase font-bold text-xl mb-3">Identitas Siswa</h1>
 
-            <InputText bind:value={input.NAMA_LENGKAP} error={errors.NAMA_LENGKAP}>Nama Lengkap</InputText>
+            <InputText bind:value={input['NAMA_LENGKAP']} error={errors['NAMA_LENGKAP']}>Nama Lengkap</InputText>
             <InputText bind:value={input['NIS/NIM']} error={errors['NIS/NIM']}>NIS/NIM</InputText>
-            <InputText bind:value={input['BIDANG_KEAHLIAN']} error={errors['BIDANG_KEAHLIAN']}>Bidang Keahlian:</InputText>
-            <InputText bind:value={input['PROGRAM_KEAHLIAN']} error={errors['PROGRAM_KEAHLIAN']}>Program Keahlian</InputText>
-            <InputText bind:value={input['KOMPETENSI_KEAHLIAN']} error={errors['KOMPETENSI_KEAHLIAN']}>
+
+            <SelectObject bind:value={input.BIDANG_KEAHLIAN} options={bidangKeahlianOpt} error={errors.BIDANG_KEAHLIAN}>
+                Bidang Keahlian
+            </SelectObject>
+            <SelectObject bind:value={input.PROGRAM_KEAHLIAN} error={errors.PROGRAM_KEAHLIAN} options={programKeahlianOpt}>
+                Program Keahlian
+            </SelectObject>
+            <SelectObject bind:value={input.KOMPETENSI_KEAHLIAN} options={kompKeahlianOpt} error={errors.KOMPETENSI_KEAHLIAN}>
                 Kompetensi Keahlian
-            </InputText>
+            </SelectObject>
+
             <InputText bind:value={input['TEMPAT_LAHIR']} error={errors['TEMPAT_LAHIR']}>Kompetensi Keahlian</InputText>
             <InputText bind:value={input['TANGGAL_LAHIR']} error={errors['TANGGAL_LAHIR']}>Kompetensi Keahlian</InputText>
             <RadioGroup
