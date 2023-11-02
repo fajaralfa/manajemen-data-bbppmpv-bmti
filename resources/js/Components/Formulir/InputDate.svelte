@@ -4,4 +4,4 @@
     export let error = ''
 </script>
 
-<Input type="file" binder={(e) => (value = e.target.files[0])} {error}>Input File</Input>
+<Input type="date" binder={(e) => (value = e.currentTarget.value)} {error}><slot>Input Date</slot></Input>

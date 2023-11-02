@@ -4,6 +4,8 @@
     import TextArea from '../Formulir/TextArea.svelte'
     import Option from '../Formulir/Option.svelte'
     import RadioGroup from '../Formulir/RadioGroup.svelte'
+    import InputDate from '../Formulir/InputDate.svelte'
+    import InputFile from '../Formulir/InputFile.svelte'
 
     export let input = {
         NAMA_LENGKAP: null,
@@ -64,9 +66,11 @@
             <InputText bind:value={input.NIP} error={errors.NIP}>NIP</InputText>
             <InputText bind:value={input.NO_UKG} error={errors.NO_UKG}>No. UKG</InputText>
             <InputText bind:value={input.TEMPAT_LAHIR} error={errors.TEMPAT_LAHIR}>Tempat Lahir</InputText>
-            <InputText bind:value={input.TANGGAL_LAHIR} type="date" error={errors.TANGGAL_LAHIR}>Tanggal Lahir</InputText>
+            <InputDate bind:value={input.TANGGAL_LAHIR} error={errors.TANGGAL_LAHIR}>Tanggal Lahir</InputDate>
             <InputText bind:value={input.USIA} error={errors.USIA}>Usia</InputText>
-            <RadioGroup bind:value={input.KELAMIN} options={{ 'Laki - Laki': 'L', Perempuan: 'P' }}>Jenis Kelamin</RadioGroup>
+            <RadioGroup bind:value={input.KELAMIN} options={{ 'Laki - Laki': 'L', Perempuan: 'P' }} error={errors.KELAMIN}
+                >Jenis Kelamin</RadioGroup
+            >
             <InputText bind:value={input.JABATAN} error={errors.JABATAN}>Jabatan</InputText>
             <InputText bind:value={input.GOLONGAN} error={errors.GOLONGAN}>Golongan</InputText>
             <InputText bind:value={input.NOMOR_HP} error={errors.NOMOR_HP}>Nomor HP</InputText>
@@ -75,23 +79,11 @@
             <InputText bind:value={input.KELAS_AJAR} error={errors.KELAS_AJAR}>Kelas Ajar</InputText>
             <InputText bind:value={input.KELAS} error={errors.KELAS}>Kelas</InputText>
             <InputText bind:value={input.NAMA_DIKLAT} error={errors.NAMA_DIKLAT}>Nama Diklat</InputText>
-            <InputText bind:value={input.TANGGAL_PERIODE_AWAL} type="date" error={errors.TANGGAL_PERIODE_AWAL}
-                >Periode Awal</InputText
-            >
-            <InputText bind:value={input.TANGGAL_PERIODE_AKHIR} type="date" error={errors.TANGGAL_PERIODE_AKHIR}
-                >Periode Akhir</InputText
-            >
+            <InputDate bind:value={input.TANGGAL_PERIODE_AWAL} error={errors.TANGGAL_PERIODE_AWAL}>Periode Awal</InputDate>
+            <InputDate bind:value={input.TANGGAL_PERIODE_AKHIR} error={errors.TANGGAL_PERIODE_AKHIR}>Periode Akhir</InputDate>
             <InputText bind:value={input.TEMPAT_DIKLAT} error={errors.TEMPAT_DIKLAT}>Tempat Diklat</InputText>
             <InputText bind:value={input.RIWAYAT_DIKLAT} error={errors.RIWAYAT_DIKLAT}>Riwayat Diklat</InputText>
-            <div>
-                <label for="foto">Foto:</label>
-                <input
-                    type="file"
-                    name="foto"
-                    class="file-input file-input-bordered w-full max-w-xs"
-                    on:input={(e) => (input['FOTO'] = e.target.files[0])}
-                />
-            </div>
+            <InputFile bind:value={input.FOTO} error={errors.FOTO}></InputFile>
             <TextArea bind:value={input.KETERANGAN} error={errors.KETERANGAN}>Keterangan</TextArea>
         </div>
         <div>
