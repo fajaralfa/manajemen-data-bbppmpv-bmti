@@ -6,6 +6,7 @@ use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\DiklatRepository;
 use App\Repository\JoinRepository;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -31,9 +32,9 @@ class DiklatController extends Controller
             'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN', 'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN',
             'MAPEL AJAR', 'KELAS AJAR', 'NAMA SEKOLAH', 'diklat.NPSN SEKOLAH', 'NAMA KEPALA SEKOLAH', 'NOMOR HP KEPALA SEKOLAH',
             'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH', 'PROVINSI SEKOLAH', 'KELAS', 'NAMA DIKLAT', 'TANGGAL PERIODE AWAL',
-            'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT',
+            'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT', 'FOTO',
         ]);
-        return inertia('Diklat/View', ['data' => $data,]);
+        return inertia('Diklat/View', ['data' => $data]);
     }
 
     public function store()
@@ -68,11 +69,16 @@ class DiklatController extends Controller
             'KETERANGAN' => ['required'],
         ]);
 
-        $photoPath = request()->file('FOTO')->store('pasfoto-diklat');
+        $photoPath = request()->file('FOTO')->store('foto-diklat');
         $input['FOTO'] = $photoPath;
 
         $mappedInput = $this->helper->mapRequestToTable($input);
-        $this->diklatRepository->save($mappedInput);
+
+        try {
+            $this->diklatRepository->save($mappedInput);
+        } catch (UniqueConstraintViolationException $e) {
+            return redirect()->back()->withErrors(['NIK' => 'NIK Sudah Digunakan']);
+        }
 
         return redirect('/diklat');
     }
@@ -148,13 +154,19 @@ class DiklatController extends Controller
         ]);
 
         if (request()->has('FOTO')) {
+            $oldPhoto = $this->diklatRepository->getPhotoPath((int) $id);
+            Storage::delete($oldPhoto);
             $photoPath = request()->file('FOTO')->store('foto-diklat');
             $input['FOTO'] = $photoPath;
         }
 
         $input = $this->helper->mapRequestToTable($input);
 
-        $this->diklatRepository->update((int) $id, $input);
+        try {
+            $this->diklatRepository->update((int) $id, $input);
+        } catch (UniqueConstraintViolationException $e) {
+            return redirect()->back()->withErrors(['NIK' => 'NIK Sudah Digunakan']);
+        }
         return redirect('/diklat');
     }
 
