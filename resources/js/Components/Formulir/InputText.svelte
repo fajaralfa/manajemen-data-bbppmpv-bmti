@@ -1,6 +1,7 @@
 <script>
     export let value = ''
     export let error = ''
+    export let type = 'text'
 </script>
 
 <div class="flex justify-between items-center">
@@ -9,7 +10,11 @@
         {#if error}
             <div class="text-xs text-center">{error}</div>
         {/if}
-        <input type="text" class="input w-full max-w-xs border {error ? 'border border-red-600' : ''}" bind:value />
+        <input
+            {type}
+            class="input w-full max-w-xs border {error ? 'border border-red-600' : ''}"
+            on:input={(e) => (value = e.currentTarget.value)}
+        />
     </div>
 </div>
 
