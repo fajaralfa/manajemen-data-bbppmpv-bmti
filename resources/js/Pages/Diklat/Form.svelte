@@ -3,8 +3,7 @@
     import Form from '../../Components/Diklat/Form.svelte'
     import Layout from '../../Components/Layout.svelte'
 
-    export let errors = {}
-    $: console.log(errors)
+    export let errors
 
     function submit(input) {
         console.log(input)
@@ -12,6 +11,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Form Pendaftaran Peserta Diklat</title>
+</svelte:head>
 <Layout>
-    <Form {submit} />
+    <Form {submit} {errors} />
 </Layout>

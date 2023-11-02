@@ -10,6 +10,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Form Edit Data Sekolah</title>
+</svelte:head>
 <Layout>
     <Form {submit} {input} />
 </Layout>

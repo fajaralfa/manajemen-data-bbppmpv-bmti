@@ -16,6 +16,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Peserta Diklat</title>
+</svelte:head>
 <Layout>
     <Table {data} urlGroup="diklat">
         <div class="text-xl font-bold uppercase">Data Peserta Diklat</div>
