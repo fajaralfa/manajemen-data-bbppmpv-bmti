@@ -14,7 +14,7 @@
         Spesifikasi: null,
         Nomor_Seri: null,
         Satuan: null,
-        Harga_Satuan: null,
+        Volume: null,
         Harga_Satuan: null,
         Jumlah: null,
         Keterangan_Produk: null,
@@ -35,10 +35,11 @@
             <InputText bind:value={input.Merk} error={errors.Merk}>Merk</InputText>
             <InputText bind:value={input.Tipe} error={errors.Tipe}>Tipe</InputText>
             <InputText bind:value={input.Spesifikasi} error={errors.Spesifikasi}>Spesifikasi</InputText>
-            <InputText bind:value={input.Nomor_Seri} error={errors.Nomor_Seri}>Nomor_Seri</InputText>
+            <InputText bind:value={input.Nomor_Seri} error={errors.Nomor_Seri}>Nomor Seri</InputText>
             <Option bind:value={input.Satuan} options={['unit', 'slop']}>Satuan</Option>
+            <InputText bind:value={input.Jumlah} error={errors.Jumlah}>Jumlah</InputText>
             <InputText bind:value={input.Harga_Satuan} error={errors.Harga_Satuan}>Harga Satuan</InputText>
-            <InputText bind:value={input.Harga_Satuan} error={errors.Harga_Satuan}>Harga Satuan</InputText>
+            <InputText bind:value={input.Volume} error={errors.Volume}>Volume</InputText>
             <TextArea bind:value={input.Keterangan_Produk} error={errors.Keterangan_Produk}>Keterangan Produk</TextArea>
             <InputText bind:value={input.Link_Produk} error={errors.Link_Produk}>Link Produk</InputText>
             <InputText bind:value={input.Urgensi} error={errors.Urgensi}>Urgensi</InputText>
