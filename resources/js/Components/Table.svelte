@@ -63,8 +63,10 @@
                             {/if}
                         {/each}
                         <td class="right-0 sticky bg-glass-dark">
-                            <button class="p-4" on:click={() => deleteConfirm(row['id'])}><DeleteIcon /></button>
-                            <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id']}/edit` }}><EditIcon /></button>
+                            <button class="p-4" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
+                            <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
+                                ><EditIcon /></button
+                            >
                         </td>
                     </tr>
                 {/each}
