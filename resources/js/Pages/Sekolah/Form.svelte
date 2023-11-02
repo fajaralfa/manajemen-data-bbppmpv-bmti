@@ -2,6 +2,9 @@
     import { router } from '@inertiajs/svelte'
     import Layout from '../../Components/Layout.svelte'
     import Form from '../../Components/Sekolah/Form.svelte'
+
+    export let errors = {}
+
     function submit(input) {
         router.post('/sekolah', input)
     }
@@ -11,5 +14,5 @@
     <title>Form Pendaftaran Data Sekolah</title>
 </svelte:head>
 <Layout>
-    <Form {submit} />
+    <Form {submit} {errors} />
 </Layout>
