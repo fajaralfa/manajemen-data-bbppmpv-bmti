@@ -1,6 +1,4 @@
 <script>
-    import InputText from '../Formulir/InputText.svelte'
-    import TextArea from '../Formulir/TextArea.svelte'
     import { page } from '@inertiajs/svelte'
 
     export let input = {
@@ -33,7 +31,6 @@
     }
 
     export let submit
-    export let errors
 </script>
 
 <div class="p-2">
@@ -43,7 +40,16 @@
 
     <form on:submit|preventDefault={() => submit(input)} class="flex flex-col gap-y-10 rounded-xl bg-glass-dark px-16 py-5">
         <div class="input-container grid grid-flow-col grid-cols-2 gap-x-10 gap-y-4">
-            <InputText bind:value={input.NAMA_LENGKAP} error={errors.NAMA_LENGKAP}>Nama Lengkap:</InputText>
+            <div>
+                <label for="nama">Nama Lengkap:</label>
+                <input
+                    type="text"
+                    name="nama"
+                    placeholder="Nama lengkap..."
+                    class="input w-full max-w-xs"
+                    bind:value={input['NAMA_LENGKAP']}
+                />
+            </div>
             <div>
                 <label for="kompetensi">Kompetensi Keahlian:</label>
                 <select
@@ -72,16 +78,34 @@
                     <option value="rpl">Rpl</option>
                 </select>
             </div>
-            <InputText bind:value={input.NIK} error={errors.NIK}>NIK:</InputText>
-            <InputText bind:value={input.NUPTK} error={errors.NUPTK}>NUPTK:</InputText>
-            <InputText bind:value={input.NIP} error={errors.NIP}>NIP:</InputText>
-            <InputText bind:value={input.NO_UKG} error={errors.NO_UKG}>No UKg:</InputText>
-            <InputText bind:value={input.TEMPAT_LAHIR} error={errors.TEMPAT_LAHIR}>Tempat Lahir:</InputText>
             <div>
-                <label for="taggal_lahir">Tanggal Lahir:</label>
+                <label for="nik">NIK:</label>
+                <input type="text" name="nik" class="input w-full max-w-xs" bind:value={input['NIK']} />
+            </div>
+            <div>
+                <label for="nuptk">NUPTK:</label>
+                <input type="text" name="nuptk" class="input w-full max-w-xs" bind:value={input['NUPTK']} />
+            </div>
+            <div>
+                <label for="nip">NIP:</label>
+                <input type="text" name="nip" class="input w-full max-w-xs" bind:value={input['NIP']} />
+            </div>
+            <div>
+                <label for="no_ukg">No UKG:</label>
+                <input type="text" name="no_ukg" class="input w-full max-w-xs" bind:value={input['NO_UKG']} />
+            </div>
+            <div>
+                <label for="tempat_lahir">Tempat Lahir:</label>
+                <input type="text" name="tempat_lahir" class="input w-full max-w-xs" bind:value={input['TEMPAT_LAHIR']} />
+            </div>
+            <div>
+                <label for="tanggal_lahir">Tanggal Lahir:</label>
                 <input type="date" name="tanggal_lahir" class="input w-full max-w-xs" bind:value={input['TANGGAL_LAHIR']} />
             </div>
-            <InputText bind:value={input.USIA} error={errors.USIA}>Usia:</InputText>
+            <div>
+                <label for="usia">Usia:</label>
+                <input type="text" name="usia" class="input w-full max-w-xs" bind:value={input['USIA']} />
+            </div>
             <div>
                 <label for="jenis_kelamin">Jenis kelamin:</label>
                 <div class="flex gap-3">
@@ -91,14 +115,38 @@
                     <label for="jenis_kelamin">Perempuan</label>
                 </div>
             </div>
-            <InputText bind:value={input.JABATAN} error={errors.JABATAN}>Jabatan:</InputText>
-            <InputText bind:value={input.GOLONGAN} error={errors.GOLONGAN}>Golongan:</InputText>
-            <InputText bind:value={input.NOMOR_HP} error={errors.NOMOR_HP}>Nomor HP:</InputText>
-            <InputText bind:value={input.EMAIL} error={errors.EMAIL}>Email:</InputText>
-            <InputText bind:value={input.MAPEL_AJAR} error={errors.MAPEL_AJAR}>Mapel Ajar:</InputText>
-            <InputText bind:value={input.KELAS_AJAR} error={errors.KELAS_AJAR}>Kelas Ajar:</InputText>
-            <InputText bind:value={input.KELAS} error={errors.KELAS}>Kelas:</InputText>
-            <InputText bind:value={input.NAMA_DIKLAT} error={errors.NAMA_DIKLAT}>Nama Diklat:</InputText>
+            <div>
+                <label for="jabatan">Jabatan:</label>
+                <input type="text" name="jabatan" class="input w-full max-w-xs" bind:value={input['JABATAN']} />
+            </div>
+            <div>
+                <label for="golongan">Golongan:</label>
+                <input type="text" name="golongan" class="input w-full max-w-xs" bind:value={input['GOLONGAN']} />
+            </div>
+            <div>
+                <label for="no_hp">NO HP:</label>
+                <input type="text" name="no_hp" class="input w-full max-w-xs" bind:value={input['NOMOR_HP']} />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="input w-full max-w-xs" bind:value={input['EMAIL']} />
+            </div>
+            <div>
+                <label for="mapel">Mapel Ajar:</label>
+                <input type="text" name="mapel" class="input w-full max-w-xs" bind:value={input['MAPEL_AJAR']} />
+            </div>
+            <div>
+                <label for="kelas_ajar">Kelas Ajar:</label>
+                <input type="text" name="kelas_ajar" class="input w-full max-w-xs" bind:value={input['KELAS_AJAR']} />
+            </div>
+            <div>
+                <label for="kelas">Kelas:</label>
+                <input type="text" name="kelas" class="input w-full max-w-xs" bind:value={input['KELAS']} />
+            </div>
+            <div>
+                <label for="nama_diklat">Nama Diklat:</label>
+                <input type="text" name="nama_diklat" class="input w-full max-w-xs" bind:value={input['NAMA_DIKLAT']} />
+            </div>
             <div>
                 <label for="periode_awal">Periode Awal:</label>
                 <input type="date" name="periode_awal" class="input w-full max-w-xs" bind:value={input['TANGGAL_PERIODE_AWAL']} />
@@ -112,8 +160,14 @@
                     bind:value={input['TANGGAL_PERIODE_AKHIR']}
                 />
             </div>
-            <InputText bind:value={input.TEMPAT_DIKLAT} error={errors.TEMPAT_DIKLAT}>Tempat Diklat:</InputText>
-            <InputText bind:value={input.RIWAYAT_DIKLAT} error={errors.RIWAYAT_DIKLAT}>Riwayat Diklat:</InputText>
+            <div>
+                <label for="tempat_diklat">Tempat Diklat:</label>
+                <input type="text" name="tempat_diklat" class="input w-full max-w-xs" bind:value={input['TEMPAT_DIKLAT']} />
+            </div>
+            <div>
+                <label for="riwayat_diklat">Riwayat Diklat:</label>
+                <input type="text" name="riwayat_diklat" class="input w-full max-w-xs" bind:value={input['RIWAYAT_DIKLAT']} />
+            </div>
             <div>
                 <label for="foto">Foto:</label>
                 <input
@@ -123,7 +177,10 @@
                     on:input={(e) => (input['FOTO'] = e.target.files[0])}
                 />
             </div>
-            <TextArea bind:value={input.KETERANGAN} error={errors.KETERANGAN}>Keterangan:</TextArea>
+            <div>
+                <label for="keterangan">Keterangan:</label>
+                <textarea class="textarea" name="keterangan" bind:value={input['KETERANGAN']}></textarea>
+            </div>
         </div>
         <div>
             <input class="btn btn-neutral" type="submit" name="submit" value="Daftar" />
