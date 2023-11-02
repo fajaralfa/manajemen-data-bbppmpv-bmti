@@ -1,6 +1,6 @@
 <script>
     import { router, page } from '@inertiajs/svelte'
-    import InputText from '../Components/Form/InputText.svelte'
+    import InputText from '../Components/AuthForm/InputText.svelte'
     import LockIcon from '../Assets/LockIcon.svelte'
     export let errors
 
