@@ -1,6 +1,6 @@
 <script>
     import { slide } from 'svelte/transition'
-    import { inertia } from '@inertiajs/svelte'
+    import { inertia, page } from '@inertiajs/svelte'
     import ThreeDotIcon from '../Assets/ThreeDotIcon.svelte'
     import HamburgerIcon from '../Assets/HamburgerIcon.svelte'
     let dropdownList = [false, false, false]
@@ -29,8 +29,15 @@
     <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl">Aplikasi</a>
     </div>
-    <div class="flex-none">
+    <div class="dropdown dropdown-end">
         <button class="btn btn-square btn-ghost"><ThreeDotIcon /></button>
+        <ul tabindex="0" class="dropdown-content z-[1] menu shadow bg-base-100 w-30 h-30">
+            <li>User : {$page.props.user.name}</li>
+            <li>Role : {$page.props.user.role}</li>
+            <li>
+                <a href="/logout" use:inertia={{ method: 'post' }} as="button">Logout</a>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="sidebar h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
@@ -75,9 +82,6 @@
                     <li><a href="/sekolah" use:inertia>Lihat Data</a></li>
                 </ul>
             {/if}
-        </li>
-        <li>
-            <a href="/logout" use:inertia={{ method: 'post' }} as="button">Logout</a>
         </li>
     </ul>
 </div>
