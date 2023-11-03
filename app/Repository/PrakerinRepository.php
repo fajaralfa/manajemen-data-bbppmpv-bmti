@@ -4,37 +4,18 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 
-class PrakerinRepository
+class PrakerinRepository extends Repository
 {
-    private string $table = 'prakerin';
-    public function get(array $columns = ['*'])
-    {
-        return DB::table($this->table)
-            ->get($columns);
-    }
-    public function save(array $input)
-    {
-        return DB::table($this->table)
-            ->insert($input);
-    }
+    protected string $table = 'prakerin';
 
-    public function findById(int $id, array $columns = ['*'])
+    public function filterNamaNisTahun(?string $nama, ?string $nis, ?string $tahun, array $columns = ['*'])
     {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->first($columns);
-    }
+        $result = DB::table($this->table);
 
-    public function deleteById(int $id)
-    {
-        return DB::table($this->table)
-            ->delete($id);
-    }
+        if (!empty($nama)) $result = $result->where('NAMA LENGKAP', 'LIKE', "%$nama%");
+        if (!empty($nis)) $result = $result->where('NIS/NIM', $nis);
+        if (!empty($tahun)) $result = $result->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$tahun]);
 
-    public function update(int $id, array $input)
-    {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->update($input);
+        return $result->get($columns);
     }
 }

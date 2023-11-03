@@ -1,6 +1,6 @@
 <script>
     import { router } from '@inertiajs/svelte'
-    import InputText from '../Components/Form/InputText.svelte'
+    import InputText from '../Components/AuthForm/InputText.svelte'
     import LockIcon from '../Assets/LockIcon.svelte'
     export let errors
 
@@ -16,6 +16,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Register</title>
+</svelte:head>
 <div class="wh-fvh flex flex-col justify-center items-center text-white">
     <div class="bg-glass-dark rounded-xl py-3 px-3">
         {#if Object.keys(errors).length > 0}

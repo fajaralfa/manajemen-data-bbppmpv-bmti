@@ -8,6 +8,9 @@
     console.log(message)
 </script>
 
+<svelte:head>
+    <title>Data Sekolah</title>
+</svelte:head>
 <Layout>
-    <Table {data} urlGroup='sekolah'>Data Sekolah</Table>
+    <Table {data} urlGroup="sekolah">Data Sekolah</Table>
 </Layout>

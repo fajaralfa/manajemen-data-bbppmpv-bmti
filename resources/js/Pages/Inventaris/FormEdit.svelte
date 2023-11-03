@@ -3,13 +3,15 @@
     import Layout from '../../Components/Layout.svelte'
     import { router, page } from '@inertiajs/svelte'
 
-    function submit(input) {
-        router.post('/inventaris', input)
-    }
+    export let input
 
-    export let errors = {}
+    let idInventaris = window.location.pathname.split('/')[2]
+
+    function submit(input) {
+        router.post(`/inventaris/${idInventaris}/edit`, input)
+    }
 </script>
 
 <Layout>
-    <Form {submit} {errors} />
+    <Form {submit} {input} />
 </Layout>

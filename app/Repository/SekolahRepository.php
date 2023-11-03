@@ -4,38 +4,7 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 
-class SekolahRepository
+class SekolahRepository extends Repository
 {
-    private $table = 'sekolah';
-    public function get()
-    {
-        return DB::table($this->table)
-            ->get();
-    }
-
-    public function findById(int $id)
-    {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->first();
-    }
-
-    public function save(array $input)
-    {
-        return DB::table($this->table)
-            ->insert($input);
-    }
-
-    public function deleteById(int $id)
-    {
-        return DB::table($this->table)
-            ->delete($id);
-    }
-
-    public function update(int $id, array $input)
-    {
-        return DB::table($this->table)
-            ->where('id', $id)
-            ->update($input);
-    }
+    protected string $table = 'sekolah';
 }
