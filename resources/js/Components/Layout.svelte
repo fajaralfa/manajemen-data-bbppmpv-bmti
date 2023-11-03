@@ -20,6 +20,8 @@
     function sidebarToggle() {
         sidebarShow = !sidebarShow
     }
+
+    let link = window.location.pathname.split('/')[1]
 </script>
 
 <div class="navbar bg-black max-h-12 min-h-12 sticky top-0 z-[2]">
@@ -44,7 +46,7 @@
     <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-black text-base-content">
         <!-- Sidebar content here -->
         <li>
-            <a href="/home" use:inertia>Dashboard</a>
+            <a href="/home" use:inertia class={link == 'home' ? 'bg-slate-700' : ''}>Dashboard</a>
         </li>
         <li>
             <a on:click={() => dropDownToggle(0)}>Prakerin</a>
