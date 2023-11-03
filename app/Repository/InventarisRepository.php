@@ -34,4 +34,10 @@ class InventarisRepository extends Repository
 
         return $result->get($columns);
     }
+    public function countByYear(int $year)
+    {
+        return DB::table($this->table)
+            ->whereRaw('YEAR(`WAKTU PENGADAAN`) = ?', [$year])
+            ->count();
+    }
 }

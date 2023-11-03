@@ -1,5 +1,9 @@
 <script>
     import Layout from '../Components/Layout.svelte'
+
+    export let data
+
+    const year = new Date().getFullYear()
 </script>
 
 <svelte:head>
@@ -11,22 +15,22 @@
             <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Prakerin</div>
-                    <div class="stat-value">1000</div>
-                    <div class="stat-desc">Tahun 2023-2024</div>
+                    <div class="stat-value">{data.jumlahPrakerin}</div>
+                    <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
             <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Diklat</div>
-                    <div class="stat-value">550</div>
-                    <div class="stat-desc">Tahun 2023-2024</div>
+                    <div class="stat-value">{data.jumlahDiklat}</div>
+                    <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
             <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Barang</div>
-                    <div class="stat-value">500</div>
-                    <div class="stat-desc">Tahun 2023-2024</div>
+                    <div class="stat-value">{data.jumlahInventaris}</div>
+                    <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
         </div>

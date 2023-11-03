@@ -24,12 +24,13 @@
     }
 
     export let submit
-    export let errors
+    export let errors = {}
 </script>
 
 <div class="p-10">
     <form on:submit|preventDefault={() => submit(input)} class="flex flex-col gap-y-6 items-center">
         <div class="input-container">
+            <InputText bind:value={input.Kategori} error={errors.Kategori}>Kategori</InputText>
             <InputText bind:value={input.Nama_Peralatan} error={errors.Nama_Peralatan}>Nama Peralatan</InputText>
             <InputFile bind:value={input.Gambar} error={errors.Gambar}>Gambar</InputFile>
             <InputText bind:value={input.Merk} error={errors.Merk}>Merk</InputText>

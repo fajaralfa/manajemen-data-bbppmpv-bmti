@@ -21,7 +21,7 @@
 
 <Layout>
     <Table {data} urlGroup="inventaris">
-        <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
+        <div class="text-xl font-bold uppercase">Data Inventaris</div>
         <div>
             <form on:submit|preventDefault={find}>
                 <div class="flex gap-x-4">

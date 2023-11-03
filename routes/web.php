@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiklatController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\PrakerinController;
@@ -27,7 +28,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
     Route::redirect('/', '/home');
-    Route::inertia('/home', 'Home')->name('home');
+    Route::get('/home', DashboardController::class)->name('home');
     Route::post('/logout', [UserController::class, 'logout']);
 
     //tampilan
