@@ -12,4 +12,11 @@ class DiklatRepository extends Repository
     {
         return $this->findById($id)?->FOTO;
     }
+
+    public function countByYear(int $year)
+    {
+        return DB::table($this->table)
+            ->whereRaw('YEAR(`TANGGAL PERIODE AWAL`) = ?', [$year])
+            ->count();
+    }
 }

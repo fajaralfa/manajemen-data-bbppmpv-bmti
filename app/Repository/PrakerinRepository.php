@@ -18,4 +18,11 @@ class PrakerinRepository extends Repository
 
         return $result->get($columns);
     }
+
+    public function countByYear(int $year)
+    {
+        return DB::table($this->table)
+            ->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$year])
+            ->count();
+    }
 }
