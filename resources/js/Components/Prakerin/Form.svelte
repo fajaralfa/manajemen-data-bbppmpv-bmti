@@ -1,5 +1,6 @@
 <script>
     import InputText from '../Formulir/InputText.svelte'
+    import TextArea from '../Formulir/TextArea.svelte'
     import InputFile from '../Formulir/InputFile.svelte'
     import InputDate from '../Formulir/InputDate.svelte'
     import RadioGroup from '../Formulir/RadioGroup.svelte'
@@ -88,17 +89,17 @@
                 Kompetensi Keahlian
             </SelectObject>
 
-            <InputText bind:value={input['TEMPAT_LAHIR']} error={errors['TEMPAT_LAHIR']}>Kompetensi Keahlian</InputText>
-            <InputText bind:value={input['TANGGAL_LAHIR']} error={errors['TANGGAL_LAHIR']}>Kompetensi Keahlian</InputText>
+            <InputText bind:value={input['TEMPAT_LAHIR']} error={errors['TEMPAT_LAHIR']}>Tempat Lahir</InputText>
+            <InputDate bind:value={input['TANGGAL_LAHIR']} error={errors['TANGGAL_LAHIR']}>Tanggal Lahir</InputDate>
             <RadioGroup
                 bind:value={input['JENIS_KELAMIN']}
                 options={{ 'Laki - Laki': 'L', Perempuan: 'P' }}
                 error={errors['JENIS_KELAMIN']}>Jenis Kelamin</RadioGroup
             >
             <InputText bind:value={input['AGAMA']} error={errors['AGAMA']}>Agama</InputText>
-            <InputText bind:value={input['ALAMAT_LENGKAP']} error={errors['ALAMAT_LENGKAP']}>Kompetensi Keahlian</InputText>
-            <InputText bind:value={input['NO_HP']} error={errors['NO_HP']}>Kompetensi Keahlian</InputText>
-            <InputText bind:value={input['EMAIL']} error={errors['EMAIL']}>Kompetensi Keahlian</InputText>
+            <TextArea bind:value={input['ALAMAT_LENGKAP']} error={errors['ALAMAT_LENGKAP']}>Alamat</TextArea>
+            <InputText bind:value={input['NO_HP']} error={errors['NO_HP']}>No HP</InputText>
+            <InputText bind:value={input['EMAIL']} error={errors['EMAIL']}>Email</InputText>
             <InputText bind:value={input['HOBBY']} error={errors['HOBBY']}>Hobi</InputText>
             <InputFile bind:value={input['FOTO']} error={errors['FOTO']}></InputFile>
             <InputDate bind:value={input['TANGGAL_MASUK']} error={errors['TANGGAL_MASUK']}>Tanggal Masuk</InputDate>
@@ -119,9 +120,9 @@
                 Status Sekolah
             </RadioGroup>
             <InputText bind:value={input['NSS']} error={errors['NSS']}>NSS</InputText>
-            <InputText bind:value={input['ALAMAT_LENGKAP_SEKOLAH']} error={errors['ALAMAT_LENGKAP_SEKOLAH']}>
+            <TextArea bind:value={input['ALAMAT_LENGKAP_SEKOLAH']} error={errors['ALAMAT_LENGKAP_SEKOLAH']}>
                 Alamat Lengkap Sekolah
-            </InputText>
+            </TextArea>
             <InputText bind:value={input['POSEL_SEKOLAH']} error={errors['POSEL_SEKOLAH']}>Email Sekolah</InputText>
             <div>
                 <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
