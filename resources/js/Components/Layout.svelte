@@ -25,7 +25,7 @@
     $: console.log(link)
 </script>
 
-<div class="navbar bg-black max-h-12 min-h-12 sticky top-0 z-[2]">
+<div class="navbar bg-glass-dark max-h-12 min-h-12 sticky top-0 z-[2]">
     <div class="flex-none">
         <button class="btn btn-square btn-ghost" on:click={sidebarToggle}><HamburgerIcon /></button>
     </div>
@@ -43,8 +43,8 @@
         </ul>
     </div>
 </div>
-<div class="sidebar h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
-    <ul class="navlist menu py-12 px-0 w-52 min-h-full bg-black text-base-content">
+<div class="sidebar mt-12 h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
+    <ul class="navlist menu px-0 w-52 min-h-full text-base-content">
         <!-- Sidebar content here -->
         <li>
             <a href="/home" use:inertia class={link.split('/')[1] == 'home' ? 'bg-slate-700' : ''}>Dashboard</a>
