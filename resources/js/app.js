@@ -1,6 +1,5 @@
 import './bootstrap'
 import '../css/app.css'
-import '../css/global.css'
 import { createInertiaApp } from '@inertiajs/svelte'
 
 createInertiaApp({
