@@ -1,5 +1,6 @@
 <script>
     import InputText from '../Formulir/InputText.svelte'
+    import InputNumber from '../Formulir/InputNumber.svelte'
     import InputFile from '../Formulir/InputFile.svelte'
     import InputDate from '../Formulir/InputDate.svelte'
     import TextArea from '../Formulir/TextArea.svelte'
@@ -38,8 +39,8 @@
             <InputText bind:value={input.Spesifikasi} error={errors.Spesifikasi}>Spesifikasi</InputText>
             <InputText bind:value={input.Nomor_Seri} error={errors.Nomor_Seri}>Nomor Seri</InputText>
             <Option bind:value={input.Satuan} options={['unit', 'slop']}>Satuan</Option>
-            <InputText bind:value={input.Jumlah} error={errors.Jumlah}>Jumlah</InputText>
-            <InputText bind:value={input.Harga_Satuan} error={errors.Harga_Satuan}>Harga Satuan</InputText>
+            <InputNumber bind:value={input.Jumlah} error={errors.Jumlah}>Jumlah</InputNumber>
+            <InputNumber bind:value={input.Harga_Satuan} error={errors.Harga_Satuan}>Harga Satuan</InputNumber>
             <InputText bind:value={input.Volume} error={errors.Volume}>Volume</InputText>
             <TextArea bind:value={input.Keterangan_Produk} error={errors.Keterangan_Produk}>Keterangan Produk</TextArea>
             <InputText bind:value={input.Link_Produk} error={errors.Link_Produk}>Link Produk</InputText>

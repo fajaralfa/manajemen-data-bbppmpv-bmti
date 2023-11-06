@@ -1,6 +1,7 @@
 <script>
     import { router } from '@inertiajs/svelte'
     import InputText from '../Formulir/InputText.svelte'
+    import InputNumber from '../Formulir/InputNumber.svelte'
     export let input = {
         NAMA_SEKOLAH: null,
         NPSN_SEKOLAH: null,
@@ -18,7 +19,7 @@
     <form class="flex flex-col gap-y-6 items-center" on:submit|preventDefault={() => submit(input)}>
         <div class="input-container">
             <InputText bind:value={input['NAMA_SEKOLAH']} error={errors['NAMA_SEKOLAH']}>Nama Sekolah</InputText>
-            <InputText bind:value={input['NPSN_SEKOLAH']} error={errors['NPSN_SEKOLAH']}>NPSN Sekolah</InputText>
+            <InputNumber bind:value={input['NPSN_SEKOLAH']} error={errors['NPSN_SEKOLAH']}>NPSN Sekolah</InputNumber>
             <InputText bind:value={input['NAMA_KEPALA_SEKOLAH']} error={errors['NAMA_KEPALA_SEKOLAH']}>
                 Nama Kepala Sekolah
             </InputText>
