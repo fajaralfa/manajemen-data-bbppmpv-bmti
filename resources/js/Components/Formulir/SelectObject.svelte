@@ -15,8 +15,8 @@
             class="select select-bordered w-full max-w-xs {error ? 'border border-red-600' : ''}"
             bind:value
         >
-            {#each Object.entries(options) as [key]}
-                <option value={key} class="capitalize">{key}</option>
+            {#each Object.entries(options) as [key, value]}
+                <option value={key}>{value}</option>
             {/each}
         </select>
     </div>

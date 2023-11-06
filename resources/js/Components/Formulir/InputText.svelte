@@ -4,4 +4,4 @@
     export let error = ''
 </script>
 
-<Input type="text" {value} binder={(e) => (value = e.currentTarget.value)} {error}><slot>Input Date</slot></Input>
+<Input type="text" {value} binder={(e) => (value = e.currentTarget.value)} {error}><slot>Input Text</slot></Input>
