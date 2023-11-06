@@ -10,23 +10,23 @@
     <title>Dashboard</title>
 </svelte:head>
 <Layout>
-    <div class="flex flex-col justify-center items-center gap-y-6">
+    <div class="flex flex-col justify-center items-start gap-y-6">
         <div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow">
+            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
                 <div class="stat">
                     <div class="stat-title">Jumlah Prakerin</div>
                     <div class="stat-value">{data.jumlahPrakerin}</div>
                     <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow">
+            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
                 <div class="stat">
                     <div class="stat-title">Jumlah Diklat</div>
                     <div class="stat-value">{data.jumlahDiklat}</div>
                     <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow">
+            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
                 <div class="stat">
                     <div class="stat-title">Jumlah Barang</div>
                     <div class="stat-value">{data.jumlahInventaris}</div>

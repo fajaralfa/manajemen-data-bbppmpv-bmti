@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: url('/img/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 @layer components {
     .bg-glass-dark {
         background-color: rgba(0, 0, 0, 0.5);
