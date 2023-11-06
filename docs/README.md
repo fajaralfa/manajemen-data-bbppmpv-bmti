@@ -1,8 +1,8 @@
-# DOKUMENTASI APLIKASI MULTIMEDIA
+# APLIKASI MANAJEMEN DATA
 
 ## OVERVIEW
 
-Client ingin membuat sebuah sistem untuk mempermudah manajemen data peserta diklat, peserta pkl, dan inventaris.
+Aplikasi ini dibuat untuk mempermudah manajemen data peserta diklat, peserta pkl, dan inventaris.
 
 -   [Fitur](/docs/fitur.md)
 -   [Panduan Pemakaian](/docs/panduan.md)

@@ -1,3 +1,3 @@
-Aplikasi Multimedia
+Aplikasi Manajemen Data BBPPMPV BMTI
 
-lihat [docs/](/docs/README.md)
+lihat [docs/](docs/README.md)
