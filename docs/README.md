@@ -1,26 +1,18 @@
 # DOKUMENTASI APLIKASI MULTIMEDIA
 
-## Notes
-
-## REQUIREMENT PLANNING
-
-### OVERVIEW
+## OVERVIEW
 
 Client ingin membuat sebuah sistem untuk mempermudah manajemen data peserta diklat, peserta pkl, dan inventaris.
 
-### TAMPILAN
+-   [Fitur](/docs/fitur.md)
+-   [Panduan Pemakaian](/docs/panduan.md)
+-   [Spesifikasi Teknis](/docs/teknis.md)
 
-### FITUR
+## Team
 
-[fitur.md](/docs/fitur.md)
-
-### PANDUAN PEMAKAIAN
-
-[panduan.md](/docs/panduan.md)
-
-### DOKUMENTASI TEKNIS
-
-[teknis.md](/docs/teknis.md)
+-   Fajar Ilham Alfarizi [instagram](https://www.instagram.com/fajaralfrzi/), [youtube](https://www.youtube.com/@fjralfa)
+-   Vutri Ananda Maudi [instagram](https://www.instagram.com/vutrianndaa/)
+-   Miftah Riyadi [instagram](https://www.instagram.com/mfthryd_/)
 
 ### SOFTWARE UNTUK DEVELOPMENT
 
@@ -36,5 +28,3 @@ Client ingin membuat sebuah sistem untuk mempermudah manajemen data peserta dikl
 -   PHP 8.1^
 -   Python 3.10^
 -   MariaDB
-
-###
