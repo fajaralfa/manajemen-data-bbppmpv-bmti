@@ -6,6 +6,7 @@ use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\DiklatRepository;
 use App\Repository\JoinRepository;
+use App\Repository\SekolahRepository;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -17,6 +18,7 @@ class DiklatController extends Controller
 {
     public function __construct(
         private DiklatRepository $diklatRepository,
+        private SekolahRepository $sekolahRepository,
         private JoinRepository $joinRepository,
         private Xlsx $xlsx,
         private Converter $converter,
@@ -59,6 +61,7 @@ class DiklatController extends Controller
             'EMAIL' => ['required'],
             'MAPEL_AJAR' => ['required'],
             'KELAS_AJAR' => ['required'],
+            'NPSN_SEKOLAH' => ['required'],
             'KELAS' => ['required'],
             'NAMA_DIKLAT' => ['required'],
             'TANGGAL_PERIODE_AWAL' => ['required'],
@@ -225,5 +228,18 @@ class DiklatController extends Controller
         DB::table('diklat')->insertOrIgnore($dataDiklat);
 
         return redirect('/diklat');
+    }
+
+    public function getDataSekolah()
+    {
+        $data = $this->sekolahRepository->getNamaDanNPSN();
+        $data = $data->mapWithKeys(function ($item, $key) {
+            $item = (array) $item;
+            $key = $item['NPSN SEKOLAH'];
+            $value = $item['NAMA SEKOLAH'];
+            return [$key => $value];
+        });
+
+        return $data;
     }
 }
