@@ -1,10 +1,12 @@
 <script>
     import InputText from '../Formulir/InputText.svelte'
+    import InputNumber from '../Formulir/InputNumber.svelte'
+    import InputEmail from '../Formulir/InputEmail.svelte'
     import TextArea from '../Formulir/TextArea.svelte'
     import InputFile from '../Formulir/InputFile.svelte'
     import InputDate from '../Formulir/InputDate.svelte'
     import RadioGroup from '../Formulir/RadioGroup.svelte'
-    import SelectObject from '../Formulir/SelectObject.svelte'
+    import SelectNestedObject from '../Formulir/SelectNestedObject.svelte'
 
     export let input = {
         NAMA_LENGKAP: null,
@@ -77,17 +79,21 @@
             <h1 class="uppercase font-bold text-xl mb-3">Identitas Siswa</h1>
 
             <InputText bind:value={input['NAMA_LENGKAP']} error={errors['NAMA_LENGKAP']}>Nama Lengkap</InputText>
-            <InputText bind:value={input['NIS/NIM']} error={errors['NIS/NIM']}>NIS/NIM</InputText>
+            <InputNumber bind:value={input['NIS/NIM']} error={errors['NIS/NIM']}>NIS/NIM</InputNumber>
 
-            <SelectObject bind:value={input.BIDANG_KEAHLIAN} options={bidangKeahlianOpt} error={errors.BIDANG_KEAHLIAN}>
+            <SelectNestedObject bind:value={input.BIDANG_KEAHLIAN} options={bidangKeahlianOpt} error={errors.BIDANG_KEAHLIAN}>
                 Bidang Keahlian
-            </SelectObject>
-            <SelectObject bind:value={input.PROGRAM_KEAHLIAN} error={errors.PROGRAM_KEAHLIAN} options={programKeahlianOpt}>
+            </SelectNestedObject>
+            <SelectNestedObject bind:value={input.PROGRAM_KEAHLIAN} error={errors.PROGRAM_KEAHLIAN} options={programKeahlianOpt}>
                 Program Keahlian
-            </SelectObject>
-            <SelectObject bind:value={input.KOMPETENSI_KEAHLIAN} options={kompKeahlianOpt} error={errors.KOMPETENSI_KEAHLIAN}>
+            </SelectNestedObject>
+            <SelectNestedObject
+                bind:value={input.KOMPETENSI_KEAHLIAN}
+                options={kompKeahlianOpt}
+                error={errors.KOMPETENSI_KEAHLIAN}
+            >
                 Kompetensi Keahlian
-            </SelectObject>
+            </SelectNestedObject>
 
             <InputText bind:value={input['TEMPAT_LAHIR']} error={errors['TEMPAT_LAHIR']}>Tempat Lahir</InputText>
             <InputDate bind:value={input['TANGGAL_LAHIR']} error={errors['TANGGAL_LAHIR']}>Tanggal Lahir</InputDate>
@@ -98,8 +104,8 @@
             >
             <InputText bind:value={input['AGAMA']} error={errors['AGAMA']}>Agama</InputText>
             <TextArea bind:value={input['ALAMAT_LENGKAP']} error={errors['ALAMAT_LENGKAP']}>Alamat</TextArea>
-            <InputText bind:value={input['NO_HP']} error={errors['NO_HP']}>No HP</InputText>
-            <InputText bind:value={input['EMAIL']} error={errors['EMAIL']}>Email</InputText>
+            <InputNumber bind:value={input['NO_HP']} error={errors['NO_HP']}>No HP</InputNumber>
+            <InputEmail bind:value={input['EMAIL']} error={errors['EMAIL']}>Email</InputEmail>
             <InputText bind:value={input['HOBBY']} error={errors['HOBBY']}>Hobi</InputText>
             <InputFile bind:value={input['FOTO']} error={errors['FOTO']}></InputFile>
             <InputDate bind:value={input['TANGGAL_MASUK']} error={errors['TANGGAL_MASUK']}>Tanggal Masuk</InputDate>
@@ -119,11 +125,11 @@
             >
                 Status Sekolah
             </RadioGroup>
-            <InputText bind:value={input['NSS']} error={errors['NSS']}>NSS</InputText>
+            <InputNumber bind:value={input['NSS']} error={errors['NSS']}>NSS</InputNumber>
             <TextArea bind:value={input['ALAMAT_LENGKAP_SEKOLAH']} error={errors['ALAMAT_LENGKAP_SEKOLAH']}>
                 Alamat Lengkap Sekolah
             </TextArea>
-            <InputText bind:value={input['POSEL_SEKOLAH']} error={errors['POSEL_SEKOLAH']}>Email Sekolah</InputText>
+            <InputEmail bind:value={input['POSEL_SEKOLAH']} error={errors['POSEL_SEKOLAH']}>Email Sekolah</InputEmail>
             <div>
                 <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
             </div>
