@@ -17,7 +17,7 @@ class SekolahController extends Controller
 
     public function view()
     {
-        $data = $this->sekolahRepository->get();
+        $data = Sekolah::get();
         return inertia('Sekolah/View', ['data' => $data]);
     }
 
@@ -35,21 +35,20 @@ class SekolahController extends Controller
 
         $input = $this->helper->mapRequestToTable($input);
         Sekolah::create($input);
-        // $this->sekolahRepository->save($input);
 
         return redirect('/sekolah');
     }
     
     public function delete(string $id)
     {
-        $this->sekolahRepository->deleteById((int) $id);
+        Sekolah::destroy($id);
         return redirect('/sekolah');
     }
 
     public function editPage(string $id)
     {
-        $data = (array) $this->sekolahRepository->findById((int) $id);
-        $input = $this->helper->mapTableToRequest($data);
+        $data = Sekolah::where('id', $id)->first();
+        $input = $this->helper->mapTableToRequest($data->toArray());
 
         return inertia('Sekolah/FormEdit', ['input' => $input]);
     }
@@ -68,8 +67,8 @@ class SekolahController extends Controller
 
         
         $input = $this->helper->mapRequestToTable($input);
+        Sekolah::where('id', $id)->update($input);
 
-        $this->sekolahRepository->update((int) $id, $input);
         return redirect('/sekolah');
     }
 }
