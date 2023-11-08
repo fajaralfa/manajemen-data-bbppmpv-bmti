@@ -7,6 +7,7 @@ use App\Repository\PrakerinRepository;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class PrakerinController extends Controller
 {
@@ -119,5 +120,18 @@ class PrakerinController extends Controller
             return redirect()->back()->withErrors(['NIS/NIM' => 'NIS/NIM sudah dipakai']);
         }
         return redirect('/prakerin');
+    }
+
+    public function export(string $id)
+    {
+        $prakerin = $this->prakerinRepository->findById($id);
+        $processor = new TemplateProcessor(__DIR__ . '/../../../storage/in.docx');
+
+        $prakerinC = collect((array) $prakerin)->except('FOTO');
+        $processor->setValues($prakerinC->toArray());
+        $processor->setImageValue('FOTO', __DIR__ . '\\..\\..\\..\\storage\\app\\' . $prakerin->FOTO);
+
+        $processor->saveAs(__DIR__ . '/../../../storage/out.docx');
+        return 'sukses';
     }
 }
