@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\UniqueConstraintViolationException;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -24,7 +25,7 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($input)) {
+        if (Auth::attempt($input, request()->post('remember'))) {
             return redirect('/home');
         }
 
@@ -40,10 +41,8 @@ class UserController extends Controller
             'role' => ['required', Rule::in(['admin', 'operator'])],
         ]);
 
-        $input['password'] = Hash::make($input['password']);
-
         try {
-            $result = $this->userRepository->save($input);
+            User::create($input);
             return redirect('/login')->with(['message' => 'Register berhasil!, silakan login']);
         } catch (UniqueConstraintViolationException $e) {
             return redirect()->back()->withErrors(['message' => 'Username sudah dipakai']);

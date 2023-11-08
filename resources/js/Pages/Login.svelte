@@ -7,6 +7,7 @@
     let input = {
         username: null,
         password: null,
+        remember: false,
     }
 
     function doLogin() {
@@ -35,6 +36,10 @@
             <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
                 <InputText bind:value={input.username}>Username</InputText>
                 <InputText type="password" bind:value={input.password}>Password</InputText>
+                <label>
+                    <input type="checkbox" bind:checked={input.remember} />
+                    Remember Me
+                </label>
                 <button type="submit">Login</button>
             </div>
         </form>
