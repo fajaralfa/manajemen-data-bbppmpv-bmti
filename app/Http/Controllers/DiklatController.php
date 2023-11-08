@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helper\Converter;
 use App\Helper\Helper;
+use App\Models\Diklat;
+use App\Models\Sekolah;
 use App\Repository\DiklatRepository;
 use App\Repository\JoinRepository;
 use App\Repository\SekolahRepository;
@@ -78,7 +80,7 @@ class DiklatController extends Controller
         $mappedInput = $this->helper->mapRequestToTable($input);
 
         try {
-            $this->diklatRepository->save($mappedInput);
+            Diklat::create($mappedInput);
         } catch (UniqueConstraintViolationException $e) {
             return redirect()->back()->withErrors(['NIK' => 'NIK Sudah Digunakan']);
         }
@@ -93,7 +95,7 @@ class DiklatController extends Controller
 
     public function editPage(string $id)
     {
-        $oldData = $this->helper->mapTableToRequest((array) $this->diklatRepository->findById($id, [
+        $oldData = Diklat::where('id', $id)->first([
             'NAMA LENGKAP',
             'KOMPETENSI KEAHLIAN',
             'PROGRAM KEAHLIAN',
@@ -112,6 +114,7 @@ class DiklatController extends Controller
             'EMAIL',
             'MAPEL AJAR',
             'KELAS AJAR',
+            'NPSN SEKOLAH',
             'KELAS',
             'NAMA DIKLAT',
             'TANGGAL PERIODE AWAL',
@@ -119,7 +122,9 @@ class DiklatController extends Controller
             'TEMPAT DIKLAT',
             'RIWAYAT DIKLAT',
             'KETERANGAN',
-        ]));
+        ]);
+        $oldData = $this->helper->mapTableToRequest((array) $oldData->toArray());
+
         return inertia('Diklat/FormEdit', [
             'input' => $oldData
         ]);
@@ -146,6 +151,7 @@ class DiklatController extends Controller
             'EMAIL',
             'MAPEL_AJAR',
             'KELAS_AJAR',
+            'NPSN_SEKOLAH',
             'KELAS',
             'NAMA_DIKLAT',
             'TANGGAL_PERIODE_AWAL',
@@ -157,8 +163,7 @@ class DiklatController extends Controller
         ]);
 
         if (request()->has('FOTO')) {
-            $oldPhoto = $this->diklatRepository->getPhotoPath((int) $id);
-            Storage::delete($oldPhoto);
+            Storage::delete(Diklat::where('id', $id)->first()?->FOTO ?? '');
             $photoPath = request()->file('FOTO')->store('foto-diklat');
             $input['FOTO'] = $photoPath;
         }
@@ -166,7 +171,7 @@ class DiklatController extends Controller
         $input = $this->helper->mapRequestToTable($input);
 
         try {
-            $this->diklatRepository->update((int) $id, $input);
+            Diklat::where('id', $id)->update($input);
         } catch (UniqueConstraintViolationException $e) {
             return redirect()->back()->withErrors(['NIK' => 'NIK Sudah Digunakan']);
         }
@@ -175,7 +180,7 @@ class DiklatController extends Controller
 
     public function delete(string $id)
     {
-        $this->diklatRepository->deleteById((int) $id);
+        Diklat::destroy($id);
         return redirect('/diklat');
     }
 
@@ -224,17 +229,17 @@ class DiklatController extends Controller
             return [$key => $new];
         })->unique('NIK')->all();
 
-        DB::table('sekolah')->insertOrIgnore($dataSekolah);
-        DB::table('diklat')->insertOrIgnore($dataDiklat);
+        Sekolah::insertOrIgnore($dataSekolah);
+        Diklat::insertOrIgnore($dataDiklat);
 
         return redirect('/diklat');
     }
 
     public function getDataSekolah()
     {
-        $data = $this->sekolahRepository->getNamaDanNPSN();
+        $data = Sekolah::get(['NPSN SEKOLAH', 'NAMA SEKOLAH']);
         $data = $data->mapWithKeys(function ($item, $key) {
-            $item = (array) $item;
+            $item = $item->toArray();
             $key = $item['NPSN SEKOLAH'];
             $value = $item['NAMA SEKOLAH'];
             return [$key => $value];
