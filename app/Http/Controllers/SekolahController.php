@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Helper;
+use App\Models\Sekolah;
 use App\Repository\SekolahRepository;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,8 @@ class SekolahController extends Controller
         ]);
 
         $input = $this->helper->mapRequestToTable($input);
-        $this->sekolahRepository->save($input);
+        Sekolah::create($input);
+        // $this->sekolahRepository->save($input);
 
         return redirect('/sekolah');
     }
