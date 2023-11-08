@@ -89,7 +89,7 @@
         <li>
             <a class={link.split('/')[1] == 'sekolah' ? 'bg-slate-700' : ''} on:click={() => dropDownToggle(3)}>Sekolah</a>
             {#if dropdownList[3]}
-                <ul>
+                <ul transition:slide>
                     <li>
                         <a href="/sekolah/add" use:inertia class={link == '/sekolah/add' ? 'bg-slate-700' : ''}>Tambah Data</a>
                     </li>
