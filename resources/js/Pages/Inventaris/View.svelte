@@ -14,13 +14,10 @@
     function find() {
         router.get('/inventaris', query)
     }
-
-    let years = []
-    for (let i = 2010; i < 2031; i++) years.push(i)
 </script>
 
 <Layout>
-    <Table {data} urlGroup="inventaris">
+    <Table {data} urlGroup="inventaris" imageFields={['Gambar']}>
         <div class="text-xl font-bold uppercase">Data Inventaris</div>
         <div>
             <form on:submit|preventDefault={find}>
