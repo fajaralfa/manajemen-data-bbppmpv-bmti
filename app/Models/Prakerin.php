@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\PrakerinFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
 class Prakerin extends Model
@@ -16,4 +18,9 @@ class Prakerin extends Model
         'HOBBY', 'TANGGAL_MASUK', 'TANGGAL_KELUAR', 'TEMPAT/DEPARTEMEN_PELAKSANAAN', 'NAMA_SEKOLAH',
         'KABUPATEN/KOTA_SEKOLAH', 'STATUS_SEKOLAH', 'NSS', 'ALAMAT_LENGKAP_SEKOLAH', 'POSEL_SEKOLAH',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return PrakerinFactory::new();
+    }
 }
