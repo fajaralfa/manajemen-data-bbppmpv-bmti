@@ -1,5 +1,4 @@
 <script>
-    import { router } from '@inertiajs/svelte'
     import InputText from '../Formulir/InputText.svelte'
     import InputNumber from '../Formulir/InputNumber.svelte'
     export let input = {
@@ -13,6 +12,7 @@
     }
     export let submit
     export let errors
+    export let submitValue = 'Simpan'
 </script>
 
 <div class="p-10">
@@ -30,7 +30,7 @@
             <InputText bind:value={input['KABUPATEN_SEKOLAH']} error={errors['KABUPATEN_SEKOLAH']}>Kabupaten Sekolah</InputText>
             <InputText bind:value={input['PROVINSI_SEKOLAH']} error={errors['PROVINSI_SEKOLAH']}>Provinsi Sekolah</InputText>
             <div>
-                <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
+                <input class="btn btn-neutral" type="submit" name="submit" value={submitValue} />
             </div>
         </div>
     </form>
@@ -41,8 +41,5 @@
         @apply grid grid-cols-1 gap-y-4 px-16 py-10 rounded-xl w-[40rem];
         background-color: rgba(0, 0, 0, 0.5);
         grid-template-rows: repeat(14, auto);
-    }
-    .input-container div {
-        @apply flex justify-between;
     }
 </style>
