@@ -1,32 +1,52 @@
 <script>
     import Layout from '../Components/Layout.svelte'
+    import { slide, fly } from 'svelte/transition'
 
     export let data
 
     const year = new Date().getFullYear()
+    const imagesPath = [
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/wisma2.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/wisma1.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/taman.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/serbaguna3.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/poliklinik.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/masjid.png',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lap_tenis.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lap.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lab_kom.jpg',
+        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/kolam_renang.jpg',
+    ]
 </script>
 
 <svelte:head>
     <title>Dashboard</title>
 </svelte:head>
 <Layout>
-    <div class="flex flex-col justify-center items-start gap-y-6">
-        <div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
+    <div class="grid-container">
+        <div class="grid-item carousel-vertical">
+            {#each imagesPath as path}
+                <div id="{path}" class="carousel-item">
+                    <img src="{path}" alt="" srcset="">
+                </div>
+            {/each}
+        </div>
+        <div class="grid-item flex justify-center items-center gap-5">
+            <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Prakerin</div>
                     <div class="stat-value">{data.jumlahPrakerin}</div>
                     <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
+            <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Diklat</div>
                     <div class="stat-value">{data.jumlahDiklat}</div>
                     <div class="stat-desc">Tahun {year}</div>
                 </div>
             </div>
-            <div class="stats stats-vertical lg:stats-horizontal shadow w-40 h-32">
+            <div class="stats stats-vertical lg:stats-horizontal shadow">
                 <div class="stat">
                     <div class="stat-title">Jumlah Barang</div>
                     <div class="stat-value">{data.jumlahInventaris}</div>
@@ -34,19 +54,20 @@
                 </div>
             </div>
         </div>
-        <div class="w-[35rem] carousel rounded-box">
-            <div class="carousel-item w-full">
-                <img src="/img/hhi.jpg" class="w-full" alt="Tailwind CSS Carousel component" />
-            </div>
-            <div class="carousel-item w-full">
-                <img src="/img/hhe.jpg" class="w-full" alt="Tailwind CSS Carousel component" />
-            </div>
-            <div class="carousel-item w-full">
-                <img src="/img/hhu.jpg" class="w-full" alt="Tailwind CSS Carousel component" />
-            </div>
-            <div class="carousel-item w-full">
-                <img src="/img/hayu.jpg" class="w-full" alt="Tailwind CSS Carousel component" />
-            </div>
+        <div class="grid-item flex justify-center items-center">
+            DIBUAT OLEH TIM DARI SMKN BANTARKALONG
         </div>
     </div>
 </Layout>
+
+<style>
+    .grid-container {
+        @apply grid grid-cols-2 grid-rows-2 h-[35rem] gap-5 p-5;
+    }
+    .grid-item:nth-child(1) {
+        grid-row: 1/3;
+    }
+    .grid-item {
+        @apply bg-glass-dark rounded-xl;
+    }
+</style>
