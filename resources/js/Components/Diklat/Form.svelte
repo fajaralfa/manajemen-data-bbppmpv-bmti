@@ -43,6 +43,7 @@
 
     export let submit
     export let errors
+    export let submitValue = 'Simpan'
 
     let dataSekolah
     async function getDataSekolah() {
@@ -137,7 +138,7 @@
             <TextArea bind:value={input.KETERANGAN} error={errors.KETERANGAN}>Keterangan</TextArea>
         </div>
         <div>
-            <input class="btn btn-neutral" type="submit" name="submit" value="Daftar" />
+            <input class="btn btn-neutral" type="submit" name="submit" value={submitValue} />
         </div>
     </form>
 </div>

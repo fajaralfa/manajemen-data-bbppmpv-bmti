@@ -18,5 +18,5 @@
     <title>Form Edit Peserta Diklat</title>
 </svelte:head>
 <Layout>
-    <Form {input} {submit} {errors} />
+    <Form {input} {submit} {errors} submitValue="Edit Data" />
 </Layout>

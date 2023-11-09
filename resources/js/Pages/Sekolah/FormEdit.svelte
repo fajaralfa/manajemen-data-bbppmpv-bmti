@@ -16,5 +16,5 @@
     <title>Form Edit Data Sekolah</title>
 </svelte:head>
 <Layout>
-    <Form {submit} {input} {errors} />
+    <Form {submit} {input} {errors} submitValue="Edit Data" />
 </Layout>
