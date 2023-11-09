@@ -20,5 +20,5 @@
     <title>Form Edit Peserta Prakerin</title>
 </svelte:head>
 <Layout>
-    <Form {submit} bind:input />
+    <Form {submit} bind:input submitValue="Edit Data" />
 </Layout>

@@ -36,6 +36,7 @@
 
     export let submit
     export let errors = {}
+    export let submitValue = 'Simpan'
 
     let keahlian = {
         // bidang keahlian
@@ -131,7 +132,7 @@
             </TextArea>
             <InputEmail bind:value={input['POSEL_SEKOLAH']} error={errors['POSEL_SEKOLAH']}>Email Sekolah</InputEmail>
             <div>
-                <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
+                <input class="btn btn-neutral" type="submit" name="submit" value={submitValue} />
             </div>
         </div>
     </form>
