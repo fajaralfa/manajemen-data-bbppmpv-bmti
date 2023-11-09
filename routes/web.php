@@ -6,8 +6,9 @@ use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AuthRoleAdmin;
+use App\Http\Middleware\Unauthenticated;
 use Illuminate\Support\Facades\Route;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,12 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 */
 
 //autentikasi
-Route::inertia('/register', 'Register');
-Route::post('/register', [UserController::class, 'register']);
-Route::inertia('/login', 'Login')->name('login');
-Route::post('/login', [UserController::class, 'login']);
+Route::middleware(Unauthenticated::class)->group(function () {
+    Route::inertia('/register', 'Register');
+    Route::post('/register', [UserController::class, 'register']);
+    Route::inertia('/login', 'Login')->name('login');
+    Route::post('/login', [UserController::class, 'login']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::redirect('/', '/home');
@@ -56,12 +59,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/prakerin', [PrakerinController::class, 'store']);
     Route::post('/inventaris', [InventarisController::class, 'store']);
     Route::post('/sekolah', [SekolahController::class, 'store']);
-    Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
-    Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
-    Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
-    Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
     Route::post('/diklat/{id}/edit', [DiklatController::class, 'edit']);
     Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
     Route::post('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
     Route::post('/sekolah/{id}/edit', [SekolahController::class, 'edit']);
+
+    Route::middleware(AuthRoleAdmin::class)->group(function () {
+        Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);
+        Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
+        Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
+        Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
+    });
 });
