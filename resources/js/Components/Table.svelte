@@ -6,7 +6,7 @@
 
     export let urlGroup
     export let data = []
-
+    export let imageFields = ['FOTO']
     console.log(data)
 
     let deleteAlertProps = {
@@ -41,26 +41,13 @@
                 {#each data as row}
                     <tr>
                         {#each Object.entries(row) as [key, val]}
-                            {#if key === 'FOTO'}
-                                <td
-                                    ><img
-                                        src="/{urlGroup}/photo/{row['FOTO']?.split('/')[1] ?? '0'}"
-                                        alt="Pas Foto"
-                                        class="h-12"
-                                    /></td
-                                >
-                            {:else if key === 'Gambar'}
-                                <td
-                                    ><img
-                                        src="/{urlGroup}/photo/{row['Gambar']?.split('/')[1] ?? '0'}"
-                                        alt="Gambar"
-                                        srcset=""
-                                        class="h-12"
-                                    /></td
-                                >
-                            {:else}
-                                <td>{val}</td>
-                            {/if}
+                            <td>
+                                {#if imageFields.includes(key)}
+                                    <img src="/{urlGroup}/photo/{row[key]?.split('/')[1] ?? '0'}" alt="Foto" class="h-12" />
+                                {:else}
+                                    {val}
+                                {/if}
+                            </td>
                         {/each}
                         <td class="right-0 sticky bg-glass-dark">
                             <button class="p-4" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
