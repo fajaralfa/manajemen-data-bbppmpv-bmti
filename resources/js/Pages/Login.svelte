@@ -36,7 +36,7 @@
             <div class="flex flex-col justify-center mx-3 space-y-4 w-64">
                 <InputText bind:value={input.username}>Username</InputText>
                 <InputText type="password" bind:value={input.password}>Password</InputText>
-                <label>
+                <label class="text-xs">
                     <input type="checkbox" bind:checked={input.remember} />
                     Remember Me
                 </label>
@@ -51,7 +51,7 @@
         height: 100vh;
     }
     .vertical-bar {
-        @apply border-l-4 h-32 self-center;
+        @apply border-l-4 h-40 self-center;
     }
     form {
         background-color: var(--bg-color);
