@@ -12,5 +12,7 @@
     <title>Data Sekolah</title>
 </svelte:head>
 <Layout>
-    <Table {data} urlGroup="sekolah">Data Sekolah</Table>
+    <Table {data} urlGroup="sekolah">
+        <div class="text-xl font-bold uppercase">Data Sekolah</div>
+    </Table>
 </Layout>
