@@ -3,6 +3,9 @@
     import { inertia, page } from '@inertiajs/svelte'
     import ThreeDotIcon from '../Assets/ThreeDotIcon.svelte'
     import HamburgerIcon from '../Assets/HamburgerIcon.svelte'
+    import UserAdminIcon from '../Assets/UserAdminIcon.svelte'
+    import UserOperatorIcon from '../Assets/UserOperatorIcon.svelte'
+
     let dropdownList = [false, false, false]
     function dropDownToggle(num) {
         if (dropdownList[num] === true) {
@@ -30,18 +33,30 @@
         <button class="btn btn-square btn-ghost" on:click={sidebarToggle}><HamburgerIcon /></button>
     </div>
     <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">Aplikasi</a>
+        <a href="/" use:inertia class="btn btn-ghost normal-case text-xl">Data Management System</a>
     </div>
-    <div class="dropdown dropdown-end">
-        <button class="btn btn-square btn-ghost"><ThreeDotIcon /></button>
-        <ul tabindex="0" class="dropdown-content z-[1] menu shadow bg-base-100 w-30 h-30">
-            <li>User : {$page.props.user.name}</li>
-            <li>Role : {$page.props.user.role}</li>
-            <li>
-                <a href="/logout" use:inertia={{ method: 'post' }} as="button">Logout</a>
-            </li>
-        </ul>
-    </div>
+    <details class="dropdown dropdown-end">
+        <summary class="m-1 btn"><ThreeDotIcon /></summary>
+        <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box min-w-38 flex items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div>
+                    {#if $page.props.user.role === 'admin'}
+                        <UserAdminIcon width="50" height="50" />
+                    {/if}
+                    {#if $page.props.user.role === 'operator'}
+                        <UserOperatorIcon width="50" height="50" />
+                    {/if}
+                </div>
+                <div>
+                    <div class="font-bold">{$page.props.user.name}</div>
+                    <div class="text-xs">{$page.props.user.role}</div>
+                </div>
+            </div>
+            <div>
+                <a href="/logout" use:inertia={{ method: 'post' }}>Logout</a>
+            </div>
+        </div>
+    </details>
 </div>
 <div class="sidebar mt-12 h-full fixed top-0 left-0 bg-glass-dark overflow-x-hidden {sidebarShow ? 'w-52' : 'w-0'}">
     <ul class="navlist menu px-0 w-52 min-h-full text-base-content">
