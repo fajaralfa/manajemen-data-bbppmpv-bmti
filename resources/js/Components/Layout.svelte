@@ -37,7 +37,7 @@
     </div>
     <details class="dropdown dropdown-end">
         <summary class="m-1 btn"><ThreeDotIcon /></summary>
-        <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box min-w-38 flex items-center gap-3">
+        <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 h-32 flex items-center gap-3">
             <div class="flex items-center gap-3">
                 <div>
                     {#if $page.props.user.role === 'admin'}
@@ -48,7 +48,7 @@
                     {/if}
                 </div>
                 <div>
-                    <div class="font-bold">{$page.props.user.name}</div>
+                    <div class="font-bold text-lg">{$page.props.user.name}</div>
                     <div class="text-xs">{$page.props.user.role}</div>
                 </div>
             </div>
