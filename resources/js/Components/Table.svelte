@@ -1,5 +1,5 @@
 <script>
-    import { inertia, router } from '@inertiajs/svelte'
+    import { inertia, page } from '@inertiajs/svelte'
     import DeleteIcon from '../Assets/DeleteIcon.svelte'
     import EditIcon from '../Assets/EditIcon.svelte'
     import DeleteAlert from './DeleteAlert.svelte'
@@ -50,7 +50,9 @@
                             </td>
                         {/each}
                         <td class="right-0 sticky bg-glass-dark">
-                            <button class="p-4" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
+                            {#if $page.props.user.role === 'admin'}
+                                <button class="p-4" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
+                            {/if}
                             <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
                                 ><EditIcon /></button
                             >
