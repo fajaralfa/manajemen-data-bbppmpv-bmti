@@ -97,6 +97,17 @@
                 </ul>
             {/if}
         </li>
+        <li>
+            <a class={link.split('/')[1] == 'user' ? 'bg-slate-700' : ''} on:click={() => dropDownToggle(4)}>User</a>
+            {#if dropdownList[4]}
+                <ul transition:slide>
+                    <li>
+                        <a href="/user/add" use:inertia class={link == '/user/add' ? 'bg-slate-700' : ''}>Tambah Data</a>
+                    </li>
+                    <li><a href="/user" use:inertia class={link == '/user' ? 'bg-slate-700' : ''}>Lihat Data</a></li>
+                </ul>
+            {/if}
+        </li>
     </ul>
 </div>
 

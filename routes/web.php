@@ -5,7 +5,8 @@ use App\Http\Controllers\DiklatController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\SekolahController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Middleware\AuthRoleAdmin;
 use App\Http\Middleware\Unauthenticated;
 use Illuminate\Support\Facades\Route;
@@ -23,16 +24,14 @@ use Illuminate\Support\Facades\Route;
 
 //autentikasi
 Route::middleware(Unauthenticated::class)->group(function () {
-    Route::inertia('/register', 'Register');
-    Route::post('/register', [UserController::class, 'register']);
     Route::inertia('/login', 'Login')->name('login');
-    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::middleware('auth')->group(function () {
     Route::redirect('/', '/home');
     Route::get('/home', DashboardController::class)->name('home');
-    Route::post('/logout', [UserController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     //tampilan
     Route::get('/diklat', [DiklatController::class, 'view']);
@@ -69,5 +68,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('/prakerin/{id}', [PrakerinController::class, 'delete']);
         Route::delete('/inventaris/{id}', [InventarisController::class, 'delete']);
         Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
+
+        Route::inertia('/user/add', 'Users/Add');
+        Route::post('/user/add', [UserManagementController::class, 'register']);
+        Route::get('/user', [UserManagementController::class, 'view']);
     });
 });
