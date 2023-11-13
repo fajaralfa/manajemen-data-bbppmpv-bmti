@@ -22,6 +22,9 @@
         Link_Produk: null,
         Urgensi: null,
         Waktu_Pengadaan: null,
+        Waktu_Inventory: null,
+        Kondisi: 'baik',
+        Keterangan: null,
     }
 
     export let submit
@@ -46,6 +49,9 @@
             <InputText bind:value={input.Link_Produk} error={errors.Link_Produk}>Link Produk</InputText>
             <InputText bind:value={input.Urgensi} error={errors.Urgensi}>Urgensi</InputText>
             <InputDate bind:value={input.Waktu_Pengadaan} error={errors.Waktu_Pengadaan}>Waktu Pengadaan</InputDate>
+            <InputDate bind:value={input.Waktu_Inventory} error={errors.Waktu_Inventory}>Waktu Inventory</InputDate>
+            <Option bind:value={input.Kondisi} options={['baik', 'rusak', 'hilang']}>Kondisi</Option>
+            <TextArea bind:value={input.Keterangan} error={errors.Keterangan}>Keterangan</TextArea>
             <div>
                 <input class="btn btn-neutral" type="submit" name="submit" value="Simpan" />
             </div>
