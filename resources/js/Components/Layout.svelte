@@ -118,9 +118,9 @@
                 {#if dropdownList[4]}
                     <ul transition:slide>
                         <li>
-                            <a href="/user/add" use:inertia class={link == '/user/add' ? 'bg-slate-700' : ''}>Tambah Data</a>
+                            <a href="/user/add" use:inertia class={link == '/user/add' ? 'bg-slate-700' : ''}>Tambah User</a>
                         </li>
-                        <li><a href="/user" use:inertia class={link == '/user' ? 'bg-slate-700' : ''}>Lihat Data</a></li>
+                        <li><a href="/user" use:inertia class={link == '/user' ? 'bg-slate-700' : ''}>Lihat Data User</a></li>
                     </ul>
                 {/if}
             </li>
