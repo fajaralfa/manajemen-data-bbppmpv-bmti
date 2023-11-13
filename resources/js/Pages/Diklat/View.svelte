@@ -1,10 +1,9 @@
 <script>
     import { router } from '@inertiajs/svelte'
     import Layout from '../../Components/Layout.svelte'
-    import Table from '../../Components/Table.svelte'
+    import TableDynamic from '../../Components/TableDynamic.svelte'
 
     export let data
-    export let message
 
     export let query = {
         nama: null,
@@ -20,7 +19,15 @@
     <title>Peserta Diklat</title>
 </svelte:head>
 <Layout>
-    <Table {data} urlGroup="diklat">
+    <TableDynamic {data} opts={{ urlGroup: 'diklat', id: 'ID', showedFields: [
+                'NIK', 'NUPTK', 'NIP', 'NO UKG', 'NAMA LENGKAP',
+                'TEMPAT LAHIR', 'TANGGAL LAHIR', 'USIA', 'KELAMIN',
+                'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN',
+                'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN', 'MAPEL AJAR',
+                'KELAS AJAR', 'NPSN SEKOLAH', 'KELAS', 'NAMA DIKLAT',
+                'TANGGAL PERIODE AWAL', 'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT',
+                'RIWAYAT DIKLAT', 'FOTO', 'KETERANGAN',
+            ], imageFields: ['FOTO']}}>
         <div class="text-xl font-bold uppercase">Data Peserta Diklat</div>
         <div>
             <form on:submit|preventDefault={find}>
@@ -36,5 +43,5 @@
                 </div>
             </form>
         </div>
-    </Table>
+    </TableDynamic>
 </Layout>
