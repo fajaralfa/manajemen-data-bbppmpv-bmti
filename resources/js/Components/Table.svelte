@@ -56,6 +56,9 @@
                             <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
                                 ><EditIcon /></button
                             >
+                            <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}` }}
+                                ><EditIcon /></button
+                            >
                         </td>
                     </tr>
                 {/each}
