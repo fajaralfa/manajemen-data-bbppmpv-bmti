@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
+use App\Models\Prakerin;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +25,13 @@ class PrakerinController extends Controller
         $qTahun = request()->query('tahun');
         $data = $this->prakerinRepository->filterNamaNisTahun($qNama, $qNis, $qTahun);
         return inertia('Prakerin/View', ['data' => $data]);
+    }
+
+    public function viewDetail(string $id)
+    {
+        return inertia('Prakerin/ViewDetail', [
+            'data' => Prakerin::first()
+            ]);
     }
 
     public function store()

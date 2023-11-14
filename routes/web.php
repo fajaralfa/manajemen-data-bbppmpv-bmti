@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     //tampilan
     Route::get('/diklat', [DiklatController::class, 'view']);
     Route::get('/prakerin', [PrakerinController::class, 'view']);
+    Route::get('/prakerin/{id}', [PrakerinController::class, 'viewDetail']);
     Route::get('/prakerin/{id}/export', [PrakerinController::class, 'export']);
     Route::get('/inventaris', [InventarisController::class, 'view']);
     Route::get('/sekolah', [SekolahController::class, 'View']);
