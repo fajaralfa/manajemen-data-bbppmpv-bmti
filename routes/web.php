@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/diklat/import', [DiklatController::class, 'import']);
     Route::inertia('/prakerin/add', 'Prakerin/Form');
     Route::inertia('/inventaris/add', 'Inventaris/Form');
+    Route::inertia('/inventaris/import', 'Inventaris/FormImport');
+    Route::post('/inventaris/import', [InventarisController::class, 'import']);
     Route::inertia('/sekolah/add', 'Sekolah/Form');
     Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
     Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'editPage']);
