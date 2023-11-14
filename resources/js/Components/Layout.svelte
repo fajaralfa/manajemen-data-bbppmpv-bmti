@@ -72,6 +72,11 @@
                         <a href="/prakerin/add" use:inertia class={link == '/prakerin/add' ? 'bg-slate-700' : ''}>Tambah Data</a>
                     </li>
                     <li><a href="/prakerin" use:inertia class={link == '/prakerin' ? 'bg-slate-700' : ''}>Lihat Data</a></li>
+                    <li>
+                        <a href="/prakerin/import" use:inertia class={link == '/prakerin/import' ? 'bg-slate-700' : ''}
+                            >Import Data</a
+                        >
+                    </li>
                 </ul>
             {/if}
         </li>

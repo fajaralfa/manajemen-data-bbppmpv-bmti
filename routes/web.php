@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     //tampilan
     Route::get('/diklat', [DiklatController::class, 'view']);
     Route::get('/prakerin', [PrakerinController::class, 'view']);
-    Route::get('/prakerin/{id}', [PrakerinController::class, 'viewDetail']);
+    Route::get('/prakerin/{id}', [PrakerinController::class, 'viewDetail'])->where('id', '[0-9]+');
     Route::get('/prakerin/{id}/export', [PrakerinController::class, 'export']);
     Route::get('/inventaris', [InventarisController::class, 'view']);
     Route::get('/sekolah', [SekolahController::class, 'View']);
@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::inertia('/diklat/import', 'Diklat/FormImport');
     Route::post('/diklat/import', [DiklatController::class, 'import']);
     Route::inertia('/prakerin/add', 'Prakerin/Form');
+    Route::inertia('/prakerin/import', 'Prakerin/FormImport');
+    Route::post('/prakerin/import', [PrakerinController::class, 'import']);
     Route::inertia('/inventaris/add', 'Inventaris/Form');
     Route::inertia('/sekolah/add', 'Sekolah/Form');
     Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
