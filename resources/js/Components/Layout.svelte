@@ -103,6 +103,11 @@
                         >
                     </li>
                     <li><a href="/inventaris" use:inertia class={link == '/inventaris' ? 'bg-slate-700' : ''}>Lihat Data</a></li>
+                    <li>
+                        <a href="/inventaris/import" use:inertia class={link == '/inventaris/import' ? 'bg-slate-700' : ''}
+                            >Import Data</a
+                        >
+                    </li>
                 </ul>
             {/if}
         </li>
