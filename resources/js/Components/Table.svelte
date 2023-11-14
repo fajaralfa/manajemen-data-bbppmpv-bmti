@@ -3,6 +3,7 @@
     import DeleteIcon from '../Assets/DeleteIcon.svelte'
     import EditIcon from '../Assets/EditIcon.svelte'
     import DeleteAlert from './DeleteAlert.svelte'
+    import DetailIcon from '../Assets/DetailIcon.svelte'
 
     export let urlGroup
     export let data = []
@@ -51,13 +52,13 @@
                         {/each}
                         <td class="right-0 sticky bg-glass-dark">
                             {#if $page.props.user.role === 'admin'}
-                                <button class="p-4" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
+                                <button class="p-1" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
                             {/if}
-                            <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
+                            <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
                                 ><EditIcon /></button
                             >
-                            <button class="p-4" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}` }}
-                                ><EditIcon /></button
+                            <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}` }}
+                                ><DetailIcon /></button
                             >
                         </td>
                     </tr>

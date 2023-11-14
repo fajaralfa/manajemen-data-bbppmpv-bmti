@@ -7,14 +7,17 @@ use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class PrakerinController extends Controller
 {
     public function __construct(
         private PrakerinRepository $prakerinRepository,
         private Helper $helper,
+        private Xlsx $xlsx,
     ) {
     }
 
@@ -141,5 +144,31 @@ class PrakerinController extends Controller
 
         $processor->saveAs(__DIR__ . '/../../../storage/out.docx');
         return 'sukses';
+    }
+
+    private Collection $columnName;
+    public function import()
+    {
+        request()->validate(['file' => 'required']);
+        $filePath = request()->file('file')->store('prakerin/spreadsheet');
+        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
+        $excel = $this->xlsx->load($filePath)->getSheet(0);
+        $excelArray = $excel->toArray();
+
+        $this->columnName = collect($excelArray[0]);
+        $data = collect($excelArray);
+
+        // menghapus baris pertama (nama kolom)
+        $data = $data->splice(1);
+
+        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
+            $item = $this->columnName->combine($item);
+            return [$key => $item];
+        });
+
+
+        Prakerin::insertOrIgnore($dataAssoc->toArray(  ));
+
+        return redirect('/prakerin');
     }
 }
