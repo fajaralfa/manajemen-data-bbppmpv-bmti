@@ -146,28 +146,25 @@ class PrakerinController extends Controller
         return 'sukses';
     }
 
-    private Collection $columnName;
     public function import()
     {
         request()->validate(['file' => 'required']);
         $filePath = request()->file('file')->store('prakerin/spreadsheet');
-        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
-        $excel = $this->xlsx->load($filePath)->getSheet(0);
-        $excelArray = $excel->toArray();
+        $filePath = Storage::path($filePath);
 
-        $this->columnName = collect($excelArray[0]);
-        $data = collect($excelArray);
+        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
 
-        // menghapus baris pertama (nama kolom)
-        $data = $data->splice(1);
+        $collection = collect($matrix);
 
-        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
-            $item = $this->columnName->combine($item);
+        $columnNames = collect($collection->get(0))->map(fn ($item, $key) => trim($item));
+        $data = $collection->splice(1);
+
+        $assocData = $data->mapWithKeys(function ($item, $key) use ($columnNames) {
+            $item = $columnNames->combine($item);
             return [$key => $item];
-        });
+        })->toArray();
 
-
-        Prakerin::insertOrIgnore($dataAssoc->toArray(  ));
+        Prakerin::insertOrIgnore($assocData);
 
         return redirect('/prakerin');
     }
