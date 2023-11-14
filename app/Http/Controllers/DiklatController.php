@@ -12,7 +12,6 @@ use App\Repository\SekolahRepository;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -36,7 +35,7 @@ class DiklatController extends Controller
             'JABATAN', 'GOLONGAN', 'NOMOR HP', 'EMAIL', 'KOMPETENSI KEAHLIAN', 'PROGRAM KEAHLIAN', 'BIDANG KEAHLIAN',
             'MAPEL AJAR', 'KELAS AJAR', 'NAMA SEKOLAH', 'diklat.NPSN SEKOLAH', 'NAMA KEPALA SEKOLAH', 'NOMOR HP KEPALA SEKOLAH',
             'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH', 'PROVINSI SEKOLAH', 'KELAS', 'NAMA DIKLAT', 'TANGGAL PERIODE AWAL',
-            'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT', 'FOTO',
+            'TANGGAL PERIODE AKHIR', 'TEMPAT DIKLAT', 'RIWAYAT DIKLAT', 'FOTO', 'KETERANGAN',
         ]);
         return inertia('Diklat/View', ['data' => $data]);
     }
@@ -74,8 +73,10 @@ class DiklatController extends Controller
             'KETERANGAN' => ['required'],
         ]);
 
-        $photoPath = request()->file('FOTO')->store('foto-diklat');
-        $input['FOTO'] = $photoPath;
+        $photoPath = request()->file('FOTO')->store('diklat/photo');
+        // get file name only
+        $photoFileName = explode('/', $photoPath)[2];
+        $input['FOTO'] = $photoFileName;
 
         $mappedInput = $this->helper->mapRequestToTable($input);
 
@@ -90,7 +91,7 @@ class DiklatController extends Controller
 
     public function getPhoto(string $path)
     {
-        return Storage::download('foto-diklat/' . $path);
+        return Storage::download('diklat/photo/' . $path);
     }
 
     public function editPage(string $id)
@@ -123,7 +124,7 @@ class DiklatController extends Controller
             'RIWAYAT DIKLAT',
             'KETERANGAN',
         ]);
-        $oldData = $this->helper->mapTableToRequest((array) $oldData->toArray());
+        $oldData = $this->helper->mapTableToRequest($oldData->toArray());
 
         return inertia('Diklat/FormEdit', [
             'input' => $oldData
@@ -163,9 +164,13 @@ class DiklatController extends Controller
         ]);
 
         if (request()->has('FOTO')) {
-            Storage::delete(Diklat::where('id', $id)->first()?->FOTO ?? '');
-            $photoPath = request()->file('FOTO')->store('foto-diklat');
-            $input['FOTO'] = $photoPath;
+            $oldPhoto = Diklat::where('id', $id)->first()?->FOTO;
+            if($oldPhoto) {
+                Storage::delete('diklat/photo/' . $oldPhoto);
+            }
+            $photoPath = request()->file('FOTO')->store('diklat/photo');
+            $photoFileName = explode('/', $photoPath)[2];
+            $input['FOTO'] = $photoFileName;
         }
 
         $input = $this->helper->mapRequestToTable($input);
@@ -188,7 +193,7 @@ class DiklatController extends Controller
     public function import()
     {
         request()->validate(['file' => 'required']);
-        $filePath = request()->file('file')->store('excel-diklat');
+        $filePath = request()->file('file')->store('diklat');
         $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
         $excel = $this->xlsx->load($filePath)->getSheet(0);
         $excelArray = $excel->toArray();

@@ -24,12 +24,7 @@
                 <div class="flex gap-x-4">
                     <div>Filter:</div>
                     <div>
-                        <select name="waktu_pengadaan" bind:value={query.Waktu_Pengadaan}>
-                            <option value={null}>Tahun</option>
-                            {#each years as year}
-                                <option value={year}>{year}</option>
-                            {/each}
-                        </select>
+                        <input type="number" bind:value={query.Waktu_Pengadaan} placeholder="Tahun Pengadaan" />
                     </div>
                     <div>
                         <select name="kategori" bind:value={query.Kategori}>

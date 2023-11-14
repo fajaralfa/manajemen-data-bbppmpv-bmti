@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('Link Produk', 255);
             $table->string('Urgensi', 255);
             $table->date('Waktu Pengadaan')->nullable();
+            $table->date('Waktu Inventory')->nullable();
+            $table->enum('Kondisi', ['baik', 'rusak', 'hilang'])->nullable();
+            $table->string('Keterangan', 255)->nullable();
             $table->timestamps();
         });
     }

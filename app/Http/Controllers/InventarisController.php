@@ -44,6 +44,9 @@ class InventarisController extends Controller
             'Link_Produk' => ['required'],
             'Urgensi' => ['required'],
             'Waktu_Pengadaan' => [],
+            'Waktu_Inventory' => [],
+            'Kondisi' => ['in:baik,rusak,hilang'],
+            'Keterangan' => [],
         ]);
 
         $input['Gambar'] = request()->file('Gambar')->store('foto-inventaris');
@@ -81,6 +84,9 @@ class InventarisController extends Controller
             'Link Produk',
             'Urgensi',
             'Waktu Pengadaan',
+            'Waktu Inventory',
+            'Kondisi',
+            'Keterangan',
         ]);
         $data =  $this->helper->mapTableToRequest($data);
 
@@ -105,6 +111,9 @@ class InventarisController extends Controller
             'Link_Produk',
             'Urgensi',
             'Waktu_Pengadaan',
+            'Waktu_Inventory',
+            'Kondisi',
+            'Keterangan',
         ]);
 
         $input = $this->helper->mapRequestToTable($input);
