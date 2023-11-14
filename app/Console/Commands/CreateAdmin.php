@@ -28,9 +28,9 @@ class CreateAdmin extends Command
     {
         $user = new User();
 
-        $user->name = $this->ask('Nama Lengkap: ');
-        $user->username = $this->ask('Username: ');
-        $user->password = $this->ask('Password: ');
+        $user->name = $this->ask('Nama Lengkap');
+        $user->username = $this->ask('Username');
+        $user->password = $this->ask('Password');
         $user->role = 'admin';
 
         $user->save();
