@@ -150,6 +150,9 @@ class PrakerinController extends Controller
             $processor->setValue('FOTO', 'Tidak Ada Foto');
         }
 
+        if (!Storage::directoryExists('prakerin/documents'))
+            Storage::makeDirectory('prakerin/documents');
+
         $filename = 'prakerin/documents/Biodata ' . $prakerin['NAMA LENGKAP'] . ' ' . $prakerin['NAMA SEKOLAH'] . '.docx';
         $processor->saveAs(Storage::path($filename));
 
