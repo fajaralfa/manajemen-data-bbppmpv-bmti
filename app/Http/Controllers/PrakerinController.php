@@ -8,7 +8,6 @@ use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -137,21 +136,22 @@ class PrakerinController extends Controller
 
     public function export(string $id)
     {
-        $prakerin = $this->prakerinRepository->findById($id);
+        $prakerin = (array) $this->prakerinRepository->findById($id);
         $processor = new TemplateProcessor(Storage::path('template-document-biodata-prakerin.docx'));
 
-        $prakerinC = collect((array) $prakerin)->except('FOTO');
+        $prakerinC = collect($prakerin)->except('FOTO');
         $processor->setValues($prakerinC->toArray());
 
-        if (Storage::exists($prakerin->FOTO)) {
-            $processor->setImageValue('FOTO', Storage::path($prakerin->FOTO));
+        if (str_contains($prakerin['FOTO'], '/') && Storage::exists($prakerin['FOTO'])) {
+            $processor->setImageValue('FOTO', Storage::path($prakerin['FOTO']));
         } else {
             $processor->setValue('FOTO', 'Tidak Ada Foto');
         }
 
-        $processor->saveAs(Storage::path('prakerin/biodata.docx'));
+        $filename = 'prakerin/documents/Biodata ' . $prakerin['NAMA LENGKAP'] . ' ' . $prakerin['NAMA SEKOLAH'] . '.docx';
+        $processor->saveAs(Storage::path($filename));
 
-        return Storage::download('prakerin/biodata.docx');
+        return Storage::download($filename);
     }
 
     public function import()
@@ -168,6 +168,7 @@ class PrakerinController extends Controller
 
         $dataAssoc = $allData->mapWithKeys(function ($item, $key) use ($columnName) {
             $item = $columnName->combine($item);
+            unset($item['']);
 
             $item['TANGGAL LAHIR'] = $this->converter->formatDate($item['TANGGAL LAHIR']);
             $item['TANGGAL MASUK'] = $this->converter->formatDate($item['TANGGAL MASUK']);
