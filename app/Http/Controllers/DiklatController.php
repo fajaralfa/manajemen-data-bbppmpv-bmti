@@ -193,7 +193,7 @@ class DiklatController extends Controller
     public function import()
     {
         request()->validate(['file' => 'required']);
-        $filePath = request()->file('file')->store('diklat/spreadsheeet');
+        $filePath = request()->file('file')->store('diklat/spreadsheet');
 
         $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
 
