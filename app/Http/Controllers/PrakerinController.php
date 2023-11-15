@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
@@ -18,6 +19,7 @@ class PrakerinController extends Controller
         private PrakerinRepository $prakerinRepository,
         private Helper $helper,
         private Xlsx $xlsx,
+        private Converter $converter,
     ) {
     }
 
@@ -34,7 +36,7 @@ class PrakerinController extends Controller
     {
         return inertia('Prakerin/ViewDetail', [
             'data' => Prakerin::first()
-            ]);
+        ]);
     }
 
     public function store()
@@ -136,38 +138,45 @@ class PrakerinController extends Controller
     public function export(string $id)
     {
         $prakerin = $this->prakerinRepository->findById($id);
-        $processor = new TemplateProcessor(__DIR__ . '/../../../storage/in.docx');
+        $processor = new TemplateProcessor(Storage::path('template-document-biodata-prakerin.docx'));
 
         $prakerinC = collect((array) $prakerin)->except('FOTO');
         $processor->setValues($prakerinC->toArray());
-        $processor->setImageValue('FOTO', __DIR__ . '\\..\\..\\..\\storage\\app\\' . $prakerin->FOTO);
 
-        $processor->saveAs(__DIR__ . '/../../../storage/out.docx');
-        return 'sukses';
+        if (Storage::exists($prakerin->FOTO)) {
+            $processor->setImageValue('FOTO', Storage::path($prakerin->FOTO));
+        } else {
+            $processor->setValue('FOTO', 'Tidak Ada Foto');
+        }
+
+        $processor->saveAs(Storage::path('prakerin/biodata.docx'));
+
+        return Storage::download('prakerin/biodata.docx');
     }
 
-    private Collection $columnName;
     public function import()
     {
         request()->validate(['file' => 'required']);
         $filePath = request()->file('file')->store('prakerin/spreadsheet');
-        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
-        $excel = $this->xlsx->load($filePath)->getSheet(0);
-        $excelArray = $excel->toArray();
+        $filePath = Storage::path($filePath);
 
-        $this->columnName = collect($excelArray[0]);
-        $data = collect($excelArray);
+        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
+        $data = collect($matrix);
 
-        // menghapus baris pertama (nama kolom)
-        $data = $data->splice(1);
+        $columnName = collect($matrix[0])->map(fn ($item) => trim($item));
+        $allData = $data->splice(1);
 
-        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
-            $item = $this->columnName->combine($item);
+        $dataAssoc = $allData->mapWithKeys(function ($item, $key) use ($columnName) {
+            $item = $columnName->combine($item);
+
+            $item['TANGGAL LAHIR'] = $this->converter->formatDate($item['TANGGAL LAHIR']);
+            $item['TANGGAL MASUK'] = $this->converter->formatDate($item['TANGGAL MASUK']);
+            $item['TANGGAL KELUAR'] = $this->converter->formatDate($item['TANGGAL KELUAR']);
+
             return [$key => $item];
-        });
+        })->toArray();
 
-
-        Prakerin::insertOrIgnore($dataAssoc->toArray(  ));
+        Prakerin::insertOrIgnore($dataAssoc);
 
         return redirect('/prakerin');
     }
