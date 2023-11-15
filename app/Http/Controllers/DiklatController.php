@@ -165,7 +165,7 @@ class DiklatController extends Controller
 
         if (request()->has('FOTO')) {
             $oldPhoto = Diklat::where('id', $id)->first()?->FOTO;
-            if($oldPhoto) {
+            if ($oldPhoto) {
                 Storage::delete('diklat/photo/' . $oldPhoto);
             }
             $photoPath = request()->file('FOTO')->store('diklat/photo');
@@ -189,23 +189,20 @@ class DiklatController extends Controller
         return redirect('/diklat');
     }
 
-    private Collection $columnName;
     public function import()
     {
         request()->validate(['file' => 'required']);
-        $filePath = request()->file('file')->store('diklat');
-        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
-        $excel = $this->xlsx->load($filePath)->getSheet(0);
-        $excelArray = $excel->toArray();
+        $filePath = request()->file('file')->store('diklat/imported-data');
+        $filePath = Storage::path($filePath);
 
-        $this->columnName = collect($excelArray[0]);
-        $data = collect($excelArray);
+        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
+        $data = collect($matrix);
 
-        // menghapus baris pertama (nama kolom)
-        $data = $data->splice(1);
+        $columnName = collect($data[0]);
+        $allData = $data->splice(1);
 
-        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
-            $item = $this->columnName->combine($item);
+        $dataAssoc = $allData->mapWithKeys(function ($item, $key) use ($columnName) {
+            $item = $columnName->combine($item);
             return [$key => $item];
         });
 
@@ -215,6 +212,7 @@ class DiklatController extends Controller
                 'NOMOR HP KEPALA SEKOLAH', 'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH',
                 'PROVINSI SEKOLAH',
             ])->all();
+
             return [$key => $new];
         })->unique('NPSN SEKOLAH')->all();
 
@@ -229,8 +227,10 @@ class DiklatController extends Controller
                 'RIWAYAT DIKLAT', 'FOTO', 'KETERANGAN',
             ])->all();
 
+            $new['TANGGAL LAHIR'] = $this->converter->formatDate($new['TANGGAL LAHIR']);
             $new['TANGGAL PERIODE AWAL'] = $this->converter->formatDate($new['TANGGAL PERIODE AWAL']);
             $new['TANGGAL PERIODE AKHIR'] = $this->converter->formatDate($new['TANGGAL PERIODE AKHIR']);
+
             return [$key => $new];
         })->unique('NIK')->all();
 
