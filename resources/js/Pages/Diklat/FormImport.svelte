@@ -23,7 +23,7 @@
             <div class="card-body">
                 <div class="text-center">Import data peserta diklat dan sekolah dari Spreadsheet.</div>
                 <div class="text-center">
-                    <a href="/storage/template-spreadsheet-diklat.xlsx" class="text-blue-600 underline">Lihat Format</a>
+                    <a href="/img/template-spreadsheet-diklat.xlsx" class="text-blue-600 underline">Lihat Format</a>
                 </div>
                 <form class="mt-6" on:submit|preventDefault={importFile}>
                     <div class="flex flex-col gap-y-4 items-center">
