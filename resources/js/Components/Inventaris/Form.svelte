@@ -14,7 +14,7 @@
         Tipe: null,
         Spesifikasi: null,
         Nomor_Seri: null,
-        Satuan: null,
+        Satuan: 'unit',
         Volume: null,
         Harga_Satuan: null,
         Jumlah: null,
@@ -41,7 +41,7 @@
             <InputText bind:value={input.Tipe} error={errors.Tipe}>Tipe</InputText>
             <InputText bind:value={input.Spesifikasi} error={errors.Spesifikasi}>Spesifikasi</InputText>
             <InputText bind:value={input.Nomor_Seri} error={errors.Nomor_Seri}>Nomor Seri</InputText>
-            <Option bind:value={input.Satuan} options={['unit', 'slop']}>Satuan</Option>
+            <Option bind:value={input.Satuan} options={['unit']}>Satuan</Option>
             <InputNumber bind:value={input.Jumlah} error={errors.Jumlah}>Jumlah</InputNumber>
             <InputNumber bind:value={input.Harga_Satuan} error={errors.Harga_Satuan}>Harga Satuan</InputNumber>
             <InputText bind:value={input.Volume} error={errors.Volume}>Volume</InputText>
