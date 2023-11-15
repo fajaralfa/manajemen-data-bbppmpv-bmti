@@ -21,7 +21,7 @@
     <title>Peserta Prakerin</title>
 </svelte:head>
 <Layout>
-    <Table {data} urlGroup="prakerin">
+    <Table {data} urlGroup="prakerin" detailButton={true}>
         <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
         <div>
             <form on:submit|preventDefault={find}>
