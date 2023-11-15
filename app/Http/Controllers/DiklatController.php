@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\SpreadsheetFacade;
 use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Models\Diklat;
@@ -21,9 +22,9 @@ class DiklatController extends Controller
         private DiklatRepository $diklatRepository,
         private SekolahRepository $sekolahRepository,
         private JoinRepository $joinRepository,
-        private Xlsx $xlsx,
         private Converter $converter,
         private Helper $helper,
+        private SpreadsheetFacade $spreadsheetFacade,
     ) {
     }
     public function view()
@@ -192,19 +193,9 @@ class DiklatController extends Controller
     public function import()
     {
         request()->validate(['file' => 'required']);
-        $filePath = request()->file('file')->store('diklat/imported-data');
-        $filePath = Storage::path($filePath);
+        $filePath = request()->file('file')->store('diklat/spreadsheeet');
 
-        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
-        $data = collect($matrix);
-
-        $columnName = collect($data[0]);
-        $allData = $data->splice(1);
-
-        $dataAssoc = $allData->mapWithKeys(function ($item, $key) use ($columnName) {
-            $item = $columnName->combine($item);
-            return [$key => $item];
-        });
+        $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
 
         $dataSekolah = $dataAssoc->mapWithKeys(function (Collection $item, $key) {
             $new = $item->only([
@@ -227,7 +218,6 @@ class DiklatController extends Controller
                 'RIWAYAT DIKLAT', 'FOTO', 'KETERANGAN',
             ])->all();
 
-            $new['TANGGAL LAHIR'] = $this->converter->formatDate($new['TANGGAL LAHIR']);
             $new['TANGGAL PERIODE AWAL'] = $this->converter->formatDate($new['TANGGAL PERIODE AWAL']);
             $new['TANGGAL PERIODE AKHIR'] = $this->converter->formatDate($new['TANGGAL PERIODE AKHIR']);
 

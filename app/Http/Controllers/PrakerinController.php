@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\SpreadsheetFacade;
 use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
@@ -19,6 +20,7 @@ class PrakerinController extends Controller
         private Helper $helper,
         private Xlsx $xlsx,
         private Converter $converter,
+        private SpreadsheetFacade $spreadsheetFacade,
     ) {
     }
 
@@ -158,18 +160,10 @@ class PrakerinController extends Controller
     {
         request()->validate(['file' => 'required']);
         $filePath = request()->file('file')->store('prakerin/spreadsheet');
-        $filePath = Storage::path($filePath);
 
-        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
-        $data = collect($matrix);
+        $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
 
-        $columnName = collect($matrix[0])->map(fn ($item) => trim($item));
-        $allData = $data->splice(1);
-
-        $dataAssoc = $allData->mapWithKeys(function ($item, $key) use ($columnName) {
-            $item = $columnName->combine($item);
-            unset($item['']);
-
+        $dataAssoc = $dataAssoc->mapWithKeys(function ($item, $key) {
             $item['TANGGAL LAHIR'] = $this->converter->formatDate($item['TANGGAL LAHIR']);
             $item['TANGGAL MASUK'] = $this->converter->formatDate($item['TANGGAL MASUK']);
             $item['TANGGAL KELUAR'] = $this->converter->formatDate($item['TANGGAL KELUAR']);
