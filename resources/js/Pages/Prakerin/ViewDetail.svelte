@@ -32,7 +32,7 @@
             <DetailField label="NSS" value={data['NSS']} />
             <DetailField label="Alamat Lengkap Sekolah " value={data['ALAMAT LENGKAP SEKOLAH']} />
             <DetailField label="Email Sekolah" value={data['POSEL SEKOLAH']} />
-            <DetailField label="Hobby" value={data['HOBBY']} />
+            <DetailField label="Hobi" value={data['HOBBY']} />
         </div>
     </div>
 </Layout>
