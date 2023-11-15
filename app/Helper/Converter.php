@@ -21,6 +21,7 @@ class Converter
             'desember' => '12',
         ];
 
+        $date = trim($date);
         $input = explode(' ', $date);
 
         $tahun = $input[2];
