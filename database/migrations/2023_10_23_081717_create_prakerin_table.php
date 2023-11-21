@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('PROGRAM KEAHLIAN', 100);
             $table->string('KOMPETENSI KEAHLIAN', 100);
             $table->string('TEMPAT LAHIR', 100);
-            $table->string('TANGGAL LAHIR', 50);
+            $table->date('TANGGAL LAHIR');
             $table->enum('JENIS KELAMIN', ['L', 'P']);
             $table->string('AGAMA', 50);
             $table->string('ALAMAT LENGKAP', 255);
