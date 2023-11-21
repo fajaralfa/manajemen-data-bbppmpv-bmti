@@ -6,25 +6,41 @@ class Converter
     public function formatDate(string $date)
     {
         $bulanMap = [
-            'Januari' => '01',
-            'Februari' => '02',
-            'Maret' => '03',
-            'April' => '04',
-            'Mei' => '05',
-            'Juni' => '06',
-            'Juli' => '07',
-            'Agustus' => '08',
-            'September' => '09',
-            'Oktober' => '10',
-            'November' => '11',
-            'Desember' => '12',
+            'januari' => '01',
+            'februari' => '02',
+            'maret' => '03',
+            'april' => '04',
+            'mei' => '05',
+            'juni' => '06',
+            'juli' => '07',
+            'agustus' => '08',
+            'september' => '09',
+            'oktober' => '10',
+            'november' => '11',
+            'desember' => '12',
+
+            'january' => '01',
+            'february' => '02',
+            'march' => '03',
+            'april' => '04',
+            'may' => '05',
+            'june' => '06',
+            'july' => '07',
+            'august' => '08',
+            'september' => '09',
+            'october' => '10',
+            'november' => '11',
+            'desember' => '12',
         ];
 
         $input = explode(' ', $date);
-        if((int) $input[0] < 10) $input[0] = '0' . $input[0];
 
-        $out = implode("-", [$input[2], $bulanMap[$input[1]], $input[0]]);
+        $date = $input[0];
+        $month = $bulanMap[strtolower($input[1])];
+        $year = $input[2];
+
+        $output = implode("-", [$year, $month, $date]);
         
-        return $out;
+        return $output;
     }
 }

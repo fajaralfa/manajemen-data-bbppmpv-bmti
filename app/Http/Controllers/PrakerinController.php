@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
@@ -18,6 +19,7 @@ class PrakerinController extends Controller
         private PrakerinRepository $prakerinRepository,
         private Helper $helper,
         private Xlsx $xlsx,
+        private Converter $converter,
     ) {
     }
 
@@ -161,6 +163,9 @@ class PrakerinController extends Controller
 
         $assocData = $data->mapWithKeys(function ($item, $key) use ($columnNames) {
             $item = $columnNames->combine($item);
+            $item['TANGGAL LAHIR'] = $this->converter->formatDate($item['TANGGAL LAHIR']);
+            $item['TANGGAL MASUK'] = $this->converter->formatDate($item['TANGGAL MASUK']);
+            $item['TANGGAL KELUAR'] = $this->converter->formatDate($item['TANGGAL KELUAR']);
             return [$key => $item];
         })->toArray();
 
