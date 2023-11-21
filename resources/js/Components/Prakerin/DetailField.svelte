@@ -16,7 +16,7 @@
     <div class="flex-1">{label} :</div>
     <div class="flex-1">
         {#if type === 'photo'}
-            <img src="/{urlGroup}/photo/{imgPath}" alt="Foto" class="h-12" />
+            <img src="/{urlGroup}/photo/{imgPath}" alt="Foto Tidak Ada" class="h-12" />
         {:else}
             {value}
         {/if}
