@@ -5,18 +5,7 @@
     export let data
 
     const year = new Date().getFullYear()
-    const imagesPath = [
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/wisma2.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/wisma1.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/taman.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/serbaguna3.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/poliklinik.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/masjid.png',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lap_tenis.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lap.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/lab_kom.jpg',
-        'https://bbppmpvbmti.kemdikbud.go.id/main/wp-content/uploads/2021/08/kolam_renang.jpg',
-    ]
+    const imagesPath = ['/img/mm-1.jpeg', '/img/mm-2.jpeg', '/img/mm-3.jpeg']
 </script>
 
 <svelte:head>
@@ -26,8 +15,8 @@
     <div class="grid-container">
         <div class="grid-item carousel-vertical">
             {#each imagesPath as path}
-                <div id="{path}" class="carousel-item">
-                    <img src="{path}" alt="" srcset="">
+                <div id={path} class="carousel-item">
+                    <img src={path} alt="" srcset="" />
                 </div>
             {/each}
         </div>
@@ -54,9 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid-item flex justify-center items-center">
-            DIBUAT OLEH TIM DARI SMKN BANTARKALONG
-        </div>
+        <div class="grid-item flex justify-center items-center">DIBUAT OLEH TIM DARI SMKN BANTARKALONG</div>
     </div>
 </Layout>
 

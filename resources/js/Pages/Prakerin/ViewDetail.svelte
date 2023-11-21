@@ -1,5 +1,5 @@
 <script>
-    import { router } from '@inertiajs/svelte'
+    import { inertia } from '@inertiajs/svelte'
     import Layout from '../../Components/Layout.svelte'
     import DetailField from '../../Components/Prakerin/DetailField.svelte'
     export let data
@@ -9,6 +9,7 @@
 <Layout>
     <div class="flex justify-center">
         <div class="my-10 bg-glass-dark p-5 rounded-xl w-[50rem] flex flex-col gap-y-5">
+            <a href={`/prakerin/${data.id}/export`} class="text-md text-center btn self-center"> PRINT BIODATA </a>
             <DetailField label="Nama Lengkap" value={data['NAMA LENGKAP']} />
             <DetailField label="Nama Sekolah" value={data['NAMA SEKOLAH']} />
             <DetailField label="NIS/NIM" value={data['NIS/NIM']} />
@@ -31,7 +32,7 @@
             <DetailField label="NSS" value={data['NSS']} />
             <DetailField label="Alamat Lengkap Sekolah " value={data['ALAMAT LENGKAP SEKOLAH']} />
             <DetailField label="Email Sekolah" value={data['POSEL SEKOLAH']} />
-            <DetailField label="Hobby" value={data['HOBBY']} />
+            <DetailField label="Hobi" value={data['HOBBY']} />
         </div>
     </div>
 </Layout>

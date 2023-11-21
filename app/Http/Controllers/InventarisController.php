@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\SpreadsheetFacade;
+use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Models\Inventaris;
 use Illuminate\Http\Request;
 use App\Repository\InventarisRepository;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -15,7 +16,9 @@ class InventarisController extends Controller
     public function __construct(
         private InventarisRepository $inventarisRepository,
         private Helper $helper,
+        private Converter $converter,
         private Xlsx $xlsx,
+        private SpreadsheetFacade $spreadsheetFacade,
     ) {
     }
 
@@ -133,23 +136,16 @@ class InventarisController extends Controller
         return redirect('/inventaris');
     }
 
-    private Collection $columnName;
     public function import()
     {
         request()->validate(['file' => 'required']);
         $filePath = request()->file('file')->store('inventaris/spreadsheet');
-        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
-        $excel = $this->xlsx->load($filePath)->getSheet(0);
-        $excelArray = $excel->toArray();
 
-        $this->columnName = collect($excelArray[0]);
-        $data = collect($excelArray);
+        $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
+        $dataAssoc = $dataAssoc->mapWithKeys(function ($item, $key) {
+            $item['Waktu Pengadaan'] = $this->converter->formatDate($item['Waktu Pengadaan']);
+            $item['Waktu Inventory'] = $this->converter->formatDate($item['Waktu Inventory']);
 
-        // menghapus baris pertama (nama kolom)
-        $data = $data->splice(1);
-
-        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
-            $item = $this->columnName->combine($item);
             return [$key => $item];
         });
 

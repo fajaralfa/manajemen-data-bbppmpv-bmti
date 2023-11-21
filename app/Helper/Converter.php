@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helper;
 
 class Converter
@@ -33,6 +34,7 @@ class Converter
             'desember' => '12',
         ];
 
+        $date = trim($date);
         $input = explode(' ', $date);
 
         $date = $input[0];

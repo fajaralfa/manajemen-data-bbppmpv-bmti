@@ -8,7 +8,6 @@
     if (type === 'photo') {
         urlGroup = value.split('-')[1]?.split('/')[0]
         imgPath = value.split('/')[1]
-        console.log(urlGroup)
     }
 </script>
 

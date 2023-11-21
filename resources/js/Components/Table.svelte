@@ -8,6 +8,7 @@
     export let urlGroup
     export let data = []
     export let imageFields = ['FOTO']
+    export let detailButton = false
     console.log(data)
 
     let deleteAlertProps = {
@@ -54,12 +55,14 @@
                             {#if $page.props.user.role === 'admin'}
                                 <button class="p-1" on:click={() => deleteConfirm(row['id'] ?? row['ID'])}><DeleteIcon /></button>
                             {/if}
-                            <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}
-                                ><EditIcon /></button
-                            >
-                            <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}` }}
-                                ><DetailIcon /></button
-                            >
+                            <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}/edit` }}>
+                                <EditIcon />
+                            </button>
+                            {#if detailButton}
+                                <button class="p-1" use:inertia={{ href: `/${urlGroup}/${row['id'] ?? row['ID']}` }}>
+                                    <DetailIcon />
+                                </button>
+                            {/if}
                         </td>
                     </tr>
                 {/each}

@@ -21,9 +21,9 @@
     <title>Peserta Prakerin</title>
 </svelte:head>
 <Layout>
-    <Table {data} urlGroup="prakerin">
-        <div class="flex items-center gap-10">
-            <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
+    <Table {data} urlGroup="prakerin" detailButton={true}>
+        <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
+        <div>
             <form on:submit|preventDefault={find}>
                 <div class="flex gap-x-4">
                     <div>Filter:</div>

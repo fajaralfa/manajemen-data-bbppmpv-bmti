@@ -2,6 +2,7 @@
     import { inertia } from '@inertiajs/svelte'
     import DeleteIcon from '../Assets/DeleteIcon.svelte'
     import EditIcon from '../Assets/EditIcon.svelte'
+    import DeleteAlert from './DeleteAlert.svelte'
 
     export let data = []
     export let opts = {
@@ -11,11 +12,21 @@
         imageFields: [],
     }
 
+    let deleteAlertProps = {
+        show: false,
+        url: '',
+    }
+
+    function confirmAction(url) {
+        deleteAlertProps.url = url
+        deleteAlertProps.show = true
+    }
 </script>
 
 <div class="w-full h-[92vh] overflow-x-scroll table-container bg-glass-dark">
     <div class="flex px-3 py-1 bg-glass-dark gap-20">
         <slot />
+        <DeleteAlert showDeleteAlert={deleteAlertProps.show} deleteUrl={deleteAlertProps.url} />
     </div>
     {#if data.length === 0}
         <div class="text-xl text-center">Data Kosong!</div>
@@ -34,14 +45,16 @@
                     <tr>
                         {#each opts.showedFields as column}
                             {#if opts.imageFields.includes(column)}
-                                <img src="/{opts.urlGroup}/photo/{row[column]}" alt="">
+                                <img src="/{opts.urlGroup}/photo/{row[column]}" alt="" />
                             {:else}
                                 <td>{row[column]}</td>
                             {/if}
                         {/each}
                         <td class="right-0 sticky bg-black">
-                            <button use:inertia={{href: `/${opts.urlGroup}/${row[opts.id]}`, method: 'delete'}}><DeleteIcon /></button>
-                            <button use:inertia={{href: `/${opts.urlGroup}/${row[opts.id]}/edit`}}><EditIcon /></button>
+                            <button on:click={() => confirmAction(`/${opts.urlGroup}/${row[opts.id]}`)}>
+                                <DeleteIcon />
+                            </button>
+                            <button use:inertia={{ href: `/${opts.urlGroup}/${row[opts.id]}/edit` }}><EditIcon /></button>
                         </td>
                     </tr>
                 {/each}

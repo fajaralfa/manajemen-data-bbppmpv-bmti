@@ -33,40 +33,44 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', DashboardController::class)->name('home');
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    //tampilan
-    Route::get('/diklat', [DiklatController::class, 'view']);
+    // prakerin
     Route::get('/prakerin', [PrakerinController::class, 'view']);
     Route::get('/prakerin/{id}', [PrakerinController::class, 'viewDetail'])->where('id', '[0-9]+');
     Route::get('/prakerin/{id}/export', [PrakerinController::class, 'export']);
-    Route::get('/inventaris', [InventarisController::class, 'view']);
-    Route::get('/sekolah', [SekolahController::class, 'View']);
-    Route::get('/diklat/photo/{path}', [DiklatController::class, 'getPhoto']);
     Route::get('/prakerin/photo/{path}', [PrakerinController::class, 'getPhoto']);
-    Route::get('/inventaris/photo/{path}', [InventarisController::class, 'getPhoto']);
-    Route::inertia('/diklat/add', 'Diklat/Form');
-    Route::inertia('/diklat/import', 'Diklat/FormImport');
-    Route::post('/diklat/import', [DiklatController::class, 'import']);
     Route::inertia('/prakerin/add', 'Prakerin/Form');
     Route::inertia('/prakerin/import', 'Prakerin/FormImport');
     Route::post('/prakerin/import', [PrakerinController::class, 'import']);
+    Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'editPage']);
+    Route::post('/prakerin', [PrakerinController::class, 'store']);
+    Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
+
+    // diklat
+    Route::get('/diklat', [DiklatController::class, 'view']);
+    Route::get('/diklat/photo/{path}', [DiklatController::class, 'getPhoto']);
+    Route::inertia('/diklat/add', 'Diklat/Form');
+    Route::inertia('/diklat/import', 'Diklat/FormImport');
+    Route::post('/diklat/import', [DiklatController::class, 'import']);
+    Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
+    Route::post('/diklat', [DiklatController::class, 'store']);
+    Route::post('/diklat/{id}/edit', [DiklatController::class, 'edit']);
+
+    // sekolah
+    Route::get('/sekolah', [SekolahController::class, 'View']);
+    Route::get('/sekolah/{id}/edit', [SekolahController::class, 'editPage']);
+    Route::post('/sekolah', [SekolahController::class, 'store']);
+    Route::inertia('/sekolah/add', 'Sekolah/Form');
+    Route::post('/sekolah/{id}/edit', [SekolahController::class, 'edit']);
+
+    // inventaris
+    Route::get('/inventaris', [InventarisController::class, 'view']);
+    Route::get('/inventaris/photo/{path}', [InventarisController::class, 'getPhoto']);
     Route::inertia('/inventaris/add', 'Inventaris/Form');
     Route::inertia('/inventaris/import', 'Inventaris/FormImport');
     Route::post('/inventaris/import', [InventarisController::class, 'import']);
-    Route::inertia('/sekolah/add', 'Sekolah/Form');
-    Route::get('/diklat/{id}/edit', [DiklatController::class, 'editPage']);
-    Route::get('/prakerin/{id}/edit', [PrakerinController::class, 'editPage']);
     Route::get('/inventaris/{id}/edit', [InventarisController::class, 'editPage']);
-    Route::get('/sekolah/{id}/edit', [SekolahController::class, 'editPage']);
-
-    //aksi
-    Route::post('/diklat', [DiklatController::class, 'store']);
-    Route::post('/prakerin', [PrakerinController::class, 'store']);
     Route::post('/inventaris', [InventarisController::class, 'store']);
-    Route::post('/sekolah', [SekolahController::class, 'store']);
-    Route::post('/diklat/{id}/edit', [DiklatController::class, 'edit']);
-    Route::post('/prakerin/{id}/edit', [PrakerinController::class, 'edit']);
     Route::post('/inventaris/{id}/edit', [InventarisController::class, 'edit']);
-    Route::post('/sekolah/{id}/edit', [SekolahController::class, 'edit']);
 
     Route::middleware(AuthRoleAdmin::class)->group(function () {
         Route::delete('/diklat/{id}', [DiklatController::class, 'delete']);

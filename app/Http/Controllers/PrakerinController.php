@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\SpreadsheetFacade;
 use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -20,6 +20,7 @@ class PrakerinController extends Controller
         private Helper $helper,
         private Xlsx $xlsx,
         private Converter $converter,
+        private SpreadsheetFacade $spreadsheetFacade,
     ) {
     }
 
@@ -36,7 +37,7 @@ class PrakerinController extends Controller
     {
         return inertia('Prakerin/ViewDetail', [
             'data' => Prakerin::first()
-            ]);
+        ]);
     }
 
     public function store()
@@ -137,39 +138,46 @@ class PrakerinController extends Controller
 
     public function export(string $id)
     {
-        $prakerin = $this->prakerinRepository->findById($id);
-        $processor = new TemplateProcessor(__DIR__ . '/../../../storage/in.docx');
+        $prakerin = (array) $this->prakerinRepository->findById($id);
+        $processor = new TemplateProcessor(Storage::path('template-document-biodata-prakerin.docx'));
 
-        $prakerinC = collect((array) $prakerin)->except('FOTO');
+        $prakerinC = collect($prakerin)->except('FOTO');
         $processor->setValues($prakerinC->toArray());
-        $processor->setImageValue('FOTO', __DIR__ . '\\..\\..\\..\\storage\\app\\' . $prakerin->FOTO);
 
-        $processor->saveAs(__DIR__ . '/../../../storage/out.docx');
-        return 'sukses';
+        if (str_contains($prakerin['FOTO'], '/') && Storage::exists($prakerin['FOTO'])) {
+            $processor->setImageValue('FOTO', Storage::path($prakerin['FOTO']));
+        } else {
+            $processor->setValue('FOTO', 'Tidak Ada Foto');
+        }
+
+        if (!Storage::directoryExists('prakerin/documents'))
+            Storage::makeDirectory('prakerin/documents');
+
+        $filename = 'prakerin/documents/Biodata ' . $prakerin['NAMA LENGKAP'] . ' ' . $prakerin['NAMA SEKOLAH'] . '.docx';
+        $processor->saveAs(Storage::path($filename));
+
+        return Storage::download($filename);
     }
 
     public function import()
     {
         request()->validate(['file' => 'required']);
         $filePath = request()->file('file')->store('prakerin/spreadsheet');
-        $filePath = Storage::path($filePath);
+        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
+        $excel = $this->xlsx->load($filePath)->getSheet(0);
+        $excelArray = $excel->toArray();
 
-        $matrix = $this->xlsx->load($filePath)->getSheet(0)->toArray();
+        $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
 
-        $collection = collect($matrix);
-
-        $columnNames = collect($collection->get(0))->map(fn ($item, $key) => trim($item));
-        $data = $collection->splice(1);
-
-        $assocData = $data->mapWithKeys(function ($item, $key) use ($columnNames) {
-            $item = $columnNames->combine($item);
+        $dataAssoc = $dataAssoc->mapWithKeys(function ($item, $key) {
             $item['TANGGAL LAHIR'] = $this->converter->formatDate($item['TANGGAL LAHIR']);
             $item['TANGGAL MASUK'] = $this->converter->formatDate($item['TANGGAL MASUK']);
             $item['TANGGAL KELUAR'] = $this->converter->formatDate($item['TANGGAL KELUAR']);
+
             return [$key => $item];
         })->toArray();
 
-        Prakerin::insertOrIgnore($assocData);
+        Prakerin::insertOrIgnore($dataAssoc);
 
         return redirect('/prakerin');
     }

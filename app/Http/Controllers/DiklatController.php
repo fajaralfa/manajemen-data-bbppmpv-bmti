@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\SpreadsheetFacade;
 use App\Helper\Converter;
 use App\Helper\Helper;
 use App\Models\Diklat;
@@ -21,9 +22,9 @@ class DiklatController extends Controller
         private DiklatRepository $diklatRepository,
         private SekolahRepository $sekolahRepository,
         private JoinRepository $joinRepository,
-        private Xlsx $xlsx,
         private Converter $converter,
         private Helper $helper,
+        private SpreadsheetFacade $spreadsheetFacade,
     ) {
     }
     public function view()
@@ -165,7 +166,7 @@ class DiklatController extends Controller
 
         if (request()->has('FOTO')) {
             $oldPhoto = Diklat::where('id', $id)->first()?->FOTO;
-            if($oldPhoto) {
+            if ($oldPhoto) {
                 Storage::delete('diklat/photo/' . $oldPhoto);
             }
             $photoPath = request()->file('FOTO')->store('diklat/photo');
@@ -189,25 +190,12 @@ class DiklatController extends Controller
         return redirect('/diklat');
     }
 
-    private Collection $columnName;
     public function import()
     {
         request()->validate(['file' => 'required']);
-        $filePath = request()->file('file')->store('diklat');
-        $filePath = __DIR__ . '/../../../storage/app/' . $filePath;
-        $excel = $this->xlsx->load($filePath)->getSheet(0);
-        $excelArray = $excel->toArray();
+        $filePath = request()->file('file')->store('diklat/spreadsheet');
 
-        $this->columnName = collect($excelArray[0]);
-        $data = collect($excelArray);
-
-        // menghapus baris pertama (nama kolom)
-        $data = $data->splice(1);
-
-        $dataAssoc = $data->mapWithKeys(function ($item, $key) {
-            $item = $this->columnName->combine($item);
-            return [$key => $item];
-        });
+        $dataAssoc = $this->spreadsheetFacade->excelToCollectionAssoc($filePath);
 
         $dataSekolah = $dataAssoc->mapWithKeys(function (Collection $item, $key) {
             $new = $item->only([
@@ -215,6 +203,7 @@ class DiklatController extends Controller
                 'NOMOR HP KEPALA SEKOLAH', 'JENJANG SEKOLAH', 'KABUPATEN SEKOLAH',
                 'PROVINSI SEKOLAH',
             ])->all();
+
             return [$key => $new];
         })->unique('NPSN SEKOLAH')->all();
 
@@ -231,6 +220,7 @@ class DiklatController extends Controller
 
             $new['TANGGAL PERIODE AWAL'] = $this->converter->formatDate($new['TANGGAL PERIODE AWAL']);
             $new['TANGGAL PERIODE AKHIR'] = $this->converter->formatDate($new['TANGGAL PERIODE AKHIR']);
+
             return [$key => $new];
         })->unique('NIK')->all();
 
