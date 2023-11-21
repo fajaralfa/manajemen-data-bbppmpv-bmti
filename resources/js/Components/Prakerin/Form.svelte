@@ -82,19 +82,9 @@
             <InputText bind:value={input['NAMA_LENGKAP']} error={errors['NAMA_LENGKAP']}>Nama Lengkap</InputText>
             <InputNumber bind:value={input['NIS/NIM']} error={errors['NIS/NIM']}>NIS/NIM</InputNumber>
 
-            <SelectNestedObject bind:value={input.BIDANG_KEAHLIAN} options={bidangKeahlianOpt} error={errors.BIDANG_KEAHLIAN}>
-                Bidang Keahlian
-            </SelectNestedObject>
-            <SelectNestedObject bind:value={input.PROGRAM_KEAHLIAN} error={errors.PROGRAM_KEAHLIAN} options={programKeahlianOpt}>
-                Program Keahlian
-            </SelectNestedObject>
-            <SelectNestedObject
-                bind:value={input.KOMPETENSI_KEAHLIAN}
-                options={kompKeahlianOpt}
-                error={errors.KOMPETENSI_KEAHLIAN}
-            >
-                Kompetensi Keahlian
-            </SelectNestedObject>
+            <InputText bind:value={input.BIDANG_KEAHLIAN} error={errors.BIDANG_KEAHLIAN}>Bidang Keahlian</InputText>
+            <InputText bind:value={input.PROGRAM_KEAHLIAN} error={errors.PROGRAM_KEAHLIAN}>Program Keahlian</InputText>
+            <InputText bind:value={input.KOMPETENSI_KEAHLIAN} error={errors.KOMPETENSI_KEAHLIAN}>Kompetensi Keahlian</InputText>
 
             <InputText bind:value={input['TEMPAT_LAHIR']} error={errors['TEMPAT_LAHIR']}>Tempat Lahir</InputText>
             <InputDate bind:value={input['TANGGAL_LAHIR']} error={errors['TANGGAL_LAHIR']}>Tanggal Lahir</InputDate>
