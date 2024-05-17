@@ -6,7 +6,7 @@ use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthRoleAdmin;
 use App\Http\Middleware\Unauthenticated;
 use Illuminate\Support\Facades\Route;
@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/sekolah/{id}', [SekolahController::class, 'delete']);
 
         Route::inertia('/user/add', 'Users/Add');
-        Route::post('/user/add', [UserManagementController::class, 'register']);
-        Route::get('/user', [UserManagementController::class, 'view']);
+        Route::post('/user/add', [UserController::class, 'register']);
+        Route::get('/user', [UserController::class, 'view']);
     });
 });

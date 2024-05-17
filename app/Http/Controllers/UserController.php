@@ -7,7 +7,7 @@ use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class UserManagementController extends Controller
+class UserController extends Controller
 {
 
     public function register()
