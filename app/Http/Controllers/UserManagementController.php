@@ -21,9 +21,9 @@ class UserManagementController extends Controller
 
         try {
             User::create($input);
-            return redirect('/login')->with(['message' => 'Register berhasil!, silakan login']);
+            return redirect('/login')->with('success', 'User baru berhasil ditambahkan!');
         } catch (UniqueConstraintViolationException $e) {
-            return redirect()->back()->withErrors(['message' => 'Username sudah dipakai']);
+            return redirect()->back()->withErrors(['username' => 'Username sudah dipakai']);
         }
     }
 

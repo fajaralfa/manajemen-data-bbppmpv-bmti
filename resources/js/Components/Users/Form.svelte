@@ -1,26 +1,27 @@
 <script>
+    import { useForm, page } from '@inertiajs/svelte'
     import InputText from '../Formulir/InputText.svelte'
     import RadioGroup from '../Formulir/RadioGroup.svelte'
-    export let input = {
+
+    export let submit
+    export let submitValue = 'Simpan'
+
+    let form = useForm({
         name: null,
         username: null,
         password: null,
         role: 'operator',
-    }
-    export let submit
-    export let errors
-    export let submitValue = 'Simpan'
+    })
 </script>
 
 <div class="p-10">
-    <form class="flex flex-col gap-y-6 items-center" on:submit|preventDefault={() => submit(input)}>
+    <form class="flex flex-col gap-y-6 items-center" on:submit|preventDefault={() => submit($form)}>
         <div class="input-container">
-            <InputText bind:value={input.name} error={errors.name}>Name:</InputText>
-            <InputText bind:value={input.username} error={errors.name}>Username:</InputText>
-            <InputText bind:value={input.password} error={errors.name}>Password:</InputText>
-            <RadioGroup bind:value={input.role} options={{ Operator: 'operator', Admin: 'admin' }} error={errors.name}
-                >Role:</RadioGroup
-            >
+            <InputText bind:value={$form.name} error={$page.props.errors.name}>Name:</InputText>
+            <InputText bind:value={$form.username} error={$page.props.errors.username}>Username:</InputText>
+            <InputText bind:value={$form.password} error={$page.props.errors.password}>Password:</InputText>
+            <RadioGroup bind:value={$form.role} options={{ Operator: 'operator', Admin: 'admin' }} error={$page.props.errors.role}
+                >Role:</RadioGroup>
             <div class="justify-self-center">
                 <input class="btn btn-neutral" type="submit" name="submit" value={submitValue} />
             </div>
