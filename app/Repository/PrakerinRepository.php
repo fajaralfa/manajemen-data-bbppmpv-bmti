@@ -2,27 +2,34 @@
 
 namespace App\Repository;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Prakerin;
+use Illuminate\Database\Eloquent\Collection;
 
-class PrakerinRepository extends Repository
+class PrakerinRepository
 {
-    protected string $table = 'prakerin';
-
-    public function filterNamaNisTahun(?string $nama, ?string $nis, ?string $tahun, array $columns = ['*'])
+    public function save(array $input)
     {
-        $result = DB::table($this->table);
+        return Prakerin::create($input);
+    }
+    
+    public function filterNamaNisTahun(?string $nama, ?string $nis, ?string $tahun, array $columns = ['*']): Collection
+    {
+        $model = new Prakerin();
+        if ($nama)
+            $model = $model->where('NAMA LENGKAP', 'LIKE', "%$nama%");
+        if ($nis)
+            $model = $model->where('NIS/NIM', $nis);
+        if ($tahun)
+            $model = $model->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$tahun]);
 
-        if (!empty($nama)) $result = $result->where('NAMA LENGKAP', 'LIKE', "%$nama%");
-        if (!empty($nis)) $result = $result->where('NIS/NIM', $nis);
-        if (!empty($tahun)) $result = $result->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$tahun]);
-
-        return $result->get($columns);
+        $data = $model->get();
+        return $data;
     }
 
-    public function countByYear(int $year)
+    public function countByYear(int $year): int
     {
-        return DB::table($this->table)
-            ->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$year])
+        $model = new Prakerin();
+        return $model->whereRaw('YEAR(`TANGGAL MASUK`) = ?', [$year])
             ->count();
     }
 }

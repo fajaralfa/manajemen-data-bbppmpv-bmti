@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Facades\SpreadsheetFacade;
 use App\Helper\Converter;
 use App\Helper\Helper;
+use App\Http\Requests\EditPrakerinRequest;
+use App\Http\Requests\StorePrakerinRequest;
 use App\Repository\PrakerinRepository;
 use App\Models\Prakerin;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -12,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 class PrakerinController extends Controller
 {
@@ -26,55 +29,31 @@ class PrakerinController extends Controller
 
     public function view()
     {
-        $qNama = request()->query('nama');
-        $qNis = request()->query('nis');
-        $qTahun = request()->query('tahun');
-        $data = $this->prakerinRepository->filterNamaNisTahun($qNama, $qNis, $qTahun);
+        $nama = request()->query('nama');
+        $nis = request()->query('nis');
+        $tahun = request()->query('tahun');
+
+        $data = $this->prakerinRepository->filterNamaNisTahun($nama, $nis, $tahun);
+        
         return inertia('Prakerin/View', ['data' => $data]);
     }
 
     public function viewDetail(string $id)
     {
         return inertia('Prakerin/ViewDetail', [
-            'data' => Prakerin::first()
+            'data' => Prakerin::where('id', $id)
         ]);
     }
 
-    public function store()
+    public function store(StorePrakerinRequest $request)
     {
-        $input = request()->validate([
-            'NAMA_LENGKAP' => ['required'],
-            'NAMA_SEKOLAH' => ['required'],
-            'NIS/NIM' => ['required', 'numeric'],
-            'BIDANG_KEAHLIAN' => ['required'],
-            'PROGRAM_KEAHLIAN' => ['required'],
-            'KOMPETENSI_KEAHLIAN' => ['required'],
-            'TEMPAT_LAHIR' => ['required'],
-            'TANGGAL_LAHIR' => ['required', 'date_format:Y-m-d'],
-            'JENIS_KELAMIN' => ['required'],
-            'AGAMA' => ['required'],
-            'ALAMAT_LENGKAP' => ['required'],
-            'NO_HP' => ['required'],
-            'EMAIL' => ['required'],
-            'FOTO' => ['required'],
-            'TANGGAL_MASUK' => ['required', 'date_format:Y-m-d'],
-            'TANGGAL_KELUAR' => ['required', 'date_format:Y-m-d'],
-            'TEMPAT/DEPARTEMEN_PELAKSANAAN' => ['required'],
-            'NAMA_SEKOLAH' => ['required'],
-            'KABUPATEN/KOTA_SEKOLAH' => ['required'],
-            'STATUS_SEKOLAH' => ['required'],
-            'NSS' => [],
-            'ALAMAT_LENGKAP_SEKOLAH' => ['required'],
-            'POSEL_SEKOLAH' => ['required'],
-            'HOBBY' => ['required'],
-        ]);
-
+        $input = $request->all();
         $input = $this->helper->mapRequestToTable($input);
         $photoPath = request()->file('FOTO')->store('foto-prakerin');
         $input['FOTO'] = $photoPath;
 
         try {
-            $this->prakerinRepository->save($input);
+            Prakerin::create($input);
         } catch (UniqueConstraintViolationException $e) {
             return redirect()->back()->withErrors(['NIS/NIM' => 'NIS/NIM sudah dipakai']);
         }
@@ -84,52 +63,43 @@ class PrakerinController extends Controller
 
     public function getPhoto(string $path)
     {
-        return Storage::download('foto-prakerin/' . $path);
+        $path = Storage::path('foto-prakerin/' . $path);
+        try {
+            return response()->file($path, ['content-type', 'image/jpeg']);
+        } catch (FileNotFoundException) {
+            return response("File '$path' Not Found", 404);
+        }
     }
 
     public function delete(string $id)
     {
-        $this->prakerinRepository->deleteById((int) $id);
+        Prakerin::destroy($id);
         return redirect('/prakerin');
     }
 
     public function editPage(string $id)
     {
-        $data = (array) $this->prakerinRepository
-            ->findById((int) $id, [
-                'NAMA LENGKAP', 'NAMA SEKOLAH', 'NIS/NIM', 'BIDANG KEAHLIAN',
-                'PROGRAM KEAHLIAN', 'KOMPETENSI KEAHLIAN', 'TEMPAT LAHIR', 'TANGGAL LAHIR', 'JENIS KELAMIN',
-                'AGAMA', 'ALAMAT LENGKAP', 'NO HP', 'EMAIL', 'HOBBY', 'TANGGAL MASUK',
-                'TANGGAL KELUAR', 'TEMPAT/DEPARTEMEN PELAKSANAAN', 'NAMA SEKOLAH', 'KABUPATEN/KOTA SEKOLAH',
-                'STATUS SEKOLAH', 'NSS', 'ALAMAT LENGKAP SEKOLAH', 'POSEL SEKOLAH',
-            ]);
+        $data = Prakerin::whereId($id)->first();
         $input = $this->helper->mapTableToRequest($data);
 
         return inertia('Prakerin/FormEdit', ['input' => $input]);
     }
 
-    public function edit(string $id)
+    public function edit(EditPrakerinRequest $request, string $id)
     {
-        $input = request()->only([
-            'NAMA_LENGKAP', 'NAMA_SEKOLAH', 'NIS/NIM', 'BIDANG_KEAHLIAN',
-            'PROGRAM_KEAHLIAN', 'KOMPETENSI_KEAHLIAN', 'TEMPAT_LAHIR', 'TANGGAL_LAHIR', 'JENIS_KELAMIN',
-            'AGAMA', 'ALAMAT_LENGKAP', 'NO_HP', 'EMAIL', 'FOTO',
-            'HOBBY', 'TANGGAL_MASUK', 'TANGGAL_KELUAR', 'TEMPAT/DEPARTEMEN_PELAKSANAAN', 'NAMA_SEKOLAH',
-            'KABUPATEN/KOTA_SEKOLAH', 'STATUS_SEKOLAH', 'NSS', 'ALAMAT_LENGKAP_SEKOLAH', 'POSEL_SEKOLAH',
-        ]);
+        $input = $request->all();
 
-        if (request()->has('FOTO')) {
-            $oldPhoto = ((array) $this->prakerinRepository->findById((int) $id))['FOTO'];
-            Storage::delete('foto-prakerin/' . $oldPhoto);
+        $prakerin = Prakerin::find($id);
 
-            $newPhoto = request()->file('FOTO')->store('foto-prakerin');
-            $input['FOTO'] = $newPhoto;
+        if ($request->hasFile('FOTO')) {
+            Storage::delete($prakerin->FOTO);
+            $input['FOTO'] = $request->file('FOTO')->store('foto-prakerin');
         }
 
         $input = $this->helper->mapRequestToTable($input);
 
         try {
-            $this->prakerinRepository->update((int) $id, $input);
+            $prakerin->update($input);
         } catch (UniqueConstraintViolationException $e) {
             return redirect()->back()->withErrors(['NIS/NIM' => 'NIS/NIM sudah dipakai']);
         }
@@ -138,11 +108,10 @@ class PrakerinController extends Controller
 
     public function export(string $id)
     {
-        $prakerin = (array) $this->prakerinRepository->findById($id);
+        $prakerin = Prakerin::find($id);
         $processor = new TemplateProcessor(Storage::path('template-document-biodata-prakerin.docx'));
 
-        $prakerinC = collect($prakerin)->except('FOTO');
-        $processor->setValues($prakerinC->toArray());
+        $processor->setValues($prakerin->except('FOTO')->toArray());
 
         if (str_contains($prakerin['FOTO'], '/') && Storage::exists($prakerin['FOTO'])) {
             $processor->setImageValue('FOTO', Storage::path($prakerin['FOTO']));

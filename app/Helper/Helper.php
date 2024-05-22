@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+use Illuminate\Database\Eloquent\Model;
+
 class Helper
 {
     public function mapRequestToTable(array $input)
@@ -16,8 +18,11 @@ class Helper
         return $new;
     }
 
-    public function mapTableToRequest(array $input)
+    public function mapTableToRequest(array|Model $input)
     {
+        if ($input instanceof Model)
+            $input = $input->toArray();
+        
         $new = [];
         foreach($input as $key => $val)
         {
