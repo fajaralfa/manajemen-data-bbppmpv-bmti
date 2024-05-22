@@ -1,6 +1,5 @@
 <script>
-    import Layout from '../Components/Layout.svelte'
-    import { slide, fly } from 'svelte/transition'
+    import Layout from '@/Components/Layout.svelte'
 
     export let data
 
@@ -12,7 +11,7 @@
     <title>Dashboard</title>
 </svelte:head>
 <Layout>
-    <div class="grid-container">
+    <div class="grid grid-cols-2 grid-rows-2 h-[35rem] gap-5 p-5">
         <div class="grid-item carousel-vertical">
             {#each imagesPath as path}
                 <div id={path} class="carousel-item">
@@ -43,18 +42,15 @@
                 </div>
             </div>
         </div>
-        <div class="grid-item flex justify-center items-center">DIBUAT OLEH TIM DARI SMKN BANTARKALONG</div>
+        <div class="grid-item flex justify-center items-center">DIBUAT OLEH SISWA PKL DARI SMKN BANTARKALONG</div>
     </div>
 </Layout>
 
 <style>
-    .grid-container {
-        @apply grid grid-cols-2 grid-rows-2 h-[35rem] gap-5 p-5;
-    }
     .grid-item:nth-child(1) {
         grid-row: 1/3;
     }
     .grid-item {
-        @apply bg-glass-dark rounded-xl;
+        @apply bg-base-300 rounded-xl;
     }
 </style>
