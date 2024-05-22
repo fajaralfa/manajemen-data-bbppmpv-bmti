@@ -130,8 +130,7 @@
 
 <style>
     .input-container {
-        @apply grid grid-cols-1 gap-y-4 px-16 py-10 rounded-xl w-[40rem];
-        background-color: rgba(0, 0, 0, 0.5);
+        @apply grid grid-cols-1 gap-y-4 px-16 py-10 rounded-xl w-[40rem] bg-base-300;
         grid-template-rows: repeat(14, auto);
     }
     .input-container div {
