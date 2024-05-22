@@ -1,44 +1,61 @@
 <script>
-    import { router } from '@inertiajs/svelte'
-    import Layout from '../../Components/Layout.svelte'
-    import Table from '../../Components/Table.svelte'
+    import { router, useForm } from '@inertiajs/svelte'
+    import Layout from '@/Components/Layout.svelte'
+    import Table from '@/Components/Shared/Table.svelte'
 
     export let data
-    console.log(data)
 
-    let query = {
+    const columns = {
+        'NAMA LENGKAP': 'NAMA LENGKAP',
+        'NIS/NIM': 'NIS/NIM',
+        'BIDANG KEAHLIAN': 'BIDANG KEAHLIAN',
+        'PROGRAM KEAHLIAN': 'PROGRAM KEAHLIAN',
+        'KOMPETENSI KEAHLIAN': 'KOMPETENSI KEAHLIAN',
+        'TEMPAT LAHIR': 'TEMPAT LAHIR',
+        'TANGGAL LAHIR': 'TANGGAL LAHIR',
+        'JENIS KELAMIN': 'JENIS KELAMIN',
+        AGAMA: 'AGAMA',
+        'ALAMAT LENGKAP': 'ALAMAT LENGKAP',
+        'NO HP': 'NO HP',
+        EMAIL: 'EMAIL',
+        FOTO: {type: 'img', label: 'FOTO',},
+        'TANGGAL MASUK': 'TANGGAL MASUK',
+        'TANGGAL KELUAR': 'TANGGAL KELUAR',
+        'TEMPAT/DEPARTEMEN PELAKSANAAN': 'TEMPAT/DEPARTEMEN PELAKSANAAN',
+        'NAMA SEKOLAH': 'NAMA SEKOLAH',
+        'KABUPATEN/KOTA SEKOLAH': 'KABUPATEN/KOTA SEKOLAH',
+        'STATUS SEKOLAH': 'STATUS SEKOLAH',
+        NSS: 'NSS',
+        'ALAMAT LENGKAP SEKOLAH': 'ALAMAT LENGKAP SEKOLAH',
+        'POSEL SEKOLAH': 'POSEL SEKOLAH',
+        HOBBY: 'HOBBY',
+    }
+
+    let filterForm = useForm({
         nama: null,
         nis: null,
         tahun: null,
-    }
+    })
 
-    function find() {
-        router.get('/prakerin', query)
-    }
 </script>
 
 <svelte:head>
     <title>Peserta Prakerin</title>
 </svelte:head>
 <Layout>
-    <Table {data} urlGroup="prakerin" detailButton={true}>
-        <div class="text-xl font-bold uppercase">Data Peserta Prakerin</div>
-        <div>
-            <form on:submit|preventDefault={find}>
-                <div class="flex gap-x-4">
-                    <div>Filter:</div>
-                    <div>
-                        <input type="text" name="nama" placeholder="Nama" bind:value={query.nama} />
-                    </div>
-                    <div>
-                        <input type="text" name="nis" placeholder="NIS/NIM" bind:value={query.nis} />
-                    </div>
-                    <div>
-                        <input type="text" name="tahun" placeholder="Tahun Masuk" bind:value={query.tahun} />
-                    </div>
-                    <div><button type="submit" class="bg-slate-700 rounded px-2 py-[0.1rem] text-sm">Cari</button></div>
+    <div class="w-[100vw] h-[92vh] overflow-x-scroll table-container bg-base-200">
+        <div class="text-xl font-bold uppercase sticky left-0">Data Peserta Prakerin</div>
+        <div class="sticky left-0">
+            <form on:submit|preventDefault={() => $filterForm.get('/prakerin')}>
+                <div class="flex gap-x-4 items-stretch">
+                    <span>Filter:</span>
+                    <input type="text" name="nama" placeholder="Nama" bind:value={$filterForm.nama} class="input input-bordered max-h-7" />
+                    <input type="text" name="nis" placeholder="NIS/NIM" bind:value={$filterForm.nis} class="input input-bordered max-h-7" />
+                    <input type="text" name="tahun" placeholder="Tahun Masuk" bind:value={$filterForm.tahun} class="input input-bordered max-h-7" />
+                    <button type="submit" class="btn-primary rounded px-3">Cari</button>
                 </div>
             </form>
         </div>
-    </Table>
+        <Table {data} {columns} url={{img: '/prakerin/photo', delete: '/prakerin', edit: '/prakerin/edit'}} />
+    </div>
 </Layout>

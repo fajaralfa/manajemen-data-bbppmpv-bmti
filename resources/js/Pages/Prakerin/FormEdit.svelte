@@ -1,19 +1,16 @@
 <script>
     import { router, page } from '@inertiajs/svelte'
-    import Layout from '../../Components/Layout.svelte'
-    import Form from '../../Components/Prakerin/Form.svelte'
+    import Layout from '@/Components/Layout.svelte'
+    import Form from '@/Components/Prakerin/Form.svelte'
 
     export let input
 
-    let idPrakerin = window.location.pathname.split('/')[2]
+    let idPrakerin = window.location.pathname.split('/')[3]
 
     function submit(input) {
         console.log(input)
-        router.post(`/prakerin/${idPrakerin}/edit`, input)
+        router.post(`/prakerin/edit/${idPrakerin}`, input)
     }
-
-    export let errors, data
-    $: console.log(errors, data)
 </script>
 
 <svelte:head>
