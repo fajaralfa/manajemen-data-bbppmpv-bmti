@@ -5,10 +5,10 @@
     import * as utils from '@/utils'
 
     let link = window.location.pathname
-    function activeRoot(str, style = 'btn-neutral') {
+    function activeRoot(str, style = 'bg-base-300') {
         return utils.styleWhen(link.split('/')[1], str, style)
     }
-    function active(str, style = 'btn-neutral') {
+    function active(str, style = 'bg-base-300') {
         return utils.styleWhen(link, str, style)
     }
 
@@ -111,8 +111,5 @@
 <style>
     a, button {
         @apply rounded-none;
-    }
-    li a:hover {
-        background-color: rgba(100, 100, 100, 0.5);
     }
 </style>

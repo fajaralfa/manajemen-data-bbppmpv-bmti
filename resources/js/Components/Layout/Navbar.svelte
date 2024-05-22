@@ -7,7 +7,7 @@
     import drawer from './config'
 </script>
 
-<div class="navbar bg-base-300 max-h-12 min-h-12 sticky top-0 z-[2]">
+<div class="navbar bg-base-300 max-h-12 min-h-12 sticky top-0 z-[2] shadow-md">
     <div class="flex-none">
         <label for={drawer.id} class="btn btn-ghost drawer-button"><HamburgerIcon /></label>
     </div>
@@ -16,7 +16,7 @@
     </div>
     <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn m-1 bg-inherit border-none"><ThreeDotIcon /></div>
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-52">
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-52 shadow-md">
             <li>
                 <div class="flex items-center gap-3">
                     <div>
