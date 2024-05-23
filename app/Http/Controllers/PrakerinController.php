@@ -40,8 +40,14 @@ class PrakerinController extends Controller
 
     public function viewDetail(string $id)
     {
+        $prakerin = Prakerin::whereId($id)->first();
+
+        if ($prakerin == null) {
+            return redirect('/prakerin')->withErrors(['prakerin' => 'Data prakerin tidak ada!']);
+        }
+
         return inertia('Prakerin/ViewDetail', [
-            'data' => Prakerin::where('id', $id)
+            'data' => $prakerin
         ]);
     }
 
@@ -108,10 +114,15 @@ class PrakerinController extends Controller
 
     public function export(string $id)
     {
-        $prakerin = Prakerin::find($id);
+        $prakerin = Prakerin::find($id)->first();
+
+        if ($prakerin == null) {
+            return redirect('/prakerin')->withErrors(['prakerin' => 'Data prakerin tidak ada!']);
+        }
+
         $processor = new TemplateProcessor(Storage::path('template-document-biodata-prakerin.docx'));
 
-        $processor->setValues($prakerin->except('FOTO')->toArray());
+        $processor->setValues($prakerin->toArray());
 
         if (str_contains($prakerin['FOTO'], '/') && Storage::exists($prakerin['FOTO'])) {
             $processor->setImageValue('FOTO', Storage::path($prakerin['FOTO']));
