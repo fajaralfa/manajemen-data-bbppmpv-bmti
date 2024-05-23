@@ -2,23 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html, body {
     width: 100%;
     min-height: 100%;
 }
 
+#app {
+    min-height: 100vh;
+}
+
 body {
-    background: url('/img/background.jpg');
     background-attachment: fixed;
     background-size: cover;
 }
 
-@layer components {
+:root {
+    --glass-dark: rgba(0, 0, 0, 0.5);
+}
+
+@layer utilities {
     .bg-glass-dark {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    .bg-glass-gray {
-        background-color: rgba(100, 100, 100, 0.5);
+        background-color: var(--glass-dark);
     }
 }
