@@ -1,5 +1,6 @@
 <script>
     import DeleteIcon from '@/Assets/DeleteIcon.svelte'
+    import DetailIcon from '@/Assets/DetailIcon.svelte'
     import EditIcon from '@/Assets/EditIcon.svelte'
     import { Link, router } from '@inertiajs/svelte'
 
@@ -44,6 +45,9 @@
                     {/if}
                 {/each}
                 <td class="right-0 sticky bg-neutral">
+                    <Link href={`${url.delete}/${row[key]}`}>
+                        <DetailIcon />
+                    </Link>
                     <button on:click={() => confirmDelete(row[key])}>
                         <DeleteIcon />
                     </button>
