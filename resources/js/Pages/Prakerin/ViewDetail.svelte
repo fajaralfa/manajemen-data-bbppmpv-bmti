@@ -3,13 +3,12 @@
     import Layout from '../../Components/Layout.svelte'
     import DetailField from '../../Components/Prakerin/DetailField.svelte'
     export let data
-    $: console.log(data)
 </script>
 
 <Layout>
     <div class="flex justify-center">
-        <div class="my-10 bg-glass-dark p-5 rounded-xl w-[50rem] flex flex-col gap-y-5">
-            <a href={`/prakerin/${data.id}/export`} class="text-md text-center btn self-center"> PRINT BIODATA </a>
+        <div class="my-10 bg-base-300 p-5 rounded-xl w-[50rem] flex flex-col gap-y-5 divide-y-2 divide-base-200">
+            <a href={`/prakerin/${data.id}/export`} class="text-md text-center btn self-center">DOWNLOAD BIODATA </a>
             <DetailField label="Nama Lengkap" value={data['NAMA LENGKAP']} />
             <DetailField label="Nama Sekolah" value={data['NAMA SEKOLAH']} />
             <DetailField label="NIS/NIM" value={data['NIS/NIM']} />
