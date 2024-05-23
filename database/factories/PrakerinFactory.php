@@ -20,11 +20,10 @@ class PrakerinFactory extends Factory
     {
         return [
             'NAMA LENGKAP' => fake()->name(),
-            'NAMA SEKOLAH' => 'SMK' . fake()->city(),
             'NIS/NIM' => fake()->numberBetween(1000, 2000),
-            'BIDANG KEAHLIAN' => 'REKAYASA',
-            'PROGRAM KEAHLIAN' => 'REKAYASA',
-            'KOMPETENSI KEAHLIAN' => 'REKAYASA',
+            'BIDANG KEAHLIAN' => fake()->randomElement(['REKAYASA PERANGKAT LUNAK', 'TEKNIK KOMPUTER JARINGAN', 'TEKNIK ELEKTRONIKA INDUSTRI']),
+            'PROGRAM KEAHLIAN' => fake()->randomElement(['REKAYASA PERANGKAT LUNAK', 'TEKNIK KOMPUTER JARINGAN', 'TEKNIK ELEKTRONIKA INDUSTRI']),
+            'KOMPETENSI KEAHLIAN' => fake()->randomElement(['REKAYASA PERANGKAT LUNAK', 'TEKNIK KOMPUTER JARINGAN', 'TEKNIK ELEKTRONIKA INDUSTRI']),
             'TEMPAT LAHIR' => fake()->city(),
             'TANGGAL LAHIR' => fake()->date(),
             'JENIS KELAMIN' => fake()->randomElement(['L', 'P']),
@@ -36,13 +35,13 @@ class PrakerinFactory extends Factory
             'TANGGAL MASUK' => fake()->date(),
             'TANGGAL KELUAR' => fake()->date(),
             'TEMPAT/DEPARTEMEN PELAKSANAAN' => fake()->city(),
-            'NAMA SEKOLAH' => fake()->city,
+            'NAMA SEKOLAH' => 'SMK ' . fake()->city(),
             'KABUPATEN/KOTA SEKOLAH' => fake()->city(),
             'STATUS SEKOLAH' => fake()->randomElement(['SWASTA', 'NEGERI']),
             'NSS' => fake()->numberBetween(),
             'ALAMAT LENGKAP SEKOLAH' => fake()->city(),
             'POSEL SEKOLAH' => fake()->email(),
-            'HOBBY' => fake()->text(),
+            'HOBBY' => fake()->randomElement(['Baca Buku', 'Berenang', 'Lari', 'Ngalamun']),
         ];
     }
 }
