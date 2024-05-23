@@ -95,7 +95,7 @@
             >
             <InputText bind:value={input['AGAMA']} error={errors['AGAMA']}>Agama</InputText>
             <TextArea bind:value={input['ALAMAT_LENGKAP']} error={errors['ALAMAT_LENGKAP']}>Alamat</TextArea>
-            <InputNumber bind:value={input['NO_HP']} error={errors['NO_HP']}>No HP</InputNumber>
+            <InputText bind:value={input['NO_HP']} error={errors['NO_HP']}>No HP</InputText>
             <InputEmail bind:value={input['EMAIL']} error={errors['EMAIL']}>Email</InputEmail>
             <InputText bind:value={input['HOBBY']} error={errors['HOBBY']}>Hobi</InputText>
             <InputFile bind:value={input['FOTO']} error={errors['FOTO']}></InputFile>
@@ -111,7 +111,7 @@
             </InputText>
             <RadioGroup
                 bind:value={input['STATUS_SEKOLAH']}
-                options={{ Negeri: 'Negeri', Swasta: 'Swasta' }}
+                options={{ NEGERI: 'NEGERI', SWASTA: 'SWASTA' }}
                 error={errors['STATUS_SEKOLAH']}
             >
                 Status Sekolah
