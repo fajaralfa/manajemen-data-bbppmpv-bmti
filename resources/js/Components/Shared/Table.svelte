@@ -1,7 +1,7 @@
 <script>
     import DeleteIcon from '@/Assets/DeleteIcon.svelte'
     import EditIcon from '@/Assets/EditIcon.svelte'
-    import { Link } from '@inertiajs/svelte'
+    import { Link, router } from '@inertiajs/svelte'
 
     export let columns = {}
     export let key = 'id'
@@ -9,7 +9,11 @@
     /**@type {{img: string, delete: string, edit: string}} url*/
     export let url
 
-    $: console.log(url)
+    function confirmDelete(key) {
+        router.delete(`${url.delete}/${key}`, {
+            onBefore: () => confirm('Hapus data ini?')
+        })
+    }
 </script>
 
 <table class="table table-zebra rounded-none bg-base-300">
@@ -30,15 +34,19 @@
             <tr>
                 {#each Object.entries(columns) as [column, label]}
                     {#if typeof label == 'object' && label.type == 'img'}
-                        <td><img src={`${url.img}/${row[column].split('/')[1]}`} alt="" srcset="" /></td>
+                        <td>
+                            <a href={`${url.img}/${row[column].split('/')[1]}`} target="_blank" rel="noopener noreferrer">
+                                <img src={`${url.img}/${row[column].split('/')[1]}`} alt="" srcset="" />
+                            </a>
+                        </td>
                     {:else if typeof label == 'string'}
                         <td>{row[column]}</td>
                     {/if}
                 {/each}
                 <td class="right-0 sticky bg-neutral">
-                    <Link href={`${url.delete}/${row[key]}`} method="delete">
+                    <button on:click={() => confirmDelete(row[key])}>
                         <DeleteIcon />
-                    </Link>
+                    </button>
                     <Link href={`${url.edit}/${row[key]}`}>
                         <EditIcon />
                     </Link>
